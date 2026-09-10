@@ -75,11 +75,13 @@
 
   &__headline {
     font-family: v.$font-display;
-    font-size: clamp(3.2rem, 5.5vw, 4.8rem);
+    font-size: clamp(1.85rem, 5.5vw, 4.8rem);
     font-weight: 500;
     color: v.$spice-dark;
-    line-height: 1.05;
+    line-height: 1.16;
     margin: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   &__headline-em {
@@ -88,11 +90,12 @@
   }
 
   &__sub {
-    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    font-size: clamp(0.92rem, 1.6vw, 1.15rem);
     color: #55433c;
     line-height: 1.65;
     max-width: 540px;
     margin: 0;
+    overflow-wrap: break-word;
   }
 
   &__actions {
@@ -101,6 +104,17 @@
     gap: v.$space-4;
     flex-wrap: wrap;
     padding-top: v.$space-2;
+
+    @include m.respond-to('xs') {
+      flex-direction: column;
+      width: 100%;
+
+      .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
   }
 
   &__trust-bar {
@@ -110,8 +124,14 @@
     padding-top: v.$space-6;
     border-top: 1px solid rgba(139, 38, 18, 0.12);
 
+    @include m.respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: v.$space-4;
+    }
+
     @include m.respond-to('xs') {
       grid-template-columns: repeat(2, 1fr);
+      gap: v.$space-2;
     }
   }
 
@@ -119,20 +139,24 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.78rem;
+    font-size: clamp(0.68rem, 2.2vw, 0.78rem);
     font-weight: 600;
     color: v.$spice-dark;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   &__trust-icon {
     font-size: 1.1rem;
+    flex-shrink: 0;
   }
 
   // Visual Image Stack with Floating Badges
   &__visual {
     position: relative;
+    width: 100%;
 
     @include m.respond-to('lg') {
       max-width: 480px;
@@ -154,8 +178,12 @@
     object-fit: cover;
     display: block;
 
-    @include m.respond-to('sm') {
-      height: 320px;
+    @include m.respond-to('md') {
+      height: 340px;
+    }
+
+    @include m.respond-to('xs') {
+      height: 260px;
     }
   }
 
@@ -168,14 +196,29 @@
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(139, 38, 18, 0.15);
 
+    @include m.respond-to('xs') {
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+
     &--top {
       top: 20px;
       left: 20px;
+
+      @include m.respond-to('xs') {
+        top: 10px;
+        left: 10px;
+      }
     }
 
     &--bottom {
       bottom: 20px;
       right: 20px;
+
+      @include m.respond-to('xs') {
+        bottom: 10px;
+        right: 10px;
+      }
     }
   }
 
@@ -189,6 +232,11 @@
     padding: 2px 8px;
     border-radius: 10px;
     margin-bottom: 2px;
+
+    @include m.respond-to('xs') {
+      font-size: 8px;
+      padding: 1px 6px;
+    }
   }
 
   &__floating-num {
@@ -197,6 +245,10 @@
     font-weight: 700;
     color: v.$rust-primary;
     line-height: 1;
+
+    @include m.respond-to('xs') {
+      font-size: 1.3rem;
+    }
   }
 
   &__floating-txt {
@@ -204,6 +256,10 @@
     font-weight: 600;
     color: v.$spice-dark;
     margin: 0;
+
+    @include m.respond-to('xs') {
+      font-size: 0.68rem;
+    }
   }
 }
 
@@ -249,17 +305,21 @@
 
 .section-headline {
   font-family: v.$font-display;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(1.75rem, 4vw, 3.2rem);
   font-weight: 500;
   color: v.$spice-dark;
+  line-height: 1.18;
   margin: 0 0 v.$space-3;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .section-sub {
-  font-size: 1rem;
+  font-size: clamp(0.92rem, 1.5vw, 1.05rem);
   color: #66554d;
   line-height: 1.6;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 // ── SECTION 2: 7-DAY RASAM RITUAL (REDESIGNED PRESENTATION) ────
@@ -278,26 +338,41 @@
   padding: 8px;
   border-radius: 16px;
   margin-bottom: v.$space-8;
+  width: 100%;
+  max-width: 100%;
 
   @include m.respond-to('lg') {
     overflow-x: auto;
     justify-content: flex-start;
-    padding: 8px 12px;
+    padding: 10px 14px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(139, 38, 18, 0.2);
+      border-radius: 4px;
+    }
   }
 
   &__item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 18px;
     border-radius: 12px;
     background: transparent;
     border: none;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
-    min-width: 100px;
+    min-width: 95px;
     white-space: nowrap;
+    scroll-snap-align: center;
+    flex-shrink: 0;
 
     &:hover {
       background: rgba(139, 38, 18, 0.06);
@@ -382,6 +457,12 @@
     gap: v.$space-8;
   }
 
+  @include m.respond-to('xs') {
+    padding: v.$space-4;
+    border-radius: 16px;
+    gap: v.$space-6;
+  }
+
   // Left Editorial Column
   &__editorial {
     display: flex;
@@ -427,25 +508,30 @@
 
   &__title {
     font-family: v.$font-display;
-    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-size: clamp(1.65rem, 4vw, 3.2rem);
     font-weight: 500;
     color: v.$spice-dark;
-    line-height: 1.05;
+    line-height: 1.18;
     margin: 0 0 4px;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   &__tamil-title {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     font-weight: 700;
     color: v.$rust-primary;
     margin-bottom: v.$space-3;
+    overflow-wrap: break-word;
   }
 
   &__tagline {
     font-style: italic;
-    font-size: 1.05rem;
+    font-size: clamp(0.92rem, 1.8vw, 1.05rem);
     color: #8b2612;
     margin-bottom: v.$space-3;
+    line-height: 1.4;
+    overflow-wrap: break-word;
   }
 
   &__desc {
@@ -453,6 +539,7 @@
     color: #55433c;
     line-height: 1.6;
     margin-bottom: v.$space-6;
+    overflow-wrap: break-word;
   }
 
   &__ing-box {
@@ -844,17 +931,21 @@
 
   &__title {
     font-family: v.$font-display;
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-size: clamp(1.6rem, 4vw, 3.2rem);
     font-weight: 500;
     color: #ffffff;
+    line-height: 1.18;
     margin-bottom: v.$space-2;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   &__sub {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
     color: #d1c5bf;
     line-height: 1.6;
     margin-bottom: v.$space-6;
+    overflow-wrap: break-word;
   }
 
   &__grid {
@@ -874,12 +965,14 @@
     gap: 8px;
     font-size: 0.88rem;
     color: #e5dace;
+    overflow-wrap: break-word;
   }
 
   &__item-num {
     color: v.$amber-gold;
     font-weight: 700;
     font-size: 0.8rem;
+    flex-shrink: 0;
   }
 
   &__footer {
@@ -887,6 +980,10 @@
     align-items: center;
     gap: v.$space-6;
     flex-wrap: wrap;
+
+    @include m.respond-to('xs') {
+      gap: v.$space-4;
+    }
   }
 
   &__price-box {
@@ -903,10 +1000,10 @@
 
   &__price {
     font-family: v.$font-display;
-    font-size: 2.4rem;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
     font-weight: 700;
     color: v.$amber-gold;
-    line-height: 1;
+    line-height: 1.1;
   }
 }
 

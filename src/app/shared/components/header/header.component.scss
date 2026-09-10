@@ -68,7 +68,7 @@
   &__nav-list {
     display: flex;
     align-items: center;
-    gap: v.$space-6;
+    gap: clamp(0.75rem, 1.8vw, 1.5rem);
     list-style: none;
     margin: 0;
     padding: 0;

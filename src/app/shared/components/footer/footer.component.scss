@@ -60,8 +60,13 @@
     display: flex;
     gap: v.$space-2;
 
-    @include m.respond-to('xs') {
+    @include m.respond-to('sm') {
       flex-direction: column;
+
+      .btn-primary {
+        width: 100%;
+        justify-content: center;
+      }
     }
   }
 

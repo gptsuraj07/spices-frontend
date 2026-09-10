@@ -68,12 +68,14 @@
 
   &__name {
     font-family: v.$font-display;
-    font-size: clamp(v.$text-2xl, 4vw, v.$text-4xl);
+    font-size: clamp(1.6rem, 4vw, 3.2rem);
     font-weight: v.$fw-bold;
     color: v.$brown-deep;
-    line-height: v.$lh-snug;
+    line-height: 1.2;
     letter-spacing: -0.02em;
     margin: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   // ── Rating placeholder ───────────────────────────────────

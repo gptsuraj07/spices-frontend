@@ -34,11 +34,13 @@
 
   &__title {
     font-family: v.$font-display;
-    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-size: clamp(1.75rem, 4.5vw, 3.8rem);
     font-weight: 500;
     color: #ffffff;
-    line-height: 1.05;
+    line-height: 1.18;
     margin: 0 0 2px;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   &__tamil {
