@@ -1,0 +1,318 @@
+<!-- =========================================================
+     ARIDHU ADMIN — ORDERS
+     ========================================================= -->
+<div class="ao-page">
+
+  <!-- ── Header ────────────────────────────────────────────── -->
+  <div class="ao-header">
+    <div>
+      <h1 class="adash__title">Orders</h1>
+      <p class="adash__subtitle">Review, confirm UPI payments, and manage order statuses.</p>
+    </div>
+    <div class="ao-header-stats">
+      <div class="ao-stat-pill ao-stat-pill--green" (click)="setPaymentFilter('PAID')">
+        <span>Collected: ₹{{ totalRevenue() | number }}</span>
+      </div>
+      <div class="ao-stat-pill ao-stat-pill--amber" (click)="setPaymentFilter('PENDING_VERIFICATION')">
+        <span>{{ pendingVerificationCount() }} Pending Verification</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Filter Bar ─────────────────────────────────────────── -->
+  <div class="ap-filter-bar">
+    <div class="ap-search-wrap">
+      <svg class="ap-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" class="ap-search-input" placeholder="Search order, customer, or phone..."
+        [(ngModel)]="searchQuery" (input)="applyFilter()" id="order-search" />
+    </div>
+
+    <!-- Status Filters -->
+    <div class="ap-filter-tabs">
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'all'" (click)="setStatusFilter('all')">All</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'PAYMENT_VERIFICATION'" (click)="setStatusFilter('PAYMENT_VERIFICATION')">
+        ⏳ Awaiting Verify
+      </button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'PAYMENT_CONFIRMED'" (click)="setStatusFilter('PAYMENT_CONFIRMED')">Confirmed</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'PROCESSING'" (click)="setStatusFilter('PROCESSING')">Processing</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'SHIPPED'" (click)="setStatusFilter('SHIPPED')">Shipped</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'DELIVERED'" (click)="setStatusFilter('DELIVERED')">Delivered</button>
+    </div>
+
+    <!-- Payment Filters -->
+    <div class="ap-filter-tabs">
+      <button class="ap-tab" [class.ap-tab--active]="filterPayment === 'all'" (click)="setPaymentFilter('all')">All Payments</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterPayment === 'PENDING_VERIFICATION'" (click)="setPaymentFilter('PENDING_VERIFICATION')">⏳ Pending</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterPayment === 'PAID'" (click)="setPaymentFilter('PAID')">✅ Paid</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterPayment === 'FAILED'" (click)="setPaymentFilter('FAILED')">❌ Failed</button>
+    </div>
+  </div>
+
+  <!-- ── Orders Table ───────────────────────────────────────── -->
+  <div class="adm-card">
+    <div class="adm-table-wrap" *ngIf="!loading">
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Customer</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Order Status</th>
+            <th>Payment</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of filtered" class="ao-row" (click)="openOrder(o)">
+            <td class="ao-order-num">{{ o.orderNumber }}</td>
+            <td>
+              <div class="ao-cust-name">{{ o.customer.name }}</div>
+              <div class="ao-cust-phone">📞 {{ o.customer.phone }}</div>
+            </td>
+            <td class="text-center">{{ o.items.length }}</td>
+            <td class="ao-amount">₹{{ o.total }}</td>
+            <td>
+              <span class="adm-badge" [class]="getStatusClass(o.status)">
+                {{ STATUS_LABEL[o.status] }}
+              </span>
+            </td>
+            <td>
+              <span class="adm-badge" [class]="getPaymentClass(o.payment?.status ?? '')">
+                {{ o.payment?.status === 'PENDING_VERIFICATION' ? '⏳ Pending' :
+                   o.payment?.status === 'PAID' ? '✅ Paid' :
+                   o.payment?.status === 'FAILED' ? '❌ Failed' : (o.payment?.status ?? '') }}
+              </span>
+            </td>
+            <td class="ao-date">{{ formatDate(o.createdAt) }}</td>
+            <td (click)="$event.stopPropagation()">
+              <!-- Urgent: Pending verification quick action -->
+              <button *ngIf="o.payment?.status === 'PENDING_VERIFICATION'"
+                class="ao-quick-verify-btn" (click)="promptVerifyPayment(o)" title="Verify Payment">
+                ✅ Verify
+              </button>
+              <button class="ao-view-btn" (click)="openOrder(o)">View</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ao-loading" *ngIf="loading">
+      <div class="ao-loading__spinner"></div>
+      <span>Loading orders…</span>
+    </div>
+    <div class="ap-empty" *ngIf="!loading && filtered.length === 0">
+      No orders found matching your filters.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ORDER DETAIL MODAL                                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="ao-modal-overlay" *ngIf="selectedOrder" (click)="closeOrder()">
+  <div class="ao-modal" (click)="$event.stopPropagation()" *ngIf="selectedOrder as order">
+
+    <!-- Modal Header -->
+    <div class="ao-modal__header">
+      <div>
+        <h2 class="ao-modal__title">{{ order.orderNumber }}</h2>
+        <p class="ao-modal__date">{{ formatDateTime(order.createdAt) }}</p>
+      </div>
+      <button class="ao-modal__close" (click)="closeOrder()" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Status Badges -->
+    <div class="ao-modal__badges">
+      <span class="adm-badge" [class]="getStatusClass(order.status)">{{ STATUS_LABEL[order.status] }}</span>
+      <span class="adm-badge" [class]="getPaymentClass(order.payment?.status ?? '')">
+        {{ order.payment?.status === 'PENDING_VERIFICATION' ? '⏳ Payment Pending' :
+           order.payment?.status === 'PAID' ? '✅ Payment Verified' :
+           order.payment?.status === 'FAILED' ? '❌ Payment Failed' : (order.payment?.status ?? '') }}
+      </span>
+      <span class="adm-badge badge--gray">{{ order.payment?.method || 'UPI' }}</span>
+    </div>
+
+    <!-- Body: 2 columns -->
+    <div class="ao-modal__body">
+
+      <!-- Left: Customer + Address + Payment -->
+      <div class="ao-modal__col">
+        <div class="ao-section">
+          <h3 class="ao-section__title">👤 Customer</h3>
+          <p class="ao-detail"><strong>{{ order.customer.name }}</strong></p>
+          <p class="ao-detail">📞 {{ order.customer.phone }}</p>
+          <p class="ao-detail">✉️ {{ order.customer.email }}</p>
+        </div>
+
+        <div class="ao-section">
+          <h3 class="ao-section__title">📦 Delivery Address</h3>
+          <p class="ao-detail">
+            {{ order.shippingAddress.line1 }}
+            <ng-container *ngIf="order.shippingAddress.line2">, {{ order.shippingAddress.line2 }}</ng-container>,
+            {{ order.shippingAddress.city }}, {{ order.shippingAddress.state }} – {{ order.shippingAddress.pincode }}
+          </p>
+        </div>
+
+        <div class="ao-section">
+          <h3 class="ao-section__title">💳 Payment</h3>
+          <p class="ao-detail">Method: <strong>{{ order.payment?.method || 'UPI' }}</strong></p>
+          <p class="ao-detail" *ngIf="order.payment?.utrNumber">
+            UTR: <strong class="ao-utr">{{ order.payment.utrNumber }}</strong>
+          </p>
+          <p class="ao-detail" *ngIf="order.payment?.verifiedAt">
+            Verified: {{ formatDateTime(order.payment.verifiedAt) }}
+            <ng-container *ngIf="order.payment.verifiedBy"> by {{ order.payment.verifiedBy }}</ng-container>
+          </p>
+        </div>
+
+        <!-- Shipping Details -->
+        <div class="ao-section" *ngIf="order.fulfillment?.provider || order.fulfillment?.trackingNumber">
+          <h3 class="ao-section__title">🚚 Shipping</h3>
+          <p class="ao-detail" *ngIf="order.fulfillment.provider">Provider: <strong>{{ order.fulfillment.provider }}</strong></p>
+          <p class="ao-detail" *ngIf="order.fulfillment.trackingNumber">Tracking: <strong class="ao-utr">{{ order.fulfillment.trackingNumber }}</strong></p>
+          <p class="ao-detail" *ngIf="order.fulfillment.shippedAt">Shipped: {{ formatDateTime(order.fulfillment.shippedAt) }}</p>
+        </div>
+      </div>
+
+      <!-- Right: Items + Timeline -->
+      <div class="ao-modal__col">
+        <div class="ao-section">
+          <h3 class="ao-section__title">🛒 Order Items</h3>
+          <div class="ao-items">
+            <div class="ao-item" *ngFor="let item of order.items">
+              <span class="ao-item__name">{{ item.name }} × {{ item.quantity }}</span>
+              <span class="ao-item__price">₹{{ item.subtotal }}</span>
+            </div>
+            <div class="ao-item ao-item--shipping" *ngIf="order.shipping > 0">
+              <span>Shipping</span><span>₹{{ order.shipping }}</span>
+            </div>
+            <div class="ao-item ao-item--discount" *ngIf="order.discount > 0">
+              <span>Discount</span><span class="ao-green">−₹{{ order.discount }}</span>
+            </div>
+            <div class="ao-item ao-item--total">
+              <span><strong>Total</strong></span>
+              <span><strong>₹{{ order.total }}</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status History -->
+        <div class="ao-section" *ngIf="order.statusHistory?.length">
+          <h3 class="ao-section__title">📋 Status History</h3>
+          <div class="ao-history">
+            <div class="ao-history__entry" *ngFor="let entry of order.statusHistory">
+              <div class="ao-history__dot"></div>
+              <div class="ao-history__body">
+                <span class="ao-history__status">{{ STATUS_LABEL[entry.status] || entry.status }}</span>
+                <span class="ao-history__time">{{ formatDateTime(entry.timestamp) }}</span>
+                <span class="ao-history__note" *ngIf="entry.note">{{ entry.note }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Action Buttons ─────────────────────────────────── -->
+    <div class="ao-modal__actions">
+
+      <!-- Payment Verification Actions -->
+      <div class="ao-payment-actions" *ngIf="order.payment?.status === 'PENDING_VERIFICATION'">
+        <div class="ao-payment-actions__label">Payment Verification:</div>
+        <button class="adm-btn adm-btn--success" (click)="promptVerifyPayment(order)" id="verify-payment-btn">
+          ✅ Verify Payment
+        </button>
+        <button class="adm-btn adm-btn--danger" (click)="promptRejectPayment(order)" id="reject-payment-btn">
+          ❌ Reject Payment
+        </button>
+      </div>
+
+      <!-- Status Progression -->
+      <div class="ao-status-row" *ngIf="canAdvanceStatus(order)">
+        <span class="ao-status-label">Advance Status:</span>
+        <ng-container *ngIf="nextStatus(order.status) as next">
+          <button *ngIf="next !== 'SHIPPED'" class="ao-status-btn badge--blue"
+            (click)="promptUpdateStatus(order, next)">
+            → {{ STATUS_LABEL[next] }}
+          </button>
+          <button *ngIf="next === 'SHIPPED'" class="ao-status-btn badge--purple"
+            (click)="openShippingModal(order)">
+            🚚 Mark as Shipped
+          </button>
+        </ng-container>
+      </div>
+
+      <!-- Cancel -->
+      <button *ngIf="order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && order.status !== 'PAYMENT_FAILED'"
+        class="ao-status-btn badge--red" (click)="promptUpdateStatus(order, 'CANCELLED')">
+        ✕ Cancel Order
+      </button>
+
+      <button class="adm-btn adm-btn--ghost" (click)="closeOrder()">Close</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- CONFIRM DIALOG                                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="ao-modal-overlay" *ngIf="confirmDialog.visible" (click)="cancelDialog()">
+  <div class="ao-confirm-dialog" (click)="$event.stopPropagation()">
+    <h3 class="ao-confirm-dialog__title">{{ confirmDialog.title }}</h3>
+    <p class="ao-confirm-dialog__message">{{ confirmDialog.message }}</p>
+    <div class="ao-confirm-dialog__actions">
+      <button class="adm-btn" [class]="confirmDialog.action === 'reject' ? 'adm-btn--danger' : 'adm-btn--success'"
+        (click)="confirmDialogAction()" id="confirm-action-btn">
+        {{ confirmDialog.action === 'verify' ? '✅ Yes, Verify' :
+           confirmDialog.action === 'reject' ? '❌ Yes, Reject' : '→ Yes, Update' }}
+      </button>
+      <button class="adm-btn adm-btn--ghost" (click)="cancelDialog()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SHIPPING MODAL                                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="ao-modal-overlay" *ngIf="showShippingModal" (click)="closeShippingModal()">
+  <div class="ao-confirm-dialog ao-shipping-modal" (click)="$event.stopPropagation()">
+    <h3 class="ao-confirm-dialog__title">🚚 Enter Shipping Details</h3>
+    <p class="ao-confirm-dialog__message">
+      For order <strong>{{ shippingOrder?.orderNumber }}</strong>
+    </p>
+
+    <div class="ao-shipping-fields">
+      <div class="form-group">
+        <label class="form-label" for="shipping-provider">Shipping Provider</label>
+        <input type="text" id="shipping-provider" class="form-input"
+          placeholder="e.g. DTDC, BlueDart, Speed Post" [(ngModel)]="shippingProvider"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="tracking-number">Tracking Number</label>
+        <input type="text" id="tracking-number" class="form-input"
+          placeholder="e.g. DT1234567890" [(ngModel)]="shippingTracking"/>
+      </div>
+    </div>
+
+    <div class="ao-confirm-dialog__actions">
+      <button class="adm-btn adm-btn--success" (click)="saveShipping()"
+        [disabled]="shippingSaving" id="save-shipping-btn">
+        <span *ngIf="!shippingSaving">🚚 Save & Mark Shipped</span>
+        <span *ngIf="shippingSaving">Saving…</span>
+      </button>
+      <button class="adm-btn adm-btn--ghost" (click)="closeShippingModal()">Cancel</button>
+    </div>
+  </div>
+</div>

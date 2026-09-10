@@ -1,0 +1,500 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+// ============================================================
+// ARIDHU — ABOUT PAGE STYLES (INTERACTIVE & CATCHY)
+// ============================================================
+
+.about-page {
+  background: #faf6f0;
+}
+
+// ── HERO BANNER ──────────────────────────────────────────────
+.about-hero {
+  position: relative;
+  background: linear-gradient(160deg, #faf6f0 0%, #f4ece1 100%);
+  color: v.$spice-dark;
+  padding: v.$space-16 0 v.$space-16;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(139, 38, 18, 0.08);
+
+  @include m.respond-to('md') {
+    padding: v.$space-12 0 v.$space-12;
+  }
+
+  &__bg-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(8rem, 22vw, 18rem);
+    font-weight: 700;
+    color: rgba(45, 27, 21, 0.04);
+    pointer-events: none;
+    user-select: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  &__tag {
+    font-size: 0.825rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: v.$rust-primary;
+    text-transform: uppercase;
+    margin-bottom: v.$space-3;
+    display: block;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 600;
+    color: v.$spice-dark;
+    line-height: 1.1;
+    margin-bottom: v.$space-4;
+  }
+
+  &__sub {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: #4a3b34;
+    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 720px;
+
+    strong {
+      color: v.$rust-primary;
+      font-weight: 700;
+    }
+  }
+}
+
+// Key Stats Bar
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: v.$space-4;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(200, 138, 46, 0.3);
+  border-radius: 16px;
+  padding: v.$space-6;
+
+  @include m.respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: v.$space-6;
+  }
+}
+
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__num {
+    font-family: v.$font-display;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: v.$amber-gold;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  &__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #e5dace;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+}
+
+// ── SECTION 2: MANIFESTO TABS ─────────────────────────────────
+.manifesto-section {
+  background: #ffffff;
+}
+
+.manifesto-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-3;
+  flex-wrap: wrap;
+  margin-bottom: v.$space-8;
+}
+
+.manifesto-tab {
+  background: #faf6f0;
+  color: v.$spice-dark;
+  border: 1px solid rgba(139, 38, 18, 0.15);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: v.$radius-full;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f4ede0;
+    border-color: v.$rust-primary;
+  }
+
+  &--active {
+    background: v.$rust-primary;
+    color: #ffffff;
+    border-color: v.$rust-primary;
+    box-shadow: 0 4px 14px rgba(139, 38, 18, 0.25);
+  }
+}
+
+.manifesto-panel {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: v.$space-6;
+
+  @include m.respond-to('md') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.comparison-card {
+  border-radius: 16px;
+  padding: v.$space-8;
+  display: flex;
+  flex-direction: column;
+
+  &--bad {
+    background: #fdf2f0;
+    border: 1px solid rgba(139, 38, 18, 0.2);
+
+    .comparison-card__badge {
+      background: rgba(139, 38, 18, 0.12);
+      color: v.$rust-primary;
+    }
+  }
+
+  &--good {
+    background: #f0fdf4;
+    border: 1px solid rgba(30, 126, 52, 0.2);
+
+    .comparison-card__badge {
+      background: #e6f4ea;
+      color: #1e7e34;
+    }
+  }
+
+  &__badge {
+    align-self: flex-start;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: v.$space-3;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    margin: 0 0 v.$space-4;
+  }
+}
+
+.comparison-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-3;
+
+  li {
+    font-size: 0.92rem;
+    color: #44332c;
+    line-height: 1.5;
+  }
+}
+
+.manifesto-card {
+  background: #faf6f0;
+  border-radius: 20px;
+  padding: v.$space-10;
+  border: 1px solid rgba(139, 38, 18, 0.15);
+
+  .manifesto-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: v.$space-3;
+  }
+
+  h3 {
+    font-family: v.$font-display;
+    font-size: 1.8rem;
+    color: v.$spice-dark;
+    margin-bottom: v.$space-3;
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: #55433c;
+    line-height: 1.65;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+}
+
+// ── SECTION 3: SPICE ORIGIN EXPLORER ──────────────────────────
+.origin-section {
+  background: #faf6f0;
+}
+
+.origin-chips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-3;
+  flex-wrap: wrap;
+  margin-bottom: v.$space-8;
+}
+
+.origin-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(139, 38, 18, 0.15);
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &__icon {
+    font-size: 1.2rem;
+  }
+
+  &__name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: v.$spice-dark;
+  }
+
+  &:hover {
+    border-color: v.$rust-primary;
+    transform: translateY(-2px);
+  }
+
+  &--active {
+    background: v.$rust-primary;
+    border-color: v.$rust-primary;
+    box-shadow: 0 4px 14px rgba(139, 38, 18, 0.25);
+
+    .origin-chip__name {
+      color: #ffffff;
+    }
+  }
+}
+
+.origin-spotlight {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(200, 138, 46, 0.3);
+  padding: v.$space-8;
+  max-width: 720px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: v.$space-4;
+    margin-bottom: v.$space-4;
+  }
+
+  &__icon {
+    font-size: 2.8rem;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    margin: 0 0 2px;
+  }
+
+  &__tamil {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+  }
+
+  &__desc {
+    font-size: 0.98rem;
+    color: #55433c;
+    line-height: 1.6;
+    margin-bottom: v.$space-4;
+  }
+
+  &__benefit {
+    font-size: 0.88rem;
+    color: v.$spice-dark;
+    background: #fdf2f0;
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    strong {
+      color: v.$rust-primary;
+    }
+  }
+}
+
+// ── SECTION 4: 4-STEP CRAFT TIMELINE ─────────────────────────
+.craft-timeline-section {
+  background: #ffffff;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: v.$space-6;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include m.respond-to('xs') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.timeline-step {
+  background: #faf6f0;
+  border-radius: 16px;
+  padding: v.$space-6;
+  border-top: 3px solid v.$rust-primary;
+
+  &__num {
+    font-family: v.$font-display;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    margin-bottom: v.$space-2;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    margin: 0 0 v.$space-2;
+  }
+
+  &__desc {
+    font-size: 0.88rem;
+    color: #66554d;
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
+// ── SECTION 5: FOUNDER'S NOTE ─────────────────────────────────
+.founder-section {
+  background: linear-gradient(135deg, #2d1b15 0%, #1f120e 100%);
+  color: #ffffff;
+  padding: v.$space-16 0 v.$space-20;
+}
+
+.founder-card {
+  max-width: 820px;
+  margin: 0 auto;
+
+  &__tag {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: v.$amber-gold;
+    text-transform: uppercase;
+    margin-bottom: v.$space-2;
+    display: block;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    color: #ffffff;
+    margin-bottom: v.$space-6;
+  }
+
+  &__text-content {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+    margin-bottom: v.$space-8;
+  }
+
+  &__quote {
+    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+    color: #e5dace;
+    line-height: 1.75;
+    margin: 0;
+
+    strong {
+      color: v.$amber-gold;
+      font-weight: 700;
+    }
+  }
+
+  &__contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(200, 138, 46, 0.4);
+    padding: 12px 24px;
+    border-radius: v.$radius-full;
+    margin-top: v.$space-4;
+
+    @include m.respond-to('xs') {
+      flex-direction: column;
+      border-radius: 16px;
+      padding: 12px 18px;
+    }
+  }
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+}
+
+.contact-label {
+  font-size: 0.88rem;
+  color: #c4b5a8;
+  font-weight: 500;
+}
+
+.contact-phone {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: v.$amber-gold;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+}
+

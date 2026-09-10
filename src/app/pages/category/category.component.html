@@ -1,0 +1,38 @@
+<div class="category-page page-enter">
+  <!-- Category header -->
+  <div class="category-page__header" *ngIf="category">
+    <div class="container">
+      <app-breadcrumb [items]="[{label: 'Shop', routerLink: '/shop'}, {label: category.name}]"></app-breadcrumb>
+      <div class="category-page__hero">
+        <div class="category-page__hero-content">
+          <p class="section-label">{{ products.length }} Products</p>
+          <h1 class="category-page__title">{{ category.name }}</h1>
+          <p class="category-page__desc">{{ category.description }}</p>
+        </div>
+        <div class="category-page__hero-image">
+          <ng-container *ngIf="category.imageUrl; else catHeroPh">
+            <img [src]="category.imageUrl" [alt]="category.name" class="category-page__hero-img"/>
+          </ng-container>
+          <ng-template #catHeroPh>
+            <app-image-placeholder variant="category" aspect="3/2"></app-image-placeholder>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products grid -->
+  <div class="container category-page__body">
+    <div class="product-grid" *ngIf="!loading && products.length > 0">
+      <app-product-card *ngFor="let p of products" [product]="p" [showCategory]="false"></app-product-card>
+    </div>
+    <div class="product-grid" *ngIf="loading">
+      <div class="skeleton" style="aspect-ratio:1;border-radius:16px;" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
+    </div>
+    <div class="empty-state" *ngIf="!loading && products.length === 0">
+      <div class="empty-state__icon">🌿</div>
+      <p class="empty-state__title">No products in this category yet</p>
+      <a routerLink="/shop" class="btn btn-primary">Browse All Products</a>
+    </div>
+  </div>
+</div>

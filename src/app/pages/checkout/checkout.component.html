@@ -1,0 +1,284 @@
+<!-- =========================================================
+     ARIDHU — MULTI-STEP CHECKOUT WITH UPI QR PAYMENT FLOW
+     ========================================================= -->
+
+<div class="checkout-page page-enter">
+  <div class="container">
+    <app-breadcrumb [items]="[{label: 'Cart', routerLink: '/cart'}, {label: 'Checkout'}]"></app-breadcrumb>
+
+    <!-- STEP INDICATOR -->
+    <div class="checkout-steps">
+      <div class="step-item" [class.step-item--active]="currentStep === 1" [class.step-item--done]="currentStep > 1">
+        <div class="step-item__circle">
+          <span *ngIf="currentStep <= 1">1</span>
+          <svg *ngIf="currentStep > 1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+        </div>
+        <span class="step-item__label">Your Details</span>
+      </div>
+      <div class="step-connector" [class.step-connector--done]="currentStep > 1"></div>
+      <div class="step-item" [class.step-item--active]="currentStep === 2" [class.step-item--done]="currentStep > 2">
+        <div class="step-item__circle">
+          <span *ngIf="currentStep <= 2">2</span>
+          <svg *ngIf="currentStep > 2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+        </div>
+        <span class="step-item__label">Pay via UPI</span>
+      </div>
+    </div>
+
+    <!-- ====================================================
+         STEP 1: Contact + Address
+    ===================================================== -->
+    <div class="checkout-page__layout" *ngIf="currentStep === 1" [formGroup]="form">
+
+      <!-- Left: Form -->
+      <div class="checkout-page__form-col">
+
+        <!-- Customer info -->
+        <div class="form-card">
+          <h2 class="form-card__title">📋 Contact Information</h2>
+          <div class="form-grid form-grid--3">
+            <div class="form-group form-group--col-full">
+              <label class="form-label" for="name">Full Name *</label>
+              <input id="name" type="text" class="form-input" formControlName="name" autocomplete="name" placeholder="e.g. Meenakshi Sundaram"/>
+              <p class="form-error" *ngIf="getError('name', 'required')">Name is required</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email *</label>
+              <input id="email" type="email" class="form-input" formControlName="email" autocomplete="email" placeholder="you@example.com"/>
+              <p class="form-error" *ngIf="getError('email', 'required')">Email is required</p>
+              <p class="form-error" *ngIf="getError('email', 'email')">Enter a valid email</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone *</label>
+              <input id="phone" type="tel" class="form-input" formControlName="phone" autocomplete="tel" placeholder="10-digit mobile number"/>
+              <p class="form-error" *ngIf="getError('phone', 'required')">Phone is required</p>
+              <p class="form-error" *ngIf="getError('phone', 'pattern')">Enter a valid 10-digit mobile number</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery address -->
+        <div class="form-card">
+          <h2 class="form-card__title">🏠 Delivery Address</h2>
+          <div class="form-grid">
+            <div class="form-group form-group--col-full">
+              <label class="form-label" for="line1">Address Line 1 *</label>
+              <input id="line1" type="text" class="form-input" formControlName="line1" autocomplete="address-line1" placeholder="Street / Door No / Colony"/>
+              <p class="form-error" *ngIf="getError('line1', 'required')">Address is required</p>
+            </div>
+            <div class="form-group form-group--col-full">
+              <label class="form-label" for="line2">Address Line 2 <span class="form-optional">(Optional)</span></label>
+              <input id="line2" type="text" class="form-input" formControlName="line2" autocomplete="address-line2" placeholder="Apartment, Landmark, etc."/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="city">City *</label>
+              <input id="city" type="text" class="form-input" formControlName="city" autocomplete="address-level2" placeholder="e.g. Chennai"/>
+              <p class="form-error" *ngIf="getError('city', 'required')">City is required</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="state">State *</label>
+              <select id="state" class="form-select" formControlName="state" autocomplete="address-level1">
+                <option value="">Select state</option>
+                <option>Tamil Nadu</option><option>Karnataka</option><option>Kerala</option>
+                <option>Andhra Pradesh</option><option>Telangana</option>
+                <option>Maharashtra</option><option>Gujarat</option>
+                <option>Delhi</option><option>Rajasthan</option>
+                <option>Uttar Pradesh</option><option>West Bengal</option>
+              </select>
+              <p class="form-error" *ngIf="getError('state', 'required')">State is required</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pincode">Pincode *</label>
+              <input id="pincode" type="text" class="form-input" formControlName="pincode" autocomplete="postal-code" maxlength="6" placeholder="6-digit pincode"/>
+              <p class="form-error" *ngIf="getError('pincode', 'required')">Pincode is required</p>
+              <p class="form-error" *ngIf="getError('pincode', 'pattern')">Enter a valid 6-digit pincode</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proceed to Payment -->
+        <button class="btn btn-primary btn-lg full-width" type="button" (click)="goToPayment()" id="proceed-to-payment-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Proceed to Payment →</span>
+        </button>
+      </div>
+
+      <!-- Right: Order summary -->
+      <div class="checkout-page__summary-col">
+        <div class="cart-summary">
+          <h2 class="cart-summary__title">🛒 Order Summary</h2>
+          <div class="cart-summary__rows">
+            <div class="cart-summary__row">
+              <span>Subtotal</span>
+              <span>₹{{ summary.subtotal }}</span>
+            </div>
+            <div class="cart-summary__row" *ngIf="summary.discount > 0">
+              <span>Discount</span>
+              <span class="text-green">−₹{{ summary.discount }}</span>
+            </div>
+            <div class="cart-summary__row">
+              <span>Shipping</span>
+              <span *ngIf="summary.shipping > 0">₹{{ summary.shipping }}</span>
+              <span class="text-green" *ngIf="summary.shipping === 0">Free</span>
+            </div>
+          </div>
+          <div class="cart-summary__total">
+            <span>Total Payable</span>
+            <span>₹{{ summary.total }}</span>
+          </div>
+          <div class="summary-note">
+            <span>🌿 All prices inclusive of GST</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ====================================================
+         STEP 2: UPI QR Payment
+    ===================================================== -->
+    <div class="upi-payment-page" *ngIf="currentStep === 2">
+
+      <div class="upi-payment-layout">
+
+        <!-- Left: Payment Card -->
+        <div class="upi-payment-card">
+          <div class="upi-payment-card__header">
+            <div class="upi-badge">
+              <span class="upi-badge__dot"></span>
+              <span>Secure UPI Payment</span>
+            </div>
+            <h2 class="upi-payment-card__title">Complete Your Payment</h2>
+            <p class="upi-payment-card__subtitle">
+              Scan the QR code below using any UPI app — <strong>GPay, PhonePe, Paytm, BHIM</strong> or your bank app.
+            </p>
+          </div>
+
+          <!-- Amount Due -->
+          <div class="upi-amount-badge">
+            <span class="upi-amount-badge__label">Amount to Pay</span>
+            <span class="upi-amount-badge__value">₹{{ summary.total }}</span>
+          </div>
+
+          <!-- QR Code -->
+          <div class="upi-qr-wrapper">
+            <div class="upi-qr-glow"></div>
+            <div class="upi-qr-box">
+              <img
+                src="upi-qr.png"
+                alt="Aridhu UPI QR Code — Scan to pay"
+                class="upi-qr-img"
+                id="upi-qr-image"
+              />
+            </div>
+            <div class="upi-apps-row">
+              <span class="upi-app-pill">G Pay</span>
+              <span class="upi-app-pill">PhonePe</span>
+              <span class="upi-app-pill">Paytm</span>
+              <span class="upi-app-pill">BHIM</span>
+            </div>
+          </div>
+
+          <!-- UPI ID copy row -->
+          <div class="upi-id-row">
+            <div class="upi-id-row__info">
+              <span class="upi-id-row__label">UPI ID</span>
+              <span class="upi-id-row__value" id="upi-id-text">9840218588&#64;upi</span>
+            </div>
+            <button class="upi-copy-btn" type="button" (click)="copyUpiId()" id="copy-upi-id-btn">
+              <span *ngIf="!upiCopied">📋 Copy</span>
+              <span *ngIf="upiCopied">✅ Copied!</span>
+            </button>
+          </div>
+
+          <!-- Instructions -->
+          <div class="upi-instructions">
+            <p class="upi-instructions__title">How to pay:</p>
+            <ol class="upi-instructions__list">
+              <li>Open your UPI app (GPay / PhonePe / Paytm)</li>
+              <li>Tap <strong>Scan QR</strong> or <strong>Pay UPI ID</strong></li>
+              <li>Enter amount: <strong>₹{{ summary.total }}</strong></li>
+              <li>Complete payment &amp; note your <strong>Transaction ID / UTR</strong></li>
+              <li>Enter the UTR below (optional — helps us verify faster)</li>
+            </ol>
+          </div>
+
+          <!-- UTR / Transaction ID -->
+          <div class="upi-utr-section">
+            <label class="upi-utr-label" for="utr-number-input">
+              UTR / Transaction ID
+              <span class="upi-utr-optional">(Optional — helps verify faster)</span>
+            </label>
+            <input
+              type="text"
+              id="utr-number-input"
+              class="form-input"
+              placeholder="e.g. 123456789012"
+              [(ngModel)]="utrNumber"
+              name="utrNumber"
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="upi-actions">
+            <button
+              class="btn btn-success btn-lg full-width"
+              type="button"
+              (click)="confirmPayment()"
+              [disabled]="submitting"
+              id="payment-confirmed-btn"
+            >
+              <span *ngIf="!submitting">✅ I Have Completed the Payment</span>
+              <span *ngIf="submitting" class="loading-pulse">⏳ Creating your order...</span>
+            </button>
+            <button class="btn btn-ghost btn-sm back-btn" type="button" (click)="currentStep = 1" id="back-to-details-btn">
+              ← Back to Details
+            </button>
+          </div>
+
+          <!-- Trust note -->
+          <p class="upi-trust-note">
+            🔒 Your payment goes directly to Aridhu Foods. We'll confirm your order via phone/email within 2 hours.
+          </p>
+        </div>
+
+        <!-- Right: Order Review -->
+        <div class="upi-order-review">
+          <div class="cart-summary">
+            <h2 class="cart-summary__title">🛒 Your Order</h2>
+            <div class="cart-summary__rows">
+              <div class="cart-summary__row">
+                <span>Subtotal</span>
+                <span>₹{{ summary.subtotal }}</span>
+              </div>
+              <div class="cart-summary__row" *ngIf="summary.discount > 0">
+                <span>Discount</span>
+                <span class="text-green">−₹{{ summary.discount }}</span>
+              </div>
+              <div class="cart-summary__row">
+                <span>Shipping</span>
+                <span *ngIf="summary.shipping > 0">₹{{ summary.shipping }}</span>
+                <span class="text-green" *ngIf="summary.shipping === 0">Free</span>
+              </div>
+            </div>
+            <div class="cart-summary__total">
+              <span>Total</span>
+              <span>₹{{ summary.total }}</span>
+            </div>
+          </div>
+
+          <!-- Delivery details recap -->
+          <div class="delivery-recap">
+            <h3 class="delivery-recap__title">📦 Delivering to</h3>
+            <p class="delivery-recap__name">{{ form.value.name }}</p>
+            <p class="delivery-recap__addr">{{ form.value.line1 }}, {{ form.value.city }}, {{ form.value.state }} - {{ form.value.pincode }}</p>
+            <p class="delivery-recap__phone">📞 {{ form.value.phone }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

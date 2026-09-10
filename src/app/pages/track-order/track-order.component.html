@@ -1,0 +1,308 @@
+<!-- =========================================================
+     ARIDHU — TRACK ORDER PAGE
+     ========================================================= -->
+
+<div class="to-page page-enter">
+
+  <!-- ── HERO ──────────────────────────────────────────────── -->
+  <section class="to-hero">
+    <div class="to-hero__botanical" aria-hidden="true">
+      <!-- Decorative leaf SVG left -->
+      <svg class="to-hero__leaf to-hero__leaf--left" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 190 C20 150, 5 100, 20 60 C35 20, 80 10, 100 40 C80 60 50 80 40 120 C30 160 60 190 60 190Z"
+              fill="currentColor" opacity="0.12"/>
+        <path d="M60 190 L60 60" stroke="currentColor" stroke-width="1" opacity="0.15"/>
+      </svg>
+      <!-- Decorative leaf SVG right -->
+      <svg class="to-hero__leaf to-hero__leaf--right" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 190 C100 150, 115 100, 100 60 C85 20, 40 10, 20 40 C40 60 70 80 80 120 C90 160 60 190 60 190Z"
+              fill="currentColor" opacity="0.12"/>
+        <path d="M60 190 L60 60" stroke="currentColor" stroke-width="1" opacity="0.15"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="to-hero__inner">
+        <div class="to-hero__label">Order Tracking</div>
+        <h1 class="to-hero__title">Track Your Order</h1>
+        <p class="to-hero__subtitle">
+          Enter your order number to see the latest delivery status.
+        </p>
+
+        <!-- Search Box -->
+        <form class="to-search-form" (submit)="$event.preventDefault(); search()" id="track-order-form">
+          <div class="to-search-form__inner">
+            <svg class="to-search-form__icon" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <input
+              type="text"
+              class="to-search-form__input"
+              placeholder="e.g. ARU-20260910-1024"
+              [formControl]="orderNumberCtrl"
+              autocomplete="off"
+              id="order-number-input"
+              aria-label="Enter your order number"
+            />
+            <button
+              type="submit"
+              class="to-search-form__btn btn btn-primary"
+              [disabled]="loading"
+              id="track-order-btn"
+            >
+              <span *ngIf="!loading">Track Order</span>
+              <span *ngIf="loading" class="to-spinner"></span>
+            </button>
+          </div>
+          <p class="to-search-form__hint">Your order number starts with ARU- and was sent in your confirmation.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESULT AREA ────────────────────────────────────────── -->
+  <div class="container">
+
+    <!-- Loading -->
+    <div class="to-loading" *ngIf="loading" aria-live="polite">
+      <div class="to-loading__spinner"></div>
+      <p>Looking up your order…</p>
+    </div>
+
+    <!-- Not Found -->
+    <div class="to-not-found" *ngIf="searched && notFound && !loading">
+      <div class="to-not-found__icon">📦</div>
+      <h2 class="to-not-found__title">Order Not Found</h2>
+      <p class="to-not-found__desc">
+        We couldn't find an order with that number. Please double-check and try again,
+        or <a routerLink="/contact">contact us</a> for help.
+      </p>
+    </div>
+
+    <!-- Order Result -->
+    <div class="to-result" *ngIf="order && !loading">
+
+      <!-- ── Order Header Card ──────────────────────────────── -->
+      <div class="to-card to-order-header">
+        <div class="to-order-header__left">
+          <div class="to-order-header__num">{{ order.orderNumber }}</div>
+          <div class="to-order-header__date">Placed on {{ formatShortDate(order.createdAt) }}</div>
+        </div>
+        <div class="to-order-header__badges">
+          <span class="to-badge" [class]="'to-badge--' + order.status.toLowerCase().replace('_', '-')">
+            {{ STATUS_LABEL[order.status] }}
+          </span>
+          <span class="to-badge"
+                [class]="order.payment?.status === 'PAID' ? 'to-badge--paid' :
+                          order.payment?.status === 'FAILED' ? 'to-badge--failed' : 'to-badge--pending'">
+            {{ order.payment?.status === 'PAID' ? '✓ Payment Confirmed' :
+               order.payment?.status === 'FAILED' ? '✕ Payment Failed' : '⏳ Payment Pending' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Payment Verification Notice -->
+      <div class="to-payment-notice" *ngIf="isPaymentPending()">
+        <div class="to-payment-notice__icon">🔍</div>
+        <div class="to-payment-notice__body">
+          <p class="to-payment-notice__title">Payment Verification Pending</p>
+          <p class="to-payment-notice__desc">
+            Our team is verifying your payment. This usually takes 1–2 hours during business hours.
+          </p>
+          <!-- UTR Input -->
+          <div class="to-utr-row" *ngIf="!utrSaved">
+            <div class="to-utr-input-wrap">
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Enter UTR / Transaction ID (speeds up verification)"
+                [formControl]="utrCtrl"
+                id="utr-input"
+              />
+            </div>
+            <button
+              class="btn btn-outline btn-sm"
+              (click)="submitUtr()"
+              [disabled]="utrSubmitting || !utrCtrl.value"
+              id="submit-utr-btn"
+            >
+              <span *ngIf="!utrSubmitting">Submit UTR</span>
+              <span *ngIf="utrSubmitting">Saving…</span>
+            </button>
+          </div>
+          <div class="to-utr-saved" *ngIf="utrSaved">
+            ✓ UTR number saved — we'll verify faster!
+          </div>
+          <div class="to-utr-saved" *ngIf="!utrSaved && order.payment?.utrNumber">
+            UTR on file: <strong>{{ order.payment.utrNumber }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Failed Notice -->
+      <div class="to-payment-failed-notice" *ngIf="isTerminalFailed()">
+        <div class="to-payment-failed-notice__icon">⚠️</div>
+        <div>
+          <p class="to-payment-failed-notice__title">
+            {{ order.status === 'PAYMENT_FAILED' ? 'Payment Could Not Be Verified' : 'Order Cancelled' }}
+          </p>
+          <p>{{ STATUS_MESSAGE[order.status] }}</p>
+          <a routerLink="/contact" class="btn btn-outline btn-sm" style="margin-top:0.75rem; display:inline-flex">
+            Contact Support
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Status Timeline ────────────────────────────────── -->
+      <div class="to-card to-timeline-card">
+        <h2 class="to-card__title">Order Journey</h2>
+        <p class="to-card__subtitle">{{ STATUS_MESSAGE[order.status] }}</p>
+
+        <div class="to-timeline">
+          <div
+            *ngFor="let step of TIMELINE_STEPS; trackBy: trackByStatus; let last = last"
+            class="to-timeline__step"
+            [class.to-timeline__step--done]="getStepState(step) === 'done'"
+            [class.to-timeline__step--current]="getStepState(step) === 'current'"
+            [class.to-timeline__step--upcoming]="getStepState(step) === 'upcoming'"
+            [class.to-timeline__step--failed]="getStepState(step) === 'failed'"
+          >
+            <!-- Connector line (before step) -->
+            <div class="to-timeline__line" *ngIf="!last"></div>
+
+            <!-- Step marker -->
+            <div class="to-timeline__marker">
+              <!-- Done: checkmark -->
+              <svg *ngIf="getStepState(step) === 'done'" width="16" height="16" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20,6 9,17 4,12"/>
+              </svg>
+              <!-- Current: dot -->
+              <div *ngIf="getStepState(step) === 'current'" class="to-timeline__dot"></div>
+              <!-- Upcoming: empty -->
+              <div *ngIf="getStepState(step) === 'upcoming'" class="to-timeline__dot to-timeline__dot--empty"></div>
+              <!-- Failed: x -->
+              <svg *ngIf="getStepState(step) === 'failed'" width="14" height="14" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </div>
+
+            <!-- Step content -->
+            <div class="to-timeline__content">
+              <div class="to-timeline__label">{{ STATUS_LABEL[step] }}</div>
+              <div class="to-timeline__time" *ngIf="getHistoryEntry(step) as entry">
+                {{ formatDate(entry.timestamp) }}
+              </div>
+              <!-- Shipping details on SHIPPED step -->
+              <div class="to-timeline__shipping" *ngIf="step === 'SHIPPED' && order.fulfillment?.provider">
+                <span class="to-shipping-tag">{{ order.fulfillment.provider }}</span>
+                <span *ngIf="order.fulfillment.trackingNumber" class="to-tracking-num">
+                  #{{ order.fulfillment.trackingNumber }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Details Grid ───────────────────────────────────── -->
+      <div class="to-details-grid">
+
+        <!-- Items -->
+        <div class="to-card">
+          <h2 class="to-card__title">Ordered Items</h2>
+          <div class="to-items">
+            <div class="to-item" *ngFor="let item of order.items">
+              <div class="to-item__img-wrap">
+                <img *ngIf="item.imageUrl" [src]="item.imageUrl" [alt]="item.name" class="to-item__img"/>
+                <div *ngIf="!item.imageUrl" class="to-item__img-placeholder">🌿</div>
+              </div>
+              <div class="to-item__info">
+                <span class="to-item__name">{{ item.name }}</span>
+                <span class="to-item__qty">Qty: {{ item.quantity }}</span>
+              </div>
+              <span class="to-item__price">₹{{ item.subtotal }}</span>
+            </div>
+          </div>
+
+          <div class="to-totals">
+            <div class="to-total-row" *ngIf="order.discount > 0">
+              <span>Discount</span>
+              <span class="to-total-row--green">−₹{{ order.discount }}</span>
+            </div>
+            <div class="to-total-row">
+              <span>Shipping</span>
+              <span *ngIf="order.shipping > 0">₹{{ order.shipping }}</span>
+              <span *ngIf="order.shipping === 0" class="to-total-row--green">Free</span>
+            </div>
+            <div class="to-total-row to-total-row--total">
+              <span>Total Paid</span>
+              <span>₹{{ order.total }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery Info -->
+        <div class="to-card">
+          <h2 class="to-card__title">Delivery Details</h2>
+          <div class="to-delivery-info">
+            <div class="to-delivery-info__row">
+              <span class="to-delivery-info__label">Name</span>
+              <span class="to-delivery-info__value">{{ order.shippingAddress.name || order.customer.name }}</span>
+            </div>
+            <div class="to-delivery-info__row">
+              <span class="to-delivery-info__label">Phone</span>
+              <span class="to-delivery-info__value">{{ order.shippingAddress.phone || order.customer.phone }}</span>
+            </div>
+            <div class="to-delivery-info__row">
+              <span class="to-delivery-info__label">Address</span>
+              <span class="to-delivery-info__value">
+                {{ order.shippingAddress.line1 }}<ng-container *ngIf="order.shippingAddress.line2">, {{ order.shippingAddress.line2 }}</ng-container>,
+                {{ order.shippingAddress.city }}, {{ order.shippingAddress.state }} – {{ order.shippingAddress.pincode }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Payment info -->
+          <div class="to-divider"></div>
+          <h2 class="to-card__title" style="margin-top:1rem">Payment</h2>
+          <div class="to-delivery-info">
+            <div class="to-delivery-info__row">
+              <span class="to-delivery-info__label">Method</span>
+              <span class="to-delivery-info__value">{{ order.payment?.method || 'UPI' }}</span>
+            </div>
+            <div class="to-delivery-info__row">
+              <span class="to-delivery-info__label">Status</span>
+              <span class="to-delivery-info__value"
+                [style.color]="order.payment?.status === 'PAID' ? '#315C2B' : order.payment?.status === 'FAILED' ? '#C0392B' : '#C99A32'">
+                {{ order.payment?.status === 'PAID' ? 'Verified & Paid' :
+                   order.payment?.status === 'FAILED' ? 'Failed' : 'Pending Verification' }}
+              </span>
+            </div>
+            <div class="to-delivery-info__row" *ngIf="order.payment?.utrNumber">
+              <span class="to-delivery-info__label">UTR</span>
+              <span class="to-delivery-info__value">{{ order.payment.utrNumber }}</span>
+            </div>
+            <div class="to-delivery-info__row" *ngIf="order.payment?.verifiedAt">
+              <span class="to-delivery-info__label">Verified</span>
+              <span class="to-delivery-info__value">{{ formatDate(order.payment.verifiedAt) }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /details-grid -->
+
+      <!-- Actions -->
+      <div class="to-actions">
+        <a routerLink="/shop" class="btn btn-outline">Continue Shopping</a>
+        <a routerLink="/contact" class="btn btn-ghost">Need Help?</a>
+      </div>
+
+    </div><!-- /to-result -->
+  </div><!-- /container -->
+
+</div>

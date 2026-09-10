@@ -1,0 +1,38 @@
+@use 'styles/variables' as v;
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: v.$radius-full;
+  font-size: 10px;
+  font-weight: v.$fw-bold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+
+  &--popular {
+    background: rgba(v.$turmeric, 0.18);
+    color: #7D5B00;
+  }
+
+  &--new {
+    background: v.$green-bg;
+    color: v.$green-deep;
+  }
+
+  &--best_seller {
+    background: rgba(v.$spice-orange, 0.14);
+    color: #944616;
+  }
+
+  &--limited {
+    background: rgba(v.$chili, 0.1);
+    color: v.$chili;
+  }
+
+  &--combo {
+    background: v.$brown-pale;
+    color: v.$brown-dark;
+  }
+}

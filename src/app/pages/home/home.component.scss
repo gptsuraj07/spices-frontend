@@ -1,0 +1,1030 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+// ============================================================
+// ARIDHU — CREATIVE ARTISANAL HOME PAGE STYLES
+// ============================================================
+
+// ── HERO SECTION ──────────────────────────────────────────────
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #faf5ee 0%, #f4ede0 100%);
+  padding: v.$space-16 0 v.$space-20;
+  border-bottom: 1px solid rgba(139, 38, 18, 0.1);
+  overflow: hidden;
+
+  @include m.respond-to('md') {
+    padding: v.$space-10 0 v.$space-12;
+  }
+
+  &__bg-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: radial-gradient(v.$spice-dark 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: v.$space-12;
+    align-items: center;
+
+    @include m.respond-to('lg') {
+      grid-template-columns: 1fr;
+      gap: v.$space-8;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: v.$space-2;
+  }
+
+  &__eyebrow-tamil {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    background: rgba(139, 38, 18, 0.08);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  &__eyebrow-sep {
+    color: v.$rust-primary;
+    font-size: 10px;
+  }
+
+  &__eyebrow-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: v.$spice-dark;
+  }
+
+  &__headline {
+    font-family: v.$font-display;
+    font-size: clamp(3.2rem, 5.5vw, 4.8rem);
+    font-weight: 500;
+    color: v.$spice-dark;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  &__headline-em {
+    font-style: italic;
+    color: v.$rust-primary;
+  }
+
+  &__sub {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: #55433c;
+    line-height: 1.65;
+    max-width: 540px;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: v.$space-4;
+    flex-wrap: wrap;
+    padding-top: v.$space-2;
+  }
+
+  &__trust-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: v.$space-3;
+    padding-top: v.$space-6;
+    border-top: 1px solid rgba(139, 38, 18, 0.12);
+
+    @include m.respond-to('xs') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__trust-icon {
+    font-size: 1.1rem;
+  }
+
+  // Visual Image Stack with Floating Badges
+  &__visual {
+    position: relative;
+
+    @include m.respond-to('lg') {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+
+  &__image-frame {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(45, 27, 21, 0.12);
+    border: 2px solid rgba(200, 138, 46, 0.3);
+  }
+
+  &__main-img {
+    width: 100%;
+    height: 440px;
+    object-fit: cover;
+    display: block;
+
+    @include m.respond-to('sm') {
+      height: 320px;
+    }
+  }
+
+  &__floating-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: v.$space-3 v.$space-4;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(139, 38, 18, 0.15);
+
+    &--top {
+      top: 20px;
+      left: 20px;
+    }
+
+    &--bottom {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  &__floating-badge {
+    display: inline-block;
+    background: v.$rust-primary;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+  }
+
+  &__floating-num {
+    font-family: v.$font-display;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    line-height: 1;
+  }
+
+  &__floating-txt {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    margin: 0;
+  }
+}
+
+.btn-brass {
+  background: transparent;
+  color: v.$spice-dark;
+  border: 1.5px solid v.$amber-gold;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: v.$radius-full;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: v.$amber-gold;
+    color: #ffffff;
+  }
+}
+
+// ── SECTION COMMON ───────────────────────────────────────────
+.section {
+  padding: v.$space-16 0;
+
+  @include m.respond-to('md') {
+    padding: v.$space-10 0;
+  }
+}
+
+.section-header {
+  max-width: 680px;
+  margin: 0 auto v.$space-10;
+}
+
+.section-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: v.$rust-primary;
+  text-transform: uppercase;
+  margin-bottom: v.$space-2;
+  display: block;
+}
+
+.section-headline {
+  font-family: v.$font-display;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  color: v.$spice-dark;
+  margin: 0 0 v.$space-3;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: #66554d;
+  line-height: 1.6;
+  margin: 0;
+}
+
+// ── SECTION 2: 7-DAY RASAM RITUAL (REDESIGNED PRESENTATION) ────
+.ritual-section {
+  background: #ffffff;
+}
+
+// Sleek Horizontal Navigator
+.ritual-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #faf5ee;
+  border: 1px solid rgba(139, 38, 18, 0.12);
+  padding: 8px;
+  border-radius: 16px;
+  margin-bottom: v.$space-8;
+
+  @include m.respond-to('lg') {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 8px 12px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba(139, 38, 18, 0.06);
+
+      .ritual-nav__day {
+        color: v.$rust-primary;
+      }
+    }
+
+    &--active {
+      background: v.$rust-primary;
+      box-shadow: 0 4px 16px rgba(139, 38, 18, 0.25);
+
+      .ritual-nav__code {
+        color: #fef3c7;
+      }
+
+      .ritual-nav__day {
+        color: #ffffff;
+      }
+
+      .ritual-nav__tamil {
+        color: #fce7f3;
+        opacity: 0.95;
+      }
+
+      .ritual-nav__dot {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__code {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: v.$rust-primary;
+    margin-bottom: 2px;
+  }
+
+  &__day {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: v.$spice-dark;
+    transition: color 0.2s ease;
+  }
+
+  &__tamil {
+    font-size: 0.75rem;
+    color: #77665e;
+    margin-top: 1px;
+  }
+
+  &__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: v.$amber-gold;
+    margin-top: 4px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+  }
+}
+
+// Dual Pane Ritual Card Showcase
+.ritual-card {
+  background: #fdfbf7;
+  border: 1px solid rgba(200, 138, 46, 0.3);
+  border-radius: 24px;
+  padding: v.$space-10;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: v.$space-10;
+  align-items: center;
+  box-shadow: 0 16px 40px rgba(45, 27, 21, 0.06);
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+    padding: v.$space-6;
+    gap: v.$space-8;
+  }
+
+  // Left Editorial Column
+  &__editorial {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: v.$space-3;
+    flex-wrap: wrap;
+  }
+
+  &__day-tag {
+    background: v.$spice-dark;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+
+  &__heat-badge {
+    background: #fef3c7;
+    color: #b45309;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+
+  &__weight-badge {
+    background: rgba(139, 38, 18, 0.08);
+    color: v.$rust-primary;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-weight: 500;
+    color: v.$spice-dark;
+    line-height: 1.05;
+    margin: 0 0 4px;
+  }
+
+  &__tamil-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    margin-bottom: v.$space-3;
+  }
+
+  &__tagline {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #8b2612;
+    margin-bottom: v.$space-3;
+  }
+
+  &__desc {
+    font-size: 0.95rem;
+    color: #55433c;
+    line-height: 1.6;
+    margin-bottom: v.$space-6;
+  }
+
+  &__ing-box {
+    margin-bottom: v.$space-6;
+  }
+
+  &__ing-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: v.$spice-dark;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: v.$space-2;
+  }
+
+  &__ing-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__chip {
+    background: #ffffff;
+    border: 1px solid rgba(139, 38, 18, 0.15);
+    color: v.$spice-dark;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+
+    .chip-icon {
+      margin-right: 4px;
+    }
+  }
+
+  &__meta-box {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+    padding: v.$space-4;
+    background: rgba(139, 38, 18, 0.04);
+    border-radius: 12px;
+    border-left: 3px solid v.$rust-primary;
+  }
+
+  &__meta-item {
+    font-size: 0.88rem;
+    color: #44332c;
+
+    .meta-label {
+      font-weight: 700;
+      color: v.$spice-dark;
+      margin-right: 6px;
+    }
+
+    .meta-val {
+      font-weight: 500;
+    }
+  }
+
+  // Right Column Product Spotlight Card
+  &__spotlight {
+    width: 100%;
+  }
+}
+
+.spotlight-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 38, 18, 0.15);
+  box-shadow: 0 12px 30px rgba(45, 27, 21, 0.08);
+  padding: v.$space-6;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-4;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__badge {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: v.$rust-primary;
+    background: #fdf2f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  &__stock {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e7e34;
+  }
+
+  &__visual {
+    width: 100%;
+  }
+
+  &__img-container {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #f7f1e5 0%, #efe5d5 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__fallback-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    .spice-bowl-icon {
+      font-size: 2.8rem;
+    }
+
+    .fallback-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: v.$rust-primary;
+      text-transform: uppercase;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__name {
+    font-family: v.$font-display;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+  }
+
+  &__weight {
+    font-size: 0.8rem;
+    color: #77665e;
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 4px 0 8px;
+  }
+
+  &__price {
+    font-family: v.$font-display;
+    font-size: 2rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    line-height: 1;
+  }
+
+  &__tax {
+    font-size: 11px;
+    color: v.$text-muted;
+  }
+
+  &__btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: v.$radius-full;
+    font-weight: 700;
+  }
+
+  &__link {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 4px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: v.$rust-dark;
+      text-decoration: underline;
+    }
+  }
+}
+
+// ── SECTION 3: CRAFT PROCESS TIMELINE ───────────────────────
+.craft-section {
+  background: #faf6f0;
+}
+
+.craft-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: v.$space-6;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include m.respond-to('xs') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.craft-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: v.$space-6;
+  border: 1px solid rgba(139, 38, 18, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: v.$rust-primary;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: v.$space-3;
+  }
+
+  &__num {
+    font-family: v.$font-display;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+  }
+
+  &__icon {
+    font-size: 1.6rem;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    margin: 0 0 2px;
+  }
+
+  &__tamil {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: v.$rust-primary;
+    display: block;
+    margin-bottom: v.$space-3;
+  }
+
+  &__desc {
+    font-size: 0.88rem;
+    color: #66554d;
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
+// ── SECTION 4: PRODUCT CATALOG & FILTER BAR ──────────────────
+.collection-section {
+  background: #ffffff;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-3;
+  flex-wrap: wrap;
+  margin-bottom: v.$space-10;
+}
+
+.filter-btn {
+  background: #faf6f0;
+  color: v.$spice-dark;
+  border: 1px solid rgba(139, 38, 18, 0.15);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: v.$radius-full;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f4ede0;
+    border-color: v.$rust-primary;
+  }
+
+  &--active {
+    background: v.$rust-primary;
+    color: #ffffff;
+    border-color: v.$rust-primary;
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: v.$space-6;
+
+  @include m.respond-to('xl') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include m.respond-to('lg') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include m.respond-to('xs') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-skeleton {
+  height: 380px;
+  border-radius: 12px;
+}
+
+// ── SECTION 5: SIGNATURE COMBO BOX ────────────────────────────
+.combo-section {
+  background: #faf6f0;
+}
+
+.home-combos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: v.$space-8;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.combo-card {
+  background: linear-gradient(135deg, #2d1b15 0%, #1f120e 100%);
+  color: #ffffff;
+  border-radius: 20px;
+  padding: v.$space-8;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: v.$space-3;
+    flex-wrap: wrap;
+  }
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+    padding: v.$space-6;
+  }
+
+  &__badge {
+    display: inline-block;
+    background: v.$amber-gold;
+    color: #2d1b15;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: v.$space-3;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: v.$space-2;
+  }
+
+  &__sub {
+    font-size: 1rem;
+    color: #d1c5bf;
+    line-height: 1.6;
+    margin-bottom: v.$space-6;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: v.$space-3;
+    margin-bottom: v.$space-8;
+
+    @include m.respond-to('xs') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #e5dace;
+  }
+
+  &__item-num {
+    color: v.$amber-gold;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: v.$space-6;
+    flex-wrap: wrap;
+  }
+
+  &__price-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__price-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #a89890;
+  }
+
+  &__price {
+    font-family: v.$font-display;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: v.$amber-gold;
+    line-height: 1;
+  }
+}
+
+.combo-visual-box {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(200, 138, 46, 0.4);
+  border-radius: 16px;
+  padding: v.$space-10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-3;
+  text-align: center;
+
+  .combo-visual-badge {
+    background: v.$amber-gold;
+    color: #2d1b15;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .combo-visual-icon {
+    font-size: 3.5rem;
+  }
+
+  .combo-visual-title {
+    font-family: v.$font-display;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+}
+
+// ── SECTIONS 6 & 7: TRUST PILLARS & REVIEWS ──────────────────
+.trust-section {
+  background: #ffffff;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: v.$space-8;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+    gap: v.$space-6;
+  }
+}
+
+.pillar-card {
+  background: #faf6f0;
+  border-radius: 16px;
+  padding: v.$space-8;
+
+  &__icon {
+    font-size: 2.5rem;
+    margin-bottom: v.$space-4;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: v.$spice-dark;
+    margin-bottom: v.$space-3;
+  }
+
+  &__desc {
+    font-size: 0.95rem;
+    color: #66554d;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.reviews-section {
+  background: #faf6f0;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: v.$space-8;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+    gap: v.$space-6;
+  }
+}
+
+.review-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: v.$space-8;
+  border: 1px solid rgba(139, 38, 18, 0.1);
+
+  &__stars {
+    color: v.$amber-gold;
+    font-size: 1.2rem;
+    margin-bottom: v.$space-4;
+  }
+
+  &__quote {
+    font-style: italic;
+    font-size: 1rem;
+    color: v.$spice-dark;
+    line-height: 1.6;
+    margin-bottom: v.$space-4;
+  }
+
+  &__author {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: v.$rust-primary;
+    margin: 0;
+  }
+}

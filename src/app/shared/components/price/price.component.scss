@@ -1,0 +1,58 @@
+@use 'styles/variables' as v;
+
+.price-block {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: v.$space-2;
+
+  &__current {
+    font-family: v.$font-body;
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+  }
+
+  &__compare {
+    font-family: v.$font-body;
+    font-size: v.$text-sm;
+    font-weight: v.$fw-regular;
+    color: v.$text-muted;
+    text-decoration: line-through;
+  }
+
+  &__discount {
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    color: v.$green-primary;
+    background: v.$green-bg;
+    padding: 2px 6px;
+    border-radius: v.$radius-full;
+  }
+
+  &__weight {
+    font-size: v.$text-xs;
+    color: v.$text-muted;
+    font-weight: v.$fw-regular;
+    margin-left: -4px;
+  }
+
+  // Size variants
+  &--small {
+    .price-block__current {
+      font-size: v.$text-base;
+    }
+    .price-block__compare {
+      font-size: v.$text-xs;
+    }
+  }
+
+  &--large {
+    .price-block__current {
+      font-size: v.$text-3xl;
+    }
+    .price-block__compare {
+      font-size: v.$text-base;
+    }
+  }
+}

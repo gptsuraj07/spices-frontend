@@ -1,0 +1,318 @@
+// Admin Login — Premium Branded Styles
+
+.al-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Left Brand Panel ─────────────────────────────────────────
+.al-brand {
+  position: relative;
+  background: linear-gradient(145deg, #2A160C 0%, #1a0a05 40%, #1F3820 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  overflow: hidden;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: 380px;
+  }
+
+  &__logo {
+    margin-bottom: 2rem;
+  }
+
+  &__logo-img {
+    height: 72px;
+    width: auto;
+    filter: brightness(1.1);
+  }
+
+  &__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #F6F1E6;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+
+    span {
+      color: #C99A32;
+      font-style: italic;
+    }
+  }
+
+  &__tagline {
+    font-size: 1rem;
+    color: rgba(246, 241, 230, 0.7);
+    line-height: 1.7;
+    margin: 0 0 2.5rem;
+  }
+
+  &__stats {
+    display: flex;
+    gap: 2rem;
+  }
+
+  &__deco {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.06;
+    background: #C99A32;
+
+    &--1 { width: 400px; height: 400px; top: -100px; right: -120px; }
+    &--2 { width: 250px; height: 250px; bottom: -80px; left: -60px; }
+    &--3 { width: 120px; height: 120px; top: 40%; right: 40px; opacity: 0.1; }
+  }
+}
+
+.al-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  &__num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #C99A32;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(246, 241, 230, 0.5);
+    font-weight: 600;
+  }
+}
+
+// ── Right Form Panel ─────────────────────────────────────────
+.al-form-panel {
+  background: #F6F4F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.al-form-card {
+  width: 100%;
+  max-width: 420px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(42, 22, 12, 0.1);
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: #2A160C;
+    margin: 0.75rem 0 0.25rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: #786A5E;
+    margin: 0;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: #A39587;
+
+    svg { color: #4E8A30; }
+  }
+}
+
+.al-lock-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2A160C 0%, #472617 100%);
+  color: #C99A32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+// Error Banner
+.al-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #B91C1C;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+// Form
+.al-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.al-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #472617;
+    letter-spacing: 0.01em;
+  }
+
+  &__input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 14px;
+    color: #A39587;
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1.5px solid #E8DDD0;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    color: #2A160C;
+    background: #FDFBF8;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+
+    &::placeholder { color: #C8A388; }
+
+    &:focus {
+      border-color: #C99A32;
+      box-shadow: 0 0 0 3px rgba(201, 154, 50, 0.12);
+      background: #FFFFFF;
+    }
+
+    &--error {
+      border-color: #EF4444;
+      &:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12); }
+    }
+  }
+
+  &__eye {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #A39587;
+    display: flex;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s;
+
+    &:hover { color: #2A160C; }
+  }
+
+  &__error {
+    font-size: 0.75rem;
+    color: #EF4444;
+    margin: 0;
+  }
+}
+
+// Submit Button
+.al-submit-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #2A160C 0%, #472617 100%);
+  color: #F6F1E6;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  margin-top: 0.5rem;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(42, 22, 12, 0.3);
+  }
+
+  &:active:not(:disabled) { transform: translateY(0); }
+
+  &:disabled { opacity: 0.65; cursor: not-allowed; }
+
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+// Spinner
+.al-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(246, 241, 230, 0.3);
+  border-top-color: #F6F1E6;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

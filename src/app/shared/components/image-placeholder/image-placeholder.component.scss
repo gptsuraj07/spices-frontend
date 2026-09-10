@@ -1,0 +1,101 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+.img-ph {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  
+  // Base gradient background
+  &--product {
+    background: linear-gradient(135deg, #F5EFE4 0%, #EDE4D5 40%, #E6DAC8 100%);
+    color: v.$brown-warm;
+  }
+  
+  &--category {
+    background: linear-gradient(145deg, #EFF6E8 0%, #E2EED7 50%, #D4E8C2 100%);
+    color: v.$green-mid;
+  }
+  
+  &--combo {
+    background: linear-gradient(135deg, #F8F0E6 0%, #EDE3D4 40%, #E3D3BF 100%);
+    color: v.$brown-mid;
+  }
+
+  &--hero {
+    background: linear-gradient(160deg, #F2EDE3 0%, #E8DDD0 30%, #DED2C0 70%, #D4C8B0 100%);
+    color: v.$brown-warm;
+  }
+
+  &--generic {
+    background: linear-gradient(135deg, v.$ivory 0%, v.$beige-light 100%);
+    color: v.$text-muted;
+  }
+
+  &__inner {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    @include m.flex-center;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__icon {
+    @include m.flex-center;
+  }
+
+  &__svg {
+    width: clamp(28px, 8%, 48px);
+    height: auto;
+    opacity: 0.5;
+  }
+
+  &__label {
+    font-family: v.$font-body;
+    font-size: 10px;
+    font-weight: v.$fw-medium;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  &__decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  &__leaf {
+    position: absolute;
+    
+    &--tl {
+      top: -10px;
+      left: -6px;
+      width: 30%;
+      max-width: 60px;
+      transform: rotate(-15deg);
+    }
+    
+    &--br {
+      bottom: -10px;
+      right: -6px;
+      width: 30%;
+      max-width: 60px;
+      transform: rotate(-195deg);
+    }
+  }
+
+  // Subtle inner border
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: inherit;
+    z-index: 2;
+    pointer-events: none;
+  }
+}

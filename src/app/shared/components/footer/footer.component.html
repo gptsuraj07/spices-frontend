@@ -1,0 +1,143 @@
+<footer class="footer" role="contentinfo">
+  <!-- Newsletter Section -->
+  <div class="footer__newsletter">
+    <div class="container">
+      <div class="footer__nl-inner">
+        <div class="footer__nl-text">
+          <p class="footer__nl-label label">Stay Connected</p>
+          <h2 class="footer__nl-heading">Bring tradition back to your kitchen.</h2>
+          <p class="footer__nl-desc">Get recipes, new product launches, and seasonal collections delivered to your inbox.</p>
+        </div>
+        <div class="footer__nl-form-wrap">
+          <ng-container *ngIf="!submitted; else thankYou">
+            <form [formGroup]="newsletterForm" (ngSubmit)="onNewsletterSubmit()" class="footer__nl-form">
+              <div class="footer__nl-input-wrap">
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="footer__nl-input"
+                  placeholder="Your email address"
+                  aria-label="Email address for newsletter"
+                />
+                <button type="submit" class="btn btn-primary" [disabled]="newsletterForm.invalid">
+                  Subscribe
+                </button>
+              </div>
+              <p class="footer__nl-note">No spam. Unsubscribe anytime.</p>
+            </form>
+          </ng-container>
+          <ng-template #thankYou>
+            <div class="footer__nl-thanks">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20,6 9,17 4,12"/>
+              </svg>
+              <p>Thank you! You're on the list.</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Footer -->
+  <div class="footer__main">
+    <div class="container">
+      <div class="footer__grid">
+
+        <!-- Brand -->
+        <div class="footer__brand">
+          <a routerLink="/" class="footer__logo" aria-label="Aridhu Home">
+            <img src="assets/aridhu-logo.png" alt="Aridhu - Health Meets Tradition" class="footer__logo-img" style="height: 52px; width: auto; object-fit: contain; margin-bottom: 0.75rem;" />
+          </a>
+          <p class="footer__brand-desc">
+            Traditional South Indian spice blends, crafted for everyday cooking with care and heritage.
+          </p>
+          <!-- Social links (placeholder) -->
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.94 1.96C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+                <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Shop nav -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Shop</h3>
+          <ul class="footer__col-list">
+            <li><a routerLink="/shop" class="footer__col-link">All Products</a></li>
+            <li *ngFor="let cat of categories">
+              <a [routerLink]="['/category', cat.slug]" class="footer__col-link">{{ cat.name }}</a>
+            </li>
+            <li><a routerLink="/combo/7-rasam-collection" class="footer__col-link">7 Rasam Collection</a></li>
+            <li><a routerLink="/shop" [queryParams]="{featured: true}" class="footer__col-link">Featured</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Company</h3>
+          <ul class="footer__col-list">
+            <li><a routerLink="/about" class="footer__col-link">About Aridhu</a></li>
+            <li><a routerLink="/contact" class="footer__col-link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Customer -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Customer</h3>
+          <ul class="footer__col-list">
+            <li><a routerLink="/shipping" class="footer__col-link">Shipping Policy</a></li>
+            <li><a routerLink="/returns" class="footer__col-link">Returns</a></li>
+            <li><a routerLink="/privacy" class="footer__col-link">Privacy Policy</a></li>
+            <li><a routerLink="/terms" class="footer__col-link">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Contact</h3>
+          <ul class="footer__col-list">
+            <li class="footer__contact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:hello@aridhu.in" class="footer__col-link">hello@aridhu.in</a>
+            </li>
+            <li class="footer__contact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.48a2 2 0 0 1 1.43-2.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <a href="tel:+919840218588" class="footer__col-link">+91 9840218588</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="footer__bottom-inner">
+        <p class="footer__copy">&copy; {{ year }} Aridhu. All rights reserved.</p>
+        <p class="footer__made">Made with tradition &amp; care in Tamil Nadu, India.</p>
+      </div>
+    </div>
+  </div>
+</footer>

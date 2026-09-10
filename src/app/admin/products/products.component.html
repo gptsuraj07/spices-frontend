@@ -1,0 +1,221 @@
+<!-- =========================================================
+     ARIDHU ADMIN — PRODUCTS
+     ========================================================= -->
+<div class="ap-page">
+
+  <!-- Header -->
+  <div class="ap-header">
+    <div>
+      <h1 class="adash__title">Products</h1>
+      <p class="adash__subtitle">Manage your 14 artisanal South Indian spice blends.</p>
+    </div>
+    <a routerLink="/" target="_blank" class="adm-btn adm-btn--primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Product
+    </a>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="ap-filter-bar">
+    <div class="ap-search-wrap">
+      <svg class="ap-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input
+        type="text"
+        class="ap-search-input"
+        placeholder="Search products or SKU..."
+        [(ngModel)]="searchQuery"
+        (input)="applyFilter()"
+        id="product-search"
+      />
+    </div>
+    <div class="ap-filter-tabs">
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'all'"        (click)="filterStatus='all'; applyFilter()">All ({{ products.length }})</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'active'"     (click)="filterStatus='active'; applyFilter()">Active</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'inactive'"   (click)="filterStatus='inactive'; applyFilter()">Inactive</button>
+      <button class="ap-tab" [class.ap-tab--active]="filterStatus === 'out_of_stock'" (click)="filterStatus='out_of_stock'; applyFilter()">Out of Stock</button>
+    </div>
+  </div>
+
+  <!-- Loading Skeletons -->
+  <div class="adm-card" *ngIf="loading">
+    <div class="adm-table-skeleton" *ngFor="let i of [1,2,3,4,5]"></div>
+  </div>
+
+  <!-- Products Table -->
+  <div class="adm-card" *ngIf="!loading">
+    <div class="adm-table-wrap">
+      <table class="adm-table ap-table">
+        <thead>
+          <tr>
+            <th style="width:60px"></th>
+            <th>Product Name</th>
+            <th>SKU</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Featured</th>
+            <th style="width: 120px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of filtered; let i = index">
+            <!-- Thumb -->
+            <td>
+              <div class="ap-thumb">
+                <img *ngIf="getImageUrl(p.imageUrl) as thumbUrl" [src]="thumbUrl" [alt]="p.name" />
+                <span *ngIf="!getImageUrl(p.imageUrl)">🌶️</span>
+              </div>
+            </td>
+            <!-- Name -->
+            <td>
+              <div class="ap-name">{{ p.name }}</div>
+              <div class="ap-meta">{{ p.weight }}g • {{ p.weightUnit }}</div>
+            </td>
+            <!-- SKU -->
+            <td class="ap-sku">{{ p.sku || '—' }}</td>
+            <!-- Category -->
+            <td class="ap-cat">{{ p.categoryId === 'cat-rasam' ? 'Rasam' : 'Kozhambu' }}</td>
+            <!-- Price -->
+            <td class="ap-price">₹{{ p.price }}</td>
+            <!-- Stock -->
+            <td>
+              <span class="ap-stock" [class]="getStockClass(p.stock)">{{ p.stock }}</span>
+            </td>
+            <!-- Status -->
+            <td>
+              <span class="adm-badge" [class]="getStatusClass(p.status)">{{ p.status | titlecase }}</span>
+            </td>
+            <!-- Featured -->
+            <td class="text-center">
+              <span *ngIf="p.featured" class="ap-featured-yes">★</span>
+              <span *ngIf="!p.featured" class="ap-featured-no">—</span>
+            </td>
+            <!-- Actions -->
+            <td>
+              <div class="ap-actions" *ngIf="deleteConfirmId !== p.id">
+                <button class="ap-action-btn ap-action-btn--edit" title="Edit Product Image" (click)="openEditModal(p)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="ap-action-btn ap-action-btn--delete" title="Delete Product" (click)="confirmDelete(p.id)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                </button>
+              </div>
+              <!-- Confirm Delete -->
+              <div class="ap-confirm-delete" *ngIf="deleteConfirmId === p.id">
+                <button class="adm-btn adm-btn--danger" style="font-size:0.75rem; padding:4px 10px;" (click)="doDelete(p.id)">Yes, Delete</button>
+                <button class="adm-btn adm-btn--ghost"  style="font-size:0.75rem; padding:4px 10px;" (click)="cancelDelete()">Cancel</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div class="ap-empty" *ngIf="filtered.length === 0 && !loading">
+      <span>No products found matching your search.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- =========================================================
+     PRODUCT IMAGE EDIT MODAL
+     ========================================================= -->
+<div class="ap-modal-backdrop" *ngIf="editingProduct" (click)="closeEditModal()">
+  <div class="ap-modal" (click)="$event.stopPropagation()">
+
+    <!-- Modal Header -->
+    <div class="ap-modal__header">
+      <div class="ap-modal__title-wrap">
+        <h2 class="ap-modal__title">Product Image</h2>
+        <span class="ap-modal__subtitle">{{ editingProduct.name }}</span>
+      </div>
+      <button class="ap-modal__close-btn" type="button" (click)="closeEditModal()" aria-label="Close modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="ap-modal__body">
+      <!-- Hidden File Input -->
+      <input
+        #fileInput
+        type="file"
+        accept="image/*"
+        style="display: none"
+        (change)="onFileSelected($event)"
+      />
+
+      <!-- Preview Box -->
+      <div class="ap-img-box">
+        <ng-container *ngIf="previewUrl || getImageUrl(editingProduct.imageUrl); else placeholder">
+          <img
+            [src]="previewUrl || getImageUrl(editingProduct.imageUrl)!"
+            [alt]="editingProduct.name"
+            class="ap-img-preview"
+          />
+        </ng-container>
+        <ng-template #placeholder>
+          <div class="ap-img-placeholder-wrap">
+            <app-image-placeholder variant="product" aspect="1/1"></app-image-placeholder>
+          </div>
+        </ng-template>
+
+        <!-- Loading / Progress Overlay -->
+        <div class="ap-img-overlay" *ngIf="uploading">
+          <div class="ap-img-spinner"></div>
+          <p class="ap-img-status">{{ uploadProgressText }}</p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="ap-img-actions">
+        <button
+          type="button"
+          class="adm-btn adm-btn--primary ap-btn-upload"
+          [disabled]="uploading"
+          (click)="triggerFileInput(fileInput)"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Upload Image
+        </button>
+
+        <button
+          type="button"
+          class="adm-btn adm-btn--outline-danger ap-btn-remove"
+          [disabled]="uploading || ((!editingProduct.imageUrl || !editingProduct.imageUrl.trim()) && !previewUrl)"
+          (click)="onRemoveImage()"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+          Remove Image
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="ap-modal__footer">
+      <button
+        type="button"
+        class="adm-btn adm-btn--primary ap-btn-save"
+        [disabled]="uploading"
+        (click)="onSave()"
+      >
+        Save
+      </button>
+    </div>
+
+  </div>
+</div>
+

@@ -1,0 +1,532 @@
+// Admin Dashboard SCSS
+// Uses plain CSS variables for admin-specific design tokens
+
+$adm-bg: #F6F4F0;
+$adm-card: #FFFFFF;
+$adm-border: #EDE4D3;
+$adm-text: #2A160C;
+$adm-muted: #786A5E;
+$adm-green: #315C2B;
+$adm-blue: #1E3A8A;
+$adm-amber: #D97706;
+$adm-red: #B91C1C;
+$adm-purple: #6D28D9;
+
+// ── Page Shell ────────────────────────────────────────────────
+.adash {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $adm-text;
+    margin: 0 0 0.25rem;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: -0.02em;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: $adm-muted;
+    margin: 0;
+  }
+
+  &__header-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  &__mid-row {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+// ── Buttons ───────────────────────────────────────────────────
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  border: 1.5px solid transparent;
+
+  &--primary {
+    background: $adm-text;
+    color: #F6F1E6;
+    &:hover { background: #472617; transform: translateY(-1px); }
+  }
+
+  &--ghost {
+    background: transparent;
+    border-color: $adm-border;
+    color: $adm-text;
+    &:hover { background: #EDE4D3; }
+  }
+
+  &--danger {
+    background: #FEF2F2;
+    border-color: #FECACA;
+    color: $adm-red;
+    &:hover { background: #FEE2E2; }
+  }
+}
+
+// ── Card ──────────────────────────────────────────────────────
+.adm-card {
+  background: $adm-card;
+  border: 1px solid $adm-border;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(42, 22, 12, 0.04);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $adm-text;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__link {
+    font-size: 0.8125rem;
+    color: $adm-green;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+
+  &__total-badge {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $adm-green;
+    background: #E2EFE0;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+}
+
+// ── KPI Grid ──────────────────────────────────────────────────
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 1280px) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px)  { grid-template-columns: 1fr; }
+}
+
+.kpi-card {
+  background: $adm-card;
+  border: 1px solid $adm-border;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(42, 22, 12, 0.04);
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(42, 22, 12, 0.08);
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    color: $adm-muted;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $adm-text;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.2;
+  }
+
+  &__change {
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    &--up      { color: $adm-green; }
+    &--down    { color: $adm-red; }
+    &--neutral { color: $adm-muted; }
+  }
+
+  // Color variants for icon bg
+  &--green  .kpi-card__icon { background: #E2EFE0; color: $adm-green; }
+  &--blue   .kpi-card__icon { background: #EFF6FF; color: $adm-blue; }
+  &--amber  .kpi-card__icon { background: #FEF3C7; color: $adm-amber; }
+  &--red    .kpi-card__icon { background: #FEF2F2; color: $adm-red; }
+  &--purple .kpi-card__icon { background: #F3F0FF; color: $adm-purple; }
+
+  // Clickable KPI cards
+  &--clickable {
+    cursor: pointer;
+    &:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(42, 22, 12, 0.1); }
+  }
+
+  &__arrow {
+    margin-left: auto;
+    font-size: 1.25rem;
+    color: #B0A49A;
+    transition: transform 0.15s;
+    align-self: center;
+  }
+
+  &--clickable:hover &__arrow { transform: translateX(4px); color: $adm-green; }
+}
+
+
+// ── Revenue Bar Chart ─────────────────────────────────────────
+.adash__chart-card {
+  min-height: 260px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 160px;
+  padding: 0 0.5rem;
+}
+
+.chart-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.chart-bar-wrap {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #C99A32 0%, #8F5338 100%);
+  transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  position: relative;
+
+  &--peak {
+    background: linear-gradient(180deg, #315C2B 0%, #1F3820 100%);
+  }
+
+  &:hover { filter: brightness(1.15); }
+}
+
+.chart-bar__value {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: $adm-muted;
+  white-space: nowrap;
+  margin-bottom: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+
+  .chart-bar-wrap:hover & { opacity: 1; }
+}
+
+.chart-bar__label {
+  font-size: 0.6875rem;
+  color: $adm-muted;
+  font-weight: 600;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+// ── Quick Link Cards ──────────────────────────────────────────
+.quick-link-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 16px rgba(42, 22, 12, 0.08);
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &--green  { background: #E2EFE0; color: $adm-green; }
+    &--blue   { background: #EFF6FF; color: $adm-blue; }
+    &--amber  { background: #FEF3C7; color: $adm-amber; }
+    &--purple { background: #F5F3FF; color: $adm-purple; }
+  }
+
+  &__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $adm-text;
+    margin: 0 0 2px;
+  }
+
+  &__sub {
+    font-size: 0.75rem;
+    color: $adm-muted;
+    margin: 0;
+  }
+
+  &__arrow {
+    margin-left: auto;
+    color: $adm-muted;
+    flex-shrink: 0;
+    transition: transform 0.15s, color 0.15s;
+
+    &:hover { transform: translateX(2px); color: $adm-text; }
+  }
+}
+
+// ── Orders Table ──────────────────────────────────────────────
+.adm-table-wrap {
+  overflow-x: auto;
+}
+
+.adm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+
+  th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: $adm-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid $adm-border;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(237, 228, 211, 0.5);
+    color: $adm-text;
+    white-space: nowrap;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: #FDFBF8; }
+
+  &__order-num {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: $adm-green;
+  }
+
+  &__amount {
+    font-weight: 700;
+  }
+
+  &__date {
+    color: $adm-muted;
+    font-size: 0.8125rem;
+  }
+}
+
+.text-center { text-align: center; }
+
+// ── Badges ────────────────────────────────────────────────────
+.adm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.badge--green  { background: #E2EFE0; color: #315C2B; }
+.badge--blue   { background: #DBEAFE; color: #1D4ED8; }
+.badge--amber  { background: #FEF3C7; color: #B45309; }
+.badge--red    { background: #FEE2E2; color: #B91C1C; }
+.badge--purple { background: #EDE9FE; color: #6D28D9; }
+.badge--gray   { background: #F3F4F6; color: #6B7280; }
+
+// ── Low Stock ─────────────────────────────────────────────────
+.low-stock-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.low-stock-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.75rem;
+  background: #FFF8ED;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $adm-text;
+  }
+
+  &__sku {
+    font-size: 0.6875rem;
+    color: $adm-muted;
+  }
+
+  &__stock {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: $adm-amber;
+    background: #FEF3C7;
+    padding: 2px 8px;
+    border-radius: 100px;
+
+    &--critical {
+      color: $adm-red;
+      background: #FEE2E2;
+    }
+  }
+}
+
+.low-stock-skeleton {
+  height: 52px;
+  background: linear-gradient(90deg, #F0EBE3 25%, #EDE4D3 50%, #F0EBE3 75%);
+  background-size: 200% 100%;
+  border-radius: 10px;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.low-stock-empty {
+  text-align: center;
+  padding: 1rem;
+  color: $adm-green;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+// ── Store Overview ─────────────────────────────────────────────
+.store-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed $adm-border;
+
+  &:last-child { border-bottom: none; }
+
+  &__label {
+    font-size: 0.8125rem;
+    color: $adm-muted;
+  }
+
+  &__val {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: $adm-text;
+  }
+}

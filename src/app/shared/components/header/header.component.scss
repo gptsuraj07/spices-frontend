@@ -1,0 +1,353 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: v.$z-sticky;
+  background: rgba(v.$ivory, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid v.$border-light;
+  transition: box-shadow v.$duration-base v.$ease-out,
+              border-color v.$duration-base v.$ease-out,
+              background v.$duration-base v.$ease-out;
+
+  &--scrolled {
+    box-shadow: v.$shadow-sm;
+    border-bottom-color: v.$border-mid;
+    background: rgba(v.$ivory, 0.98);
+  }
+
+  // ── Container ───────────────────────────────────────────
+  &__container {
+    @include m.flex-between;
+    height: 94px;
+    gap: v.$space-8;
+
+    @include m.respond-to('md') {
+      height: 74px;
+    }
+  }
+
+  // ── Logo ────────────────────────────────────────────────
+  &__logo {
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: opacity v.$duration-fast;
+
+    &:hover { opacity: 0.9; }
+
+    &:focus-visible {
+      outline: 2px solid v.$green-primary;
+      border-radius: v.$radius-md;
+    }
+  }
+
+  &__logo-img {
+    height: 76px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+
+    @include m.respond-to('md') {
+      height: 54px;
+    }
+  }
+
+  // ── Desktop Nav ─────────────────────────────────────────
+  &__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    @include m.respond-to('lg') { display: none; }
+  }
+
+  &__nav-list {
+    display: flex;
+    align-items: center;
+    gap: v.$space-6;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    gap: v.$space-1;
+    padding: v.$space-2 0;
+    font-family: v.$font-body;
+    font-size: v.$text-sm;
+    font-weight: v.$fw-medium;
+    letter-spacing: v.$ls-wide;
+    text-transform: uppercase;
+    color: v.$brown-dark;
+    text-decoration: none;
+    transition: color v.$duration-fast;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: v.$green-primary;
+      transition: width v.$duration-base v.$ease-out;
+    }
+
+    &:hover,
+    &.active {
+      color: v.$green-primary;
+
+      &::after { width: 100%; }
+    }
+
+    // Track Order — distinctive green outlined pill
+    &--track {
+      padding: v.$space-2 v.$space-4;
+      border: 1.5px solid v.$green-primary;
+      border-radius: v.$radius-full;
+      color: v.$green-primary;
+      font-size: v.$text-xs;
+      letter-spacing: v.$ls-wider;
+      background: transparent;
+      transition: all v.$duration-fast v.$ease-out;
+
+      &::after { display: none; }
+
+      &:hover,
+      &.active {
+        background: v.$green-primary;
+        color: v.$white;
+      }
+    }
+  }
+
+  // ── Actions ─────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+  }
+
+  &__action-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: v.$radius-md;
+    background: transparent;
+    border: 1px solid transparent;
+    @include m.flex-center;
+    color: v.$brown-dark;
+    cursor: pointer;
+    transition: all v.$duration-fast v.$ease-out;
+
+    &:hover {
+      background: rgba(v.$brown-dark, 0.05);
+      border-color: v.$border-light;
+      color: v.$green-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid v.$green-primary;
+    }
+  }
+
+  &__cart-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: v.$radius-md;
+    background: transparent;
+    border: 1px solid transparent;
+    @include m.flex-center;
+    color: v.$brown-dark;
+    text-decoration: none;
+    position: relative;
+    transition: all v.$duration-fast v.$ease-out;
+
+    &:hover {
+      background: rgba(v.$brown-dark, 0.05);
+      border-color: v.$border-light;
+      color: v.$green-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid v.$green-primary;
+    }
+  }
+
+  &__cart-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 18px;
+    height: 18px;
+    background: v.$green-primary;
+    color: v.$ivory;
+    font-size: 10px;
+    font-weight: v.$fw-bold;
+    border-radius: v.$radius-full;
+    @include m.flex-center;
+    padding: 0 4px;
+    animation: bounce-in 0.3s v.$ease-out;
+  }
+
+  // ── Mobile menu button ───────────────────────────────────
+  &__menu-btn {
+    @extend .header__action-btn;
+    display: none;
+    
+    @include m.respond-to('lg') { display: flex; }
+  }
+
+  &__hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 20px;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: transform v.$duration-base v.$ease-out, opacity v.$duration-base;
+    }
+
+    &.open {
+      span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    }
+  }
+
+  // ── Search bar ───────────────────────────────────────────
+  &__search-bar {
+    height: 0;
+    overflow: hidden;
+    background: v.$ivory;
+    border-top: 1px solid transparent;
+    transition: height v.$duration-base v.$ease-out,
+                border-color v.$duration-base;
+
+    &--open {
+      height: 68px;
+      border-top-color: v.$border-light;
+    }
+  }
+
+  &__search-form {
+    display: flex;
+    align-items: center;
+    gap: v.$space-3;
+    height: 68px;
+    
+    svg { color: v.$text-muted; flex-shrink: 0; }
+  }
+
+  &__search-input {
+    flex: 1;
+    background: none;
+    border: none;
+    font-family: v.$font-body;
+    font-size: v.$text-base;
+    color: v.$text-primary;
+    
+    &:focus { outline: none; }
+    &::placeholder { color: v.$text-light; }
+    
+    &::-webkit-search-cancel-button { -webkit-appearance: none; }
+  }
+
+  &__search-close {
+    @extend .header__action-btn;
+  }
+
+  // ── Mobile Nav Drawer ────────────────────────────────────
+  &__mobile-nav {
+    position: fixed;
+    top: 74px;
+    left: 0;
+    width: 290px;
+    height: calc(100vh - 74px);
+    background: v.$ivory;
+    z-index: v.$z-modal;
+    transform: translateX(-100%);
+    transition: transform v.$duration-slow v.$ease-out;
+    overflow-y: auto;
+    box-shadow: v.$shadow-lg;
+    border-right: 1px solid v.$border-light;
+    @include m.scrollbar-thin;
+
+    &--open {
+      transform: translateX(0);
+    }
+
+    @include m.respond-above('lg') { display: none; }
+  }
+
+  &__mobile-list {
+    list-style: none;
+    padding: v.$space-6 0;
+    margin: 0;
+  }
+
+  &__mobile-link {
+    display: block;
+    padding: v.$space-4 v.$space-6;
+    font-family: v.$font-body;
+    font-size: v.$text-base;
+    font-weight: v.$fw-medium;
+    letter-spacing: v.$ls-wide;
+    text-transform: uppercase;
+    color: v.$brown-dark;
+    text-decoration: none;
+    border-bottom: 1px solid v.$border-light;
+    transition: background v.$duration-fast, color v.$duration-fast;
+
+    &:hover, &.active {
+      background: v.$green-bg;
+      color: v.$green-primary;
+    }
+
+    // Track Order — accent styling on mobile
+    &--track {
+      color: v.$green-primary;
+      font-weight: v.$fw-semibold;
+      background: v.$green-bg;
+      border-bottom-color: rgba(v.$green-primary, 0.15);
+
+      &:hover, &.active {
+        background: v.$green-pale;
+      }
+    }
+  }
+
+  // ── Overlay ──────────────────────────────────────────────
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(v.$black, 0.4);
+    z-index: v.$z-modal - 1;
+    animation: fadeIn v.$duration-base;
+    
+    @include m.respond-above('lg') { display: none; }
+  }
+}
+
+@keyframes bounce-in {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+

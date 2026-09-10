@@ -1,0 +1,209 @@
+<!-- =========================================================
+     ARIDHU — HERITAGE SHOP COLLECTION PAGE
+     ========================================================= -->
+
+<div class="shop-page page-enter">
+
+  <!-- HERO STORE BANNER -->
+  <div class="shop-hero">
+    <div class="container text-center">
+      <app-breadcrumb [items]="[{label: 'Shop'}]"></app-breadcrumb>
+      <span class="shop-hero__tag">HAND-ROASTED SMALL BATCHES</span>
+      <h1 class="shop-hero__title">The Heritage Spice Collection</h1>
+      <div class="shop-hero__tamil">பாரம்பரிய பொடி வகைகள்</div>
+      <p class="shop-hero__sub">
+        Whole spices slow-roasted in heavy iron kadais and coarsely stone-pounded.
+      </p>
+    </div>
+  </div>
+
+  <!-- MAIN SHOP CONTAINER -->
+  <div class="container shop-page__body">
+
+    <!-- TOP CONTROL BAR (Search + Category Quick Tabs + Sort) -->
+    <div class="shop-controls">
+
+      <!-- Search Input Box -->
+      <div class="shop-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          class="shop-search__icon">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="text" class="shop-search__input" placeholder="Search Rasam, Kozhambu, Podi..."
+          [ngModel]="searchQuery" (ngModelChange)="onSearchChange($event)" />
+        <button *ngIf="searchQuery" class="shop-search__clear" (click)="clearSearch()" type="button"
+          aria-label="Clear search">
+          ✕
+        </button>
+      </div>
+
+      <!-- Quick Category Switcher Tabs -->
+      <div class="shop-tabs">
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'all'"
+          (click)="selectCategoryTab('all')">
+          All Blends (14)
+        </button>
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-rasam'"
+          (click)="selectCategoryTab('cat-rasam')">
+          7 Rasams (ரசம்)
+        </button>
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-kozhambu'"
+          (click)="selectCategoryTab('cat-kozhambu')">
+          7 Kozhambus (குழம்பு)
+        </button>
+        <button class="shop-tab shop-tab--combo" [class.shop-tab--active]="activeCategoryTab === 'combos'"
+          (click)="selectCategoryTab('combos')">
+          2 Signature Combos (காம்போ)
+        </button>
+      </div>
+
+      <!-- Right Sort & Mobile Filter Toggle -->
+      <div class="shop-actions">
+
+        <!-- Mobile Filter Toggle Button -->
+        <button class="btn btn-outline btn-filter-toggle" type="button" (click)="toggleFilter()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+            <line x1="11" y1="18" x2="13" y2="18" />
+          </svg>
+          Filters
+        </button>
+
+        <!-- Sort Select -->
+        <div class="shop-sort">
+          <label for="sort-select" class="shop-sort__label">Sort:</label>
+          <select id="sort-select" class="form-select shop-sort__select" [ngModel]="currentSort"
+            (ngModelChange)="onSortChange($event)">
+            <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
+          </select>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ACTIVE FILTER BADGES ROW -->
+    <div class="active-filters-row"
+      *ngIf="searchQuery || activeCategoryTab !== 'all' || currentFilter.minPrice || currentFilter.maxPrice">
+      <span class="active-filters-label">Active Filters:</span>
+
+      <span *ngIf="searchQuery" class="active-badge">
+        Search: "{{ searchQuery }}"
+        <button (click)="clearSearch()" type="button">✕</button>
+      </span>
+
+      <span *ngIf="activeCategoryTab !== 'all'" class="active-badge">
+        {{ activeCategoryLabel }}
+        <button (click)="selectCategoryTab('all')" type="button">✕</button>
+      </span>
+
+      <span *ngIf="currentFilter.minPrice || currentFilter.maxPrice" class="active-badge">
+        Price: ₹{{ currentFilter.minPrice || 0 }} - ₹{{ currentFilter.maxPrice || 'Max' }}
+        <button (click)="onFilterChange({})" type="button">✕</button>
+      </span>
+
+      <button class="clear-all-btn" (click)="clearAllFilters()" type="button">Clear All</button>
+    </div>
+
+    <!-- MAIN SHOP LAYOUT GRID (SIDEBAR + MAIN CONTENT AREA) -->
+    <div class="shop-layout">
+
+      <!-- Sidebar Filters (Desktop & Mobile Drawer) -->
+      <app-filter-sidebar [categories]="categories" [currentFilter]="currentFilter" [isOpen]="filterOpen"
+        (filterChange)="onFilterChange($event)" (close)="filterOpen = false"></app-filter-sidebar>
+
+      <!-- Overlay backdrop for mobile filter drawer -->
+      <div class="overlay" *ngIf="filterOpen" (click)="filterOpen = false" aria-hidden="true"></div>
+
+      <!-- Main Content Container -->
+      <div class="shop-grid-container">
+
+        <!-- CASE A: COMBOS SELECTED (DISPLAY ONLY THE 2 COMBOS) -->
+        <div *ngIf="activeCategoryTab === 'combos'" class="combos-page-view">
+          <div class="combos-header text-center">
+            <span class="combos-tag">CURATED SIGNATURE BOXES</span>
+            <h2 class="combos-title">Complete 7-Day Collection Boxes (2)</h2>
+            <p class="combos-sub">Save ₹350 on our complete weekly heritage collections — 7 Rasams and 7 Kozhambus.</p>
+          </div>
+
+          <div class="combos-grid">
+            <div *ngFor="let combo of combos" class="combo-shop-card">
+              <div class="combo-shop-card__badge">SIGNATURE 7-PACK SET</div>
+              <h3 class="combo-shop-card__title">{{ combo.name }}</h3>
+              <span class="combo-shop-card__tamil">{{ getComboTamilName(combo.name) }}</span>
+              <p class="combo-shop-card__desc">{{ combo.shortDescription }}</p>
+
+              <div class="combo-shop-card__list-box">
+                <span class="list-title">Includes All 7 Varieties:</span>
+                <div class="list-grid">
+                  <span *ngFor="let item of getComboItems(combo); let i = index" class="list-item">
+                    <small>0{{ i + 1 }}</small> {{ item.name }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="combo-shop-card__footer">
+                <div class="price-box">
+                  <span class="price-label">Special Combo Price</span>
+                  <span class="price">₹{{ combo.price }}</span>
+                  <span class="savings-tag">Save ₹350 vs Individual</span>
+                </div>
+
+                <div class="combo-actions">
+                  <button class="btn btn-primary" type="button" (click)="addComboToCart(combo)"
+                    [disabled]="addingComboId === combo.id">
+                    <span *ngIf="addingComboId !== combo.id">Add Combo — ₹{{ combo.price }}</span>
+                    <span *ngIf="addingComboId === combo.id">Adding...</span>
+                  </button>
+                  <a [routerLink]="['/combo', combo.slug]" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE B: INDIVIDUAL PRODUCTS (ALL BLENDS, RASAM, KOZHAMBU) -->
+        <div *ngIf="activeCategoryTab !== 'combos'">
+          <div class="shop-count-bar" *ngIf="!loading">
+            <span class="shop-count-text">Showing <strong>{{ products.length }}</strong> of {{ totalCount }} artisanal
+              spice blends</span>
+          </div>
+
+          <ng-container *ngIf="!loading; else loadingGrid">
+            <div class="product-grid" *ngIf="products.length > 0; else emptyState">
+              <app-product-card *ngFor="let p of products; let i = index" [product]="p" [index]="i"
+                [showCategory]="false"></app-product-card>
+            </div>
+
+            <ng-template #emptyState>
+              <div class="empty-state">
+                <div class="empty-state__icon">🌶️</div>
+                <h3 class="empty-state__title">No Spice Blends Found</h3>
+                <p class="empty-state__description">
+                  We couldn't find any products matching your current search or filter criteria.
+                </p>
+                <button class="btn btn-primary" (click)="clearAllFilters()">
+                  Clear All Filters
+                </button>
+              </div>
+            </ng-template>
+          </ng-container>
+
+          <ng-template #loadingGrid>
+            <div class="product-grid">
+              <div class="skeleton product-skeleton" *ngFor="let i of [1,2,3,4,5,6,7,8]"></div>
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

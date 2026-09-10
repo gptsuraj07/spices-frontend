@@ -1,0 +1,193 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+.filter-sidebar {
+  background: v.$white;
+  border-radius: v.$radius-xl;
+  padding: v.$space-6;
+  border: 1px solid v.$border-light;
+  position: sticky;
+  top: calc(#{v.$header-height} + #{v.$space-4});
+  max-height: calc(100vh - #{v.$header-height} - #{v.$space-8});
+  overflow-y: auto;
+  @include m.scrollbar-thin;
+
+  // Mobile: fullscreen drawer
+  @include m.respond-to('lg') {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    z-index: v.$z-modal;
+    transform: translateX(-100%);
+    transition: transform v.$duration-slow v.$ease-out;
+    
+    &--open {
+      transform: translateX(0);
+      box-shadow: v.$shadow-xl;
+    }
+  }
+
+  &__header {
+    @include m.flex-between;
+    margin-bottom: v.$space-5;
+    padding-bottom: v.$space-4;
+    border-bottom: 1px solid v.$border-light;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+  }
+
+  &__close {
+    @include m.flex-center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: v.$text-muted;
+    transition: background v.$duration-fast, color v.$duration-fast;
+    display: none;
+    
+    @include m.respond-to('lg') { display: flex; }
+    
+    &:hover {
+      background: v.$beige;
+      color: v.$brown-dark;
+    }
+  }
+
+  &__section {
+    margin-bottom: v.$space-6;
+    padding-bottom: v.$space-6;
+    border-bottom: 1px solid v.$border-light;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  &__section-title {
+    font-family: v.$font-body;
+    font-size: v.$text-xs;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: v.$text-muted;
+    margin-bottom: v.$space-4;
+  }
+
+  &__options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    cursor: pointer;
+    padding: v.$space-1 0;
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: v.$rust-primary;
+      cursor: pointer;
+    }
+  }
+
+  &__option-label {
+    font-size: v.$text-sm;
+    color: v.$text-secondary;
+    flex: 1;
+    transition: color v.$duration-fast;
+
+    .filter-sidebar__option:hover & {
+      color: v.$rust-primary;
+    }
+  }
+
+  &__option-count {
+    font-size: v.$text-xs;
+    color: v.$text-muted;
+    background: v.$beige-light;
+    padding: 1px 6px;
+    border-radius: v.$radius-full;
+  }
+
+  // ── Price range ──────────────────────────────────────────
+  &__price-inputs {
+    display: flex;
+    align-items: center;
+    gap: v.$space-3;
+  }
+
+  &__price-field {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid v.$border-mid;
+    border-radius: v.$radius-md;
+    overflow: hidden;
+    flex: 1;
+    
+    &:focus-within {
+      border-color: v.$green-primary;
+    }
+  }
+
+  &__price-symbol {
+    padding: v.$space-2 v.$space-2 v.$space-2 v.$space-3;
+    font-size: v.$text-sm;
+    color: v.$text-muted;
+    background: v.$ivory;
+    border-right: 1px solid v.$border-light;
+  }
+
+  &__price-input {
+    flex: 1;
+    padding: v.$space-2 v.$space-3;
+    border: none;
+    font-family: v.$font-body;
+    font-size: v.$text-sm;
+    color: v.$text-primary;
+    background: transparent;
+    
+    &:focus { outline: none; }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button { -webkit-appearance: none; }
+  }
+
+  &__price-sep {
+    color: v.$text-muted;
+    font-size: v.$text-sm;
+    flex-shrink: 0;
+  }
+
+  // ── Clear button ─────────────────────────────────────────
+  &__clear {
+    width: 100%;
+    margin-top: v.$space-4;
+    font-size: v.$text-sm;
+    border: 1px solid v.$border-mid;
+    border-radius: v.$radius-md;
+    
+    &:hover {
+      border-color: v.$chili;
+      color: v.$chili;
+    }
+  }
+}

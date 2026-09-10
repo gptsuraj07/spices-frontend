@@ -1,0 +1,346 @@
+// ============================================================
+// ARIDHU — SCSS Mixins & Editorial Utilities
+// ============================================================
+
+@use 'variables' as v;
+
+// ── Responsive ───────────────────────────────────────────────
+@mixin respond-to($bp) {
+  @if $bp == 'xs' {
+    @media (max-width: #{v.$bp-xs}) { @content; }
+  } @else if $bp == 'sm' {
+    @media (max-width: #{v.$bp-sm}) { @content; }
+  } @else if $bp == 'md' {
+    @media (max-width: #{v.$bp-md}) { @content; }
+  } @else if $bp == 'lg' {
+    @media (max-width: #{v.$bp-lg}) { @content; }
+  } @else if $bp == 'xl' {
+    @media (max-width: #{v.$bp-xl}) { @content; }
+  }
+}
+
+@mixin respond-above($bp) {
+  @if $bp == 'xs' {
+    @media (min-width: #{v.$bp-xs}) { @content; }
+  } @else if $bp == 'sm' {
+    @media (min-width: #{v.$bp-sm}) { @content; }
+  } @else if $bp == 'md' {
+    @media (min-width: #{v.$bp-md}) { @content; }
+  } @else if $bp == 'lg' {
+    @media (min-width: #{v.$bp-lg}) { @content; }
+  } @else if $bp == 'xl' {
+    @media (min-width: #{v.$bp-xl}) { @content; }
+  }
+}
+
+// ── Layout ───────────────────────────────────────────────────
+@mixin container {
+  width: 100%;
+  max-width: v.$container-max;
+  margin: 0 auto;
+  padding: 0 v.$container-pad;
+
+  @include respond-to('md') {
+    padding: 0 v.$container-pad-sm;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin section-padding {
+  padding: v.$section-y 0;
+
+  @include respond-to('md') {
+    padding: v.$section-y-sm 0;
+  }
+}
+
+@mixin section-padding-sm {
+  padding: v.$section-y-sm 0;
+
+  @include respond-to('md') {
+    padding: v.$space-8 0;
+  }
+}
+
+// ── Grid ─────────────────────────────────────────────────────
+@mixin product-grid($cols-desktop: 4, $cols-tablet: 3, $cols-mobile: 2) {
+  display: grid;
+  grid-template-columns: repeat(#{$cols-desktop}, 1fr);
+  gap: v.$space-6;
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(#{$cols-tablet}, 1fr);
+    gap: v.$space-5;
+  }
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(#{$cols-mobile}, 1fr);
+    gap: v.$space-4;
+  }
+
+  @include respond-to('xs') {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Editorial Typography Mixins ──────────────────────────────
+@mixin heading-display {
+  font-family: v.$font-display;
+  font-weight: v.$fw-regular;
+  line-height: v.$lh-tight;
+  letter-spacing: v.$ls-tight;
+  color: v.$text-primary;
+}
+
+@mixin heading-h1 {
+  font-family: v.$font-display;
+  font-size: clamp(v.$text-3xl, 5.5vw, v.$text-5xl);
+  font-weight: v.$fw-regular;
+  line-height: v.$lh-tight;
+  letter-spacing: v.$ls-tight;
+  color: v.$text-primary;
+}
+
+@mixin heading-h2 {
+  font-family: v.$font-display;
+  font-size: clamp(v.$text-2xl, 4vw, v.$text-4xl);
+  font-weight: v.$fw-regular;
+  line-height: v.$lh-snug;
+  color: v.$text-primary;
+}
+
+@mixin heading-h3 {
+  font-family: v.$font-display;
+  font-size: clamp(v.$text-xl, 3vw, v.$text-2xl);
+  font-weight: v.$fw-medium;
+  line-height: v.$lh-snug;
+  color: v.$text-primary;
+}
+
+@mixin body-text {
+  font-family: v.$font-body;
+  font-size: v.$text-base;
+  line-height: v.$lh-relaxed;
+  color: v.$text-secondary;
+}
+
+@mixin label-text {
+  font-family: v.$font-body;
+  font-size: v.$text-xs;
+  font-weight: v.$fw-semibold;
+  letter-spacing: v.$ls-widest;
+  text-transform: uppercase;
+}
+
+// ── Editorial Button Design System ──────────────────────────
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  padding: v.$space-3 v.$space-7;
+  border-radius: v.$radius-full;
+  font-family: v.$font-body;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-semibold;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all v.$duration-base v.$ease-out;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  
+  &:focus-visible {
+    outline: 2px solid v.$rust-primary;
+    outline-offset: 3px;
+  }
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background: v.$rust-primary;
+  color: v.$white;
+  border-color: v.$rust-primary;
+  box-shadow: 0 4px 14px rgba(139, 38, 18, 0.25);
+  
+  &:hover {
+    background: v.$rust-dark;
+    border-color: v.$rust-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(139, 38, 18, 0.35);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin btn-outline {
+  @include btn-base;
+  background: v.$white;
+  color: v.$spice-dark;
+  border-color: rgba(v.$spice-dark, 0.25);
+  
+  &:hover {
+    background: #f3ede2;
+    color: v.$spice-dark;
+    border-color: v.$spice-dark;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-ghost {
+  @include btn-base;
+  background: transparent;
+  color: v.$brown-dark;
+  border-color: transparent;
+  
+  &:hover {
+    background: rgba(v.$brown-dark, 0.06);
+  }
+}
+
+@mixin btn-sm {
+  padding: v.$space-2 v.$space-4;
+  font-size: v.$text-xs;
+}
+
+@mixin btn-lg {
+  padding: v.$space-4 v.$space-8;
+  font-size: v.$text-base;
+}
+
+// ── Card ─────────────────────────────────────────────────────
+@mixin card-base {
+  background: v.$white;
+  border-radius: v.$card-radius;
+  border: 1px solid v.$border-light;
+  overflow: hidden;
+  transition: transform v.$duration-base v.$ease-out,
+              box-shadow v.$duration-base v.$ease-out,
+              border-color v.$duration-base v.$ease-out;
+  
+  &:hover {
+    border-color: v.$border-mid;
+    transform: translateY(-3px);
+    box-shadow: v.$shadow-md;
+  }
+}
+
+// ── Image Placeholder ────────────────────────────────────────
+@mixin image-placeholder {
+  background: linear-gradient(135deg, v.$ivory-dark 0%, v.$ivory 50%, v.$brown-pale 100%);
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(v.$brown-dark, 0.04) 100%
+    );
+  }
+}
+
+// ── Decorative Editorial Accents ─────────────────────────────
+@mixin divider-spice {
+  display: flex;
+  align-items: center;
+  gap: v.$space-4;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, v.$border-mid, transparent);
+  }
+}
+
+@mixin section-label {
+  @include label-text;
+  color: v.$green-primary;
+  display: flex;
+  align-items: center;
+  gap: v.$space-3;
+  margin-bottom: v.$space-3;
+  
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: v.$green-primary;
+  }
+}
+
+// ── Scroll ───────────────────────────────────────────────────
+@mixin scrollbar-thin {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: v.$ivory-dark;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: v.$brown-light;
+    border-radius: v.$radius-full;
+  }
+}
+
+// ── Text truncate ────────────────────────────────────────────
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ── Focus ────────────────────────────────────────────────────
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid v.$green-primary;
+    outline-offset: 2px;
+    border-radius: v.$radius-sm;
+  }
+}
+
+// ── Visually hidden ──────────────────────────────────────────
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

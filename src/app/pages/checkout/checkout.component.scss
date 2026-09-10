@@ -1,0 +1,590 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+// ── Page Shell ────────────────────────────────────────────────
+.checkout-page {
+  padding: v.$space-8 0 v.$space-16;
+  background: v.$ivory;
+  min-height: 100vh;
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: clamp(v.$text-2xl, 4vw, v.$text-4xl);
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    margin: v.$space-4 0 v.$space-8;
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: v.$space-8;
+    align-items: start;
+
+    @include m.respond-to('lg') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__form-col {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-6;
+  }
+
+  &__summary-col {
+    @include m.respond-to('lg') {
+      order: -1;
+    }
+
+    .cart-summary {
+      position: sticky;
+      top: calc(#{v.$header-height} + #{v.$space-4});
+
+      @include m.respond-to('lg') {
+        position: relative;
+        top: auto;
+      }
+    }
+  }
+}
+
+// ── Step Indicator ────────────────────────────────────────────
+.checkout-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: v.$space-4 0 v.$space-10;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-2;
+
+  &__circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: v.$ivory;
+    border: 2px solid v.$border-mid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: v.$text-sm;
+    font-weight: v.$fw-bold;
+    color: v.$text-muted;
+    transition: all 0.3s ease;
+  }
+
+  &__label {
+    font-size: v.$text-xs;
+    color: v.$text-muted;
+    font-weight: v.$fw-medium;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+
+  &--active {
+    .step-item__circle {
+      background: v.$turmeric;
+      border-color: v.$turmeric;
+      color: white;
+      box-shadow: 0 0 0 4px rgba(201, 154, 50, 0.2);
+    }
+    .step-item__label {
+      color: v.$turmeric;
+      font-weight: v.$fw-bold;
+    }
+  }
+
+  &--done {
+    .step-item__circle {
+      background: #4E8A30;
+      border-color: #4E8A30;
+      color: white;
+    }
+    .step-item__label {
+      color: #4E8A30;
+    }
+  }
+}
+
+.step-connector {
+  flex: 1;
+  max-width: 80px;
+  height: 2px;
+  background: v.$border-mid;
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+
+  &--done {
+    background: #4E8A30;
+  }
+}
+
+// ── Form Card ────────────────────────────────────────────────
+.form-card {
+  background: v.$white;
+  border-radius: v.$radius-xl;
+  padding: v.$space-6;
+  box-shadow: v.$shadow-card;
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    margin: 0 0 v.$space-5;
+    padding-bottom: v.$space-4;
+    border-bottom: 1px solid v.$border-light;
+  }
+}
+
+// ── Form Grid ────────────────────────────────────────────────
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: v.$space-4;
+
+  @include m.respond-to('md') { grid-template-columns: 1fr; }
+
+  &--3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    @include m.respond-to('md') { grid-template-columns: 1fr; }
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-1;
+
+  &--col-full { grid-column: 1 / -1; }
+}
+
+.form-optional {
+  font-size: v.$text-xs;
+  color: v.$text-muted;
+  font-weight: v.$fw-regular;
+}
+
+// ── Cart Summary Card ────────────────────────────────────────
+.cart-summary {
+  background: v.$white;
+  border-radius: v.$radius-xl;
+  padding: v.$space-6;
+  box-shadow: v.$shadow-card;
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    margin: 0 0 v.$space-5;
+    padding-bottom: v.$space-4;
+    border-bottom: 1px solid v.$border-light;
+  }
+
+  &__rows {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-3;
+    margin-bottom: v.$space-4;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: v.$text-sm;
+    color: v.$text-secondary;
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    padding-top: v.$space-4;
+    border-top: 2px solid v.$border-mid;
+  }
+}
+
+.summary-note {
+  margin-top: v.$space-3;
+  font-size: v.$text-xs;
+  color: v.$text-muted;
+  text-align: center;
+}
+
+// ── UPI Payment Page ─────────────────────────────────────────
+.upi-payment-page {
+  margin-top: v.$space-2;
+}
+
+.upi-payment-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: v.$space-8;
+  align-items: start;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+  }
+}
+
+// UPI Payment Main Card
+.upi-payment-card {
+  background: v.$white;
+  border-radius: v.$radius-2xl;
+  padding: v.$space-8;
+  box-shadow: v.$shadow-lg;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-6;
+
+  &__header {
+    text-align: center;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: v.$text-2xl;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    margin: v.$space-3 0 v.$space-2;
+  }
+
+  &__subtitle {
+    font-size: v.$text-sm;
+    color: v.$text-muted;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// UPI Live Badge
+.upi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-2;
+  background: #e8f5e2;
+  color: #3a6b22;
+  font-size: v.$text-xs;
+  font-weight: v.$fw-semibold;
+  padding: v.$space-1 v.$space-3;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4e8a30;
+    animation: pulse-dot 1.5s infinite;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+// Amount badge
+.upi-amount-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-1;
+  background: linear-gradient(135deg, #FFF8ED 0%, #FEF3DD 100%);
+  border: 2px solid v.$turmeric;
+  border-radius: v.$radius-xl;
+  padding: v.$space-4 v.$space-8;
+  text-align: center;
+
+  &__label {
+    font-size: v.$text-xs;
+    color: v.$text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: v.$fw-semibold;
+  }
+
+  &__value {
+    font-size: v.$text-4xl;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    font-family: v.$font-display;
+    line-height: 1;
+  }
+}
+
+// QR Code section
+.upi-qr-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-4;
+  position: relative;
+}
+
+.upi-qr-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 154, 50, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.upi-qr-box {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border: 3px solid v.$border-light;
+  border-radius: v.$radius-xl;
+  padding: v.$space-4;
+  box-shadow: 0 8px 32px rgba(45, 26, 14, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(45, 26, 14, 0.15);
+  }
+}
+
+.upi-qr-img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  border-radius: v.$radius-lg;
+}
+
+.upi-apps-row {
+  display: flex;
+  gap: v.$space-2;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.upi-app-pill {
+  background: v.$ivory;
+  border: 1px solid v.$border-mid;
+  border-radius: 100px;
+  padding: v.$space-1 v.$space-3;
+  font-size: v.$text-xs;
+  font-weight: v.$fw-semibold;
+  color: v.$brown-dark;
+}
+
+// UPI ID row
+.upi-id-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: v.$ivory;
+  border: 1.5px solid v.$border-mid;
+  border-radius: v.$radius-lg;
+  padding: v.$space-3 v.$space-4;
+  gap: v.$space-4;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__label {
+    font-size: v.$text-xs;
+    color: v.$text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: v.$fw-semibold;
+  }
+
+  &__value {
+    font-size: v.$text-base;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.03em;
+  }
+}
+
+.upi-copy-btn {
+  background: v.$turmeric;
+  color: white;
+  border: none;
+  border-radius: v.$radius-md;
+  padding: v.$space-2 v.$space-4;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-semibold;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover { background: v.$amber-gold; transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
+
+// Instructions
+.upi-instructions {
+  background: #f0f7ff;
+  border: 1px solid #cce0ff;
+  border-radius: v.$radius-lg;
+  padding: v.$space-4 v.$space-5;
+
+  &__title {
+    font-size: v.$text-sm;
+    font-weight: v.$fw-bold;
+    color: #1a4a7a;
+    margin: 0 0 v.$space-3;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0 0 0 v.$space-5;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+
+    li {
+      font-size: v.$text-sm;
+      color: #1a4a7a;
+      line-height: 1.5;
+    }
+  }
+}
+
+// CTA Actions
+.upi-actions {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-3;
+  align-items: center;
+}
+
+.back-btn {
+  color: v.$text-muted;
+  font-size: v.$text-sm;
+}
+
+// Trust note
+.upi-trust-note {
+  text-align: center;
+  font-size: v.$text-xs;
+  color: v.$text-muted;
+  line-height: 1.6;
+  margin: 0;
+  padding-top: v.$space-2;
+  border-top: 1px solid v.$border-light;
+}
+
+// Success green button
+.btn-success {
+  background: #4e8a30;
+  color: white;
+  border: none;
+
+  &:hover { background: #3a6b22; }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Loading pulse animation
+.loading-pulse {
+  animation: fade-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes fade-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+// UPI Right: Order Review
+.upi-order-review {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-5;
+
+  .cart-summary {
+    position: sticky;
+    top: calc(#{v.$header-height} + #{v.$space-4});
+  }
+}
+
+// Delivery Recap
+.delivery-recap {
+  background: v.$white;
+  border-radius: v.$radius-xl;
+  padding: v.$space-5;
+  box-shadow: v.$shadow-card;
+  border-left: 4px solid v.$turmeric;
+
+  &__title {
+    font-size: v.$text-sm;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 v.$space-3;
+  }
+
+  &__name {
+    font-weight: v.$fw-semibold;
+    color: v.$brown-dark;
+    margin: 0 0 v.$space-1;
+    font-size: v.$text-base;
+  }
+
+  &__addr {
+    font-size: v.$text-sm;
+    color: v.$text-secondary;
+    line-height: 1.6;
+    margin: 0 0 v.$space-2;
+  }
+
+  &__phone {
+    font-size: v.$text-sm;
+    color: v.$text-muted;
+    margin: 0;
+  }
+}
+
+// ── UTR / Transaction ID section ─────────────────────────────
+.upi-utr-section {
+  margin: v.$space-5 0;
+  padding: v.$space-4 v.$space-5;
+  background: v.$ivory-light;
+  border: 1px solid v.$border-light;
+  border-radius: v.$radius-lg;
+}
+
+.upi-utr-label {
+  display: block;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-medium;
+  color: v.$brown-dark;
+  margin-bottom: v.$space-2;
+}
+
+.upi-utr-optional {
+  font-weight: v.$fw-regular;
+  color: v.$text-muted;
+  font-size: v.$text-xs;
+  margin-left: v.$space-1;
+}

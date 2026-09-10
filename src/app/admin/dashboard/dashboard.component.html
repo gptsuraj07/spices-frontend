@@ -1,0 +1,254 @@
+<!-- =========================================================
+     ARIDHU ADMIN — DASHBOARD
+     ========================================================= -->
+
+<div class="adash">
+
+  <!-- ── PAGE HEADER ─────────────────────────────────────── -->
+  <div class="adash__header">
+    <div>
+      <h1 class="adash__title">Dashboard</h1>
+      <p class="adash__subtitle">Welcome back! Here's what's happening with Aridhu Foods today.</p>
+    </div>
+    <div class="adash__header-actions">
+      <a routerLink="/admin/orders" class="adm-btn adm-btn--ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        View Orders
+      </a>
+      <a routerLink="/admin/products" class="adm-btn adm-btn--primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Product
+      </a>
+    </div>
+  </div>
+
+  <!-- ── KPI CARDS ──────────────────────────────────────── -->
+  <div class="kpi-grid">
+    <div
+      *ngFor="let card of kpiCards"
+      class="kpi-card"
+      [class]="'kpi-card--' + card.color"
+      [class.kpi-card--clickable]="card.filterStatus || card.filterPayment"
+      (click)="navigateToOrders(card)"
+      [title]="card.filterStatus || card.filterPayment ? 'Click to view filtered orders' : ''"
+    >
+      <div class="kpi-card__icon">
+        <!-- Orders -->
+        <svg *ngIf="card.icon === 'bag'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <!-- Revenue / Delivered -->
+        <svg *ngIf="card.icon === 'rupee'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="18"/>
+        </svg>
+        <!-- Pending/clock -->
+        <svg *ngIf="card.icon === 'clock'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+        </svg>
+        <!-- Processing/package -->
+        <svg *ngIf="card.icon === 'package'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/>
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <!-- Shipped/truck -->
+        <svg *ngIf="card.icon === 'truck'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+      </div>
+      <div class="kpi-card__body">
+        <span class="kpi-card__label">{{ card.title }}</span>
+        <span class="kpi-card__value">{{ card.value }}</span>
+        <span class="kpi-card__change"
+          [class.kpi-card__change--up]="card.changeType === 'up'"
+          [class.kpi-card__change--down]="card.changeType === 'down'"
+          [class.kpi-card__change--neutral]="card.changeType === 'neutral'">
+          <svg *ngIf="card.changeType === 'up'" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>
+          <svg *ngIf="card.changeType === 'down'" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+          {{ card.change }}
+        </span>
+      </div>
+      <div class="kpi-card__arrow" *ngIf="card.filterStatus || card.filterPayment">→</div>
+    </div>
+  </div>
+
+  <!-- ── CHART + QUICK STATS ────────────────────────────── -->
+  <div class="adash__mid-row">
+
+    <!-- Revenue Bar Chart -->
+    <div class="adm-card adash__chart-card">
+      <div class="adm-card__header">
+        <h2 class="adm-card__title">Revenue (Last 7 Days)</h2>
+        <span class="adm-card__total-badge">₹34,100 this week</span>
+      </div>
+      <div class="chart-bars">
+        <div class="chart-bar-col" *ngFor="let day of chartDays; let i = index">
+          <div class="chart-bar-wrap">
+            <div class="chart-bar__value" [style.bottom.%]="getBarHeight(chartValues[i])">
+              ₹{{ (chartValues[i] / 1000).toFixed(1) }}k
+            </div>
+            <div
+              class="chart-bar"
+              [style.height.%]="getBarHeight(chartValues[i])"
+              [class.chart-bar--peak]="chartValues[i] === 7200"
+            ></div>
+          </div>
+          <span class="chart-bar__label">{{ day }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="adash__quick-links">
+      <div class="adm-card quick-link-card">
+        <div class="quick-link-card__icon quick-link-card__icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div>
+          <p class="quick-link-card__title">Manage Products</p>
+          <p class="quick-link-card__sub">Add, edit, update stock</p>
+        </div>
+        <a routerLink="/admin/products" class="quick-link-card__arrow" aria-label="Go to Products">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </a>
+      </div>
+
+      <div class="adm-card quick-link-card">
+        <div class="quick-link-card__icon quick-link-card__icon--blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div>
+          <p class="quick-link-card__title">View Orders</p>
+          <p class="quick-link-card__sub">Manage & confirm UPI payments</p>
+        </div>
+        <a routerLink="/admin/orders" class="quick-link-card__arrow" aria-label="Go to Orders">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </a>
+      </div>
+
+      <div class="adm-card quick-link-card">
+        <div class="quick-link-card__icon quick-link-card__icon--amber">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12,2 2,7 12,12 22,7 12,2"/><polyline points="2,17 12,22 22,17"/><polyline points="2,12 12,17 22,12"/></svg>
+        </div>
+        <div>
+          <p class="quick-link-card__title">Combo Collections</p>
+          <p class="quick-link-card__sub">Edit 7-pack combo boxes</p>
+        </div>
+        <a routerLink="/admin/combos" class="quick-link-card__arrow" aria-label="Go to Combos">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </a>
+      </div>
+
+      <div class="adm-card quick-link-card">
+        <div class="quick-link-card__icon quick-link-card__icon--purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <div>
+          <p class="quick-link-card__title">Categories</p>
+          <p class="quick-link-card__sub">Rasam & Kozhambu</p>
+        </div>
+        <a routerLink="/admin/categories" class="quick-link-card__arrow" aria-label="Go to Categories">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── RECENT ORDERS TABLE + LOW STOCK ───────────────── -->
+  <div class="adash__bottom-row">
+
+    <!-- Recent Orders -->
+    <div class="adm-card adash__orders-card">
+      <div class="adm-card__header">
+        <h2 class="adm-card__title">Recent Orders</h2>
+        <a routerLink="/admin/orders" class="adm-card__link">View all →</a>
+      </div>
+      <div class="adm-table-wrap">
+        <table class="adm-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Payment</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders">
+              <td class="adm-table__order-num">{{ order.orderNumber }}</td>
+              <td>{{ order.customer }}</td>
+              <td class="text-center">{{ order.items }}</td>
+              <td class="adm-table__amount">₹{{ order.total }}</td>
+              <td>
+                <span class="adm-badge" [class]="getStatusClass(order.status)">
+                  {{ order.status | titlecase }}
+                </span>
+              </td>
+              <td>
+                <span class="adm-badge" [class]="order.paymentStatus === 'paid' ? 'badge--green' : 'badge--amber'">
+                  {{ order.paymentStatus | titlecase }}
+                </span>
+              </td>
+              <td class="adm-table__date">{{ formatDate(order.date) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Low Stock Alert -->
+    <div class="adm-card adash__low-stock-card">
+      <div class="adm-card__header">
+        <h2 class="adm-card__title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" style="margin-right:6px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Low Stock
+        </h2>
+        <a routerLink="/admin/products" class="adm-card__link">Manage →</a>
+      </div>
+
+      <div class="low-stock-empty" *ngIf="lowStockProducts.length === 0 && !loadingProducts">
+        <span>✅ All products are well stocked!</span>
+      </div>
+
+      <div class="low-stock-list" *ngIf="lowStockProducts.length > 0">
+        <div class="low-stock-item" *ngFor="let p of lowStockProducts">
+          <div class="low-stock-item__info">
+            <span class="low-stock-item__name">{{ p.name }}</span>
+            <span class="low-stock-item__sku">{{ p.sku }}</span>
+          </div>
+          <div class="low-stock-item__stock" [class.low-stock-item__stock--critical]="p.stock <= 2">
+            {{ p.stock }} left
+          </div>
+        </div>
+      </div>
+
+      <!-- If loading -->
+      <div class="low-stock-list" *ngIf="loadingProducts">
+        <div class="low-stock-skeleton" *ngFor="let i of [1,2,3]"></div>
+      </div>
+
+      <!-- Store Overview -->
+      <div class="store-overview">
+        <div class="adm-card__header" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #EDE4D3;">
+          <h3 class="adm-card__title" style="font-size: 0.875rem;">Store Overview</h3>
+        </div>
+        <div class="store-stat" *ngFor="let item of [
+          {label: 'Total Products', val: (products.length || 14) + ''},
+          {label: 'Heritage Combos', val: '2'},
+          {label: 'Categories', val: '2'},
+          {label: 'Avg. Order Value', val: '₹389'}
+        ]">
+          <span class="store-stat__label">{{ item.label }}</span>
+          <span class="store-stat__val">{{ item.val }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

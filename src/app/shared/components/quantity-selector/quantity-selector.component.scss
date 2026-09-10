@@ -1,0 +1,73 @@
+@use 'styles/variables' as v;
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid v.$border-mid;
+  border-radius: v.$radius-full;
+  overflow: hidden;
+  background: v.$white;
+  transition: border-color v.$duration-fast;
+  
+  &:focus-within {
+    border-color: v.$green-primary;
+    box-shadow: 0 0 0 2px rgba(v.$green-primary, 0.1);
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    color: v.$brown-dark;
+    cursor: pointer;
+    transition: background v.$duration-fast, color v.$duration-fast;
+    flex-shrink: 0;
+
+    &:hover:not(:disabled) {
+      background: v.$green-bg;
+      color: v.$green-deep;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid v.$green-primary;
+      outline-offset: -2px;
+    }
+  }
+
+  &__input {
+    width: 44px;
+    height: 36px;
+    border: none;
+    text-align: center;
+    font-family: v.$font-body;
+    font-size: v.$text-base;
+    font-weight: v.$fw-semibold;
+    color: v.$brown-deep;
+    background: transparent;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+}

@@ -1,0 +1,187 @@
+// ============================================================
+// ARIDHU — Animations & Micro-interactions
+// ============================================================
+
+@use 'variables' as v;
+
+// ── Keyframes ────────────────────────────────────────────────
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+@keyframes bounce-in {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cart-add {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(0.85); }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes leaf-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(100%); }
+}
+
+// ── Animation Utility Classes ────────────────────────────────
+.animate-fade-in    { animation: fadeIn     v.$duration-slow  v.$ease-out both; }
+.animate-fade-up    { animation: fadeInUp   v.$duration-slow  v.$ease-out both; }
+.animate-fade-down  { animation: fadeInDown v.$duration-slow  v.$ease-out both; }
+.animate-scale-in   { animation: scaleIn    v.$duration-base  v.$ease-spring both; }
+.animate-slide-up   { animation: slideUp    v.$duration-slow  v.$ease-out both; }
+
+// Stagger delays
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+// ── Skeleton Loader ──────────────────────────────────────────
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    v.$beige-light 0%,
+    v.$beige 40%,
+    v.$ivory-dark 50%,
+    v.$beige 60%,
+    v.$beige-light 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: v.$radius-md;
+}
+
+// ── Loading spinner ──────────────────────────────────────────
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(v.$green-primary, 0.2);
+  border-top-color: v.$green-primary;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner-sm {
+  @extend .spinner;
+  width: 14px;
+  height: 14px;
+  border-width: 1.5px;
+}
+
+.spinner-lg {
+  @extend .spinner;
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+// ── Page transition ──────────────────────────────────────────
+.page-enter {
+  animation: fadeInUp v.$duration-slow v.$ease-out both;
+}
+
+// ── Hover Effects ────────────────────────────────────────────
+.hover-lift {
+  transition: transform v.$duration-base v.$ease-out,
+              box-shadow v.$duration-base v.$ease-out;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: v.$shadow-lg;
+  }
+}
+
+.hover-scale {
+  transition: transform v.$duration-base v.$ease-out;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.hover-image-zoom {
+  overflow: hidden;
+  
+  img, .image-placeholder {
+    transition: transform v.$duration-slower v.$ease-out;
+  }
+  
+  &:hover img,
+  &:hover .image-placeholder {
+    transform: scale(1.05);
+  }
+}
+
+// ── Cart Add Animation ───────────────────────────────────────
+.cart-add-animation {
+  animation: cart-add v.$duration-slow v.$ease-spring;
+}

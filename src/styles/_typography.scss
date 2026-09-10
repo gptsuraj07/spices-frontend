@@ -1,0 +1,213 @@
+// ============================================================
+// ARIDHU — Editorial & Heritage Typography Styles
+// ============================================================
+
+@use 'variables' as v;
+
+// ── Base Typography ──────────────────────────────────────────
+body {
+  font-family: v.$font-body;
+  font-size: v.$text-base;
+  font-weight: v.$fw-regular;
+  line-height: v.$lh-relaxed;
+  color: v.$text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// ── Editorial Display Typography ─────────────────────────────
+.display-huge {
+  font-family: v.$font-display;
+  font-size: clamp(4rem, 10vw, 8.5rem);
+  font-weight: v.$fw-regular;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: v.$text-primary;
+}
+
+.display-xl {
+  font-family: v.$font-display;
+  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-weight: v.$fw-regular;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: v.$text-primary;
+}
+
+.display-lg {
+  font-family: v.$font-display;
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  font-weight: v.$fw-regular;
+  line-height: v.$lh-tight;
+  letter-spacing: -0.025em;
+}
+
+.display-md {
+  font-family: v.$font-display;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: v.$fw-regular;
+  line-height: v.$lh-snug;
+  letter-spacing: -0.02em;
+}
+
+// ── Headings ─────────────────────────────────────────────────
+h1, .h1 {
+  font-family: v.$font-display;
+  font-size: clamp(v.$text-3xl, 5.5vw, v.$text-5xl);
+  font-weight: 600;
+  line-height: v.$lh-tight;
+  letter-spacing: -0.025em;
+  color: v.$text-primary;
+}
+
+h2, .h2 {
+  font-family: v.$font-display;
+  font-size: clamp(v.$text-2xl, 4vw, v.$text-4xl);
+  font-weight: 600;
+  line-height: v.$lh-snug;
+  letter-spacing: -0.02em;
+  color: v.$text-primary;
+}
+
+h3, .h3 {
+  font-family: v.$font-display;
+  font-size: clamp(v.$text-xl, 3vw, v.$text-2xl);
+  font-weight: 600;
+  line-height: v.$lh-snug;
+  letter-spacing: -0.015em;
+  color: v.$text-primary;
+}
+
+h4, .h4 {
+  font-family: v.$font-body;
+  font-size: v.$text-lg;
+  font-weight: 600;
+  line-height: v.$lh-snug;
+  color: v.$brown-dark;
+}
+
+h5, .h5 {
+  font-family: v.$font-body;
+  font-size: v.$text-base;
+  font-weight: 600;
+  color: v.$brown-dark;
+}
+
+h6, .h6 {
+  font-family: v.$font-body;
+  font-size: v.$text-sm;
+  font-weight: 600;
+  color: v.$text-secondary;
+}
+
+// ── Body text ────────────────────────────────────────────────
+p {
+  color: v.$text-secondary;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.text-lead {
+  font-size: clamp(v.$text-base, 2vw, v.$text-md);
+  font-weight: v.$fw-regular;
+  color: v.$text-secondary;
+  line-height: 1.65;
+}
+
+.text-caption {
+  font-size: v.$text-xs;
+  color: v.$text-muted;
+  line-height: v.$lh-normal;
+}
+
+// ── Section & Editorial Labels ───────────────────────────────
+.label {
+  font-family: v.$font-body;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: v.$green-primary;
+}
+
+.label-brown {
+  @extend .label;
+  color: v.$brown-warm;
+}
+
+.label-num {
+  font-family: v.$font-display;
+  font-size: v.$text-sm;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: v.$turmeric;
+  margin-right: v.$space-2;
+}
+
+// ── Links ────────────────────────────────────────────────────
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color v.$duration-fast v.$ease-out;
+}
+
+.link-editorial {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-2;
+  font-family: v.$font-body;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-medium;
+  letter-spacing: v.$ls-wide;
+  text-transform: uppercase;
+  color: v.$green-primary;
+  padding-bottom: 2px;
+  border-bottom: 1px solid v.$green-primary;
+  transition: all v.$duration-base v.$ease-out;
+
+  &:hover {
+    color: v.$forest-dark;
+    border-bottom-color: v.$forest-dark;
+    transform: translateX(4px);
+  }
+}
+
+// ── Price Typography ─────────────────────────────────────────
+.price {
+  font-family: v.$font-body;
+  font-weight: v.$fw-semibold;
+  color: v.$text-primary;
+}
+
+.price-large {
+  @extend .price;
+  font-size: v.$text-2xl;
+  font-family: v.$font-display;
+}
+
+.price-compare {
+  font-family: v.$font-body;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-regular;
+  color: v.$text-muted;
+  text-decoration: line-through;
+}
+
+// ── Color & Utility Helpers ─────────────────────────────────
+.text-green    { color: v.$green-primary; }
+.text-brown    { color: v.$brown-dark; }
+.text-forest   { color: v.$forest-dark; }
+.text-turmeric { color: v.$turmeric; }
+.text-muted    { color: v.$text-muted; }
+.text-light    { color: v.$text-light; }
+.text-white    { color: v.$white; }
+.text-ivory    { color: v.$ivory; }
+
+// ── Font style ───────────────────────────────────────────────
+.italic   { font-style: italic; }
+.serif    { font-family: v.$font-display; }
+.sans     { font-family: v.$font-body; }
+.accent   { font-family: v.$font-accent; }
+

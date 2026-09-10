@@ -1,0 +1,594 @@
+// ============================================================
+// ARIDHU ADMIN — Orders Component Styles
+// ============================================================
+
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+// ── Page ─────────────────────────────────────────────────────
+.ao-page {
+  padding: v.$space-8;
+  max-width: 1280px;
+
+  @include m.respond-to('lg') { padding: v.$space-5; }
+}
+
+// ── Header ───────────────────────────────────────────────────
+.ao-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: v.$space-4;
+  margin-bottom: v.$space-6;
+  flex-wrap: wrap;
+}
+
+.ao-header-stats {
+  display: flex;
+  gap: v.$space-3;
+  flex-wrap: wrap;
+}
+
+.ao-stat-pill {
+  padding: v.$space-2 v.$space-4;
+  border-radius: v.$radius-full;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-medium;
+  cursor: pointer;
+  transition: all v.$duration-fast;
+
+  &--green {
+    background: #E8F5E2;
+    color: #2A5C1B;
+    &:hover { background: #D4ECC7; }
+  }
+  &--amber {
+    background: rgba(#C99A32, 0.12);
+    color: #7A6518;
+    &:hover { background: rgba(#C99A32, 0.22); }
+  }
+}
+
+// ── Filter Bar ────────────────────────────────────────────────
+.ap-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-3;
+  margin-bottom: v.$space-5;
+  background: #fff;
+  border: 1px solid v.$border-light;
+  border-radius: v.$radius-lg;
+  padding: v.$space-4;
+}
+
+.ap-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ap-search-icon {
+  position: absolute;
+  left: 12px;
+  color: v.$text-muted;
+  pointer-events: none;
+}
+
+.ap-search-input {
+  width: 100%;
+  padding: v.$space-3 v.$space-4 v.$space-3 38px;
+  border: 1.5px solid v.$border-mid;
+  border-radius: v.$radius-md;
+  font-family: v.$font-body;
+  font-size: v.$text-sm;
+  color: v.$text-primary;
+  background: v.$ivory-light;
+  transition: border-color v.$duration-fast;
+  max-width: 480px;
+
+  &:focus {
+    outline: none;
+    border-color: v.$green-primary;
+    background: #fff;
+  }
+  &::placeholder { color: v.$text-light; }
+}
+
+.ap-filter-tabs {
+  display: flex;
+  gap: v.$space-2;
+  flex-wrap: wrap;
+}
+
+.ap-tab {
+  padding: v.$space-2 v.$space-3;
+  border: 1px solid v.$border-mid;
+  border-radius: v.$radius-full;
+  font-size: v.$text-xs;
+  font-weight: v.$fw-medium;
+  color: v.$text-secondary;
+  background: v.$white;
+  cursor: pointer;
+  transition: all v.$duration-fast;
+  white-space: nowrap;
+
+  &:hover { border-color: v.$green-primary; color: v.$green-primary; }
+
+  &--active {
+    background: v.$green-primary;
+    border-color: v.$green-primary;
+    color: #fff;
+  }
+}
+
+// ── Table ─────────────────────────────────────────────────────
+.adm-card {
+  background: #fff;
+  border-radius: v.$radius-lg;
+  border: 1px solid v.$border-light;
+  overflow: hidden;
+  box-shadow: v.$shadow-sm;
+}
+
+.adm-table-wrap { overflow-x: auto; }
+
+.adm-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background: v.$ivory;
+    padding: v.$space-3 v.$space-4;
+    font-size: v.$text-xs;
+    font-weight: v.$fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: v.$text-muted;
+    border-bottom: 1px solid v.$border-light;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  td {
+    padding: v.$space-4;
+    border-bottom: 1px solid v.$border-light;
+    font-size: v.$text-sm;
+    color: v.$text-primary;
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+}
+
+.ao-row {
+  cursor: pointer;
+  transition: background v.$duration-fast;
+  &:hover { background: v.$ivory-light; }
+}
+
+.ao-order-num {
+  font-family: v.$font-mono;
+  font-size: v.$text-xs !important;
+  font-weight: v.$fw-semibold;
+  color: v.$green-primary !important;
+}
+
+.ao-cust-name { font-weight: v.$fw-medium; }
+.ao-cust-phone { font-size: v.$text-xs; color: v.$text-muted; margin-top: 2px; }
+.ao-amount { font-weight: v.$fw-semibold; }
+.ao-date { font-size: v.$text-xs; color: v.$text-muted; white-space: nowrap; }
+.ao-green { color: v.$green-primary; }
+
+// ── Quick action buttons in table ─────────────────────────────
+.ao-quick-verify-btn {
+  padding: 3px v.$space-2;
+  background: v.$green-bg;
+  border: 1px solid rgba(v.$green-primary, 0.3);
+  border-radius: v.$radius-sm;
+  font-size: 11px;
+  font-weight: v.$fw-semibold;
+  color: v.$green-primary;
+  cursor: pointer;
+  transition: all v.$duration-fast;
+  margin-right: v.$space-1;
+  white-space: nowrap;
+
+  &:hover { background: v.$green-primary; color: #fff; }
+}
+
+.ao-view-btn {
+  padding: v.$space-1 v.$space-3;
+  background: v.$ivory;
+  border: 1px solid v.$border-mid;
+  border-radius: v.$radius-sm;
+  font-size: v.$text-xs;
+  font-weight: v.$fw-medium;
+  color: v.$text-secondary;
+  cursor: pointer;
+  transition: all v.$duration-fast;
+
+  &:hover { background: v.$green-bg; border-color: v.$green-primary; color: v.$green-primary; }
+}
+
+// ── Admin badges ──────────────────────────────────────────────
+.adm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.badge--green  { background: #E8F5E2; color: #2A5C1B; }
+.badge--blue   { background: #E3F0FA; color: #1E5B8C; }
+.badge--amber  { background: rgba(#C99A32, 0.12); color: #7A6518; }
+.badge--purple { background: rgba(#6B3FA0, 0.1); color: #4B2B7A; }
+.badge--red    { background: rgba(#C0392B, 0.08); color: #C0392B; }
+.badge--gray   { background: #F0ECE8; color: #6B5D55; }
+
+// ── Loading ───────────────────────────────────────────────────
+.ao-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-3;
+  padding: v.$space-16;
+  color: v.$text-muted;
+
+  &__spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid v.$border-light;
+    border-top-color: v.$green-primary;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+}
+
+.ap-empty {
+  padding: v.$space-12;
+  text-align: center;
+  color: v.$text-muted;
+  font-size: v.$text-sm;
+}
+
+// ── Modal Overlay ─────────────────────────────────────────────
+.ao-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(v.$black, 0.5);
+  z-index: v.$z-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: v.$space-4;
+  animation: fadeIn 0.2s ease;
+  backdrop-filter: blur(3px);
+}
+
+// ── Order Detail Modal ────────────────────────────────────────
+.ao-modal {
+  background: #fff;
+  border-radius: v.$radius-xl;
+  width: 100%;
+  max-width: 840px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: v.$shadow-xl;
+  animation: slideUp 0.3s v.$ease-out;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: v.$space-6 v.$space-6 0;
+    gap: v.$space-4;
+  }
+
+  &__title {
+    font-family: v.$font-body;
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$green-primary;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  &__date {
+    font-size: v.$text-xs;
+    color: v.$text-muted;
+    margin: v.$space-1 0 0;
+  }
+
+  &__close {
+    width: 36px;
+    height: 36px;
+    border-radius: v.$radius-md;
+    background: v.$ivory;
+    border: 1px solid v.$border-light;
+    @include m.flex-center;
+    cursor: pointer;
+    color: v.$text-secondary;
+    transition: all v.$duration-fast;
+    flex-shrink: 0;
+
+    &:hover { background: rgba(v.$chili, 0.08); color: v.$chili; border-color: rgba(v.$chili, 0.3); }
+  }
+
+  &__badges {
+    display: flex;
+    gap: v.$space-2;
+    flex-wrap: wrap;
+    padding: v.$space-4 v.$space-6;
+    border-bottom: 1px solid v.$border-light;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: v.$space-4;
+    padding: v.$space-5 v.$space-6;
+
+    @include m.respond-to('md') { grid-template-columns: 1fr; }
+  }
+
+  &__col { display: flex; flex-direction: column; gap: v.$space-4; }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: v.$space-3;
+    flex-wrap: wrap;
+    padding: v.$space-5 v.$space-6;
+    border-top: 1px solid v.$border-light;
+    background: v.$ivory-light;
+    border-radius: 0 0 v.$radius-xl v.$radius-xl;
+  }
+}
+
+// ── Section inside modal ──────────────────────────────────────
+.ao-section {
+  &__title {
+    font-size: v.$text-xs;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: v.$text-muted;
+    margin-bottom: v.$space-3;
+  }
+}
+
+.ao-detail {
+  font-size: v.$text-sm;
+  color: v.$text-secondary;
+  line-height: 1.6;
+  margin-bottom: v.$space-1;
+}
+
+.ao-utr {
+  font-family: v.$font-mono;
+  font-size: v.$text-xs;
+  background: v.$ivory;
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: v.$green-primary;
+}
+
+// ── Items in modal ────────────────────────────────────────────
+.ao-items { display: flex; flex-direction: column; gap: v.$space-2; }
+
+.ao-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: v.$text-sm;
+  color: v.$text-secondary;
+  padding: v.$space-2 0;
+  border-bottom: 1px solid v.$border-light;
+
+  &:last-child { border-bottom: none; }
+  &__name { flex: 1; }
+  &__price { font-weight: v.$fw-medium; }
+  &--shipping { color: v.$text-muted; }
+  &--discount .ao-green { color: v.$green-primary; }
+  &--total {
+    font-weight: v.$fw-bold;
+    color: v.$text-primary;
+    border-top: 2px solid v.$border-mid;
+    padding-top: v.$space-3;
+  }
+}
+
+// ── Status History ────────────────────────────────────────────
+.ao-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: v.$border-light;
+  }
+
+  &__entry {
+    display: flex;
+    gap: v.$space-3;
+    padding-bottom: v.$space-3;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: v.$green-primary;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px v.$green-primary;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &__body { flex: 1; }
+
+  &__status {
+    display: block;
+    font-size: v.$text-xs;
+    font-weight: v.$fw-semibold;
+    color: v.$text-primary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__time {
+    display: block;
+    font-size: 11px;
+    color: v.$text-muted;
+    margin: 2px 0;
+  }
+
+  &__note {
+    display: block;
+    font-size: v.$text-xs;
+    color: v.$text-secondary;
+    font-style: italic;
+  }
+}
+
+// ── Payment Actions ───────────────────────────────────────────
+.ao-payment-actions {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  padding: v.$space-3 v.$space-4;
+  background: rgba(#C99A32, 0.06);
+  border: 1px solid rgba(#C99A32, 0.2);
+  border-radius: v.$radius-md;
+  flex-wrap: wrap;
+
+  &__label {
+    font-size: v.$text-xs;
+    font-weight: v.$fw-semibold;
+    color: #7A6518;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: v.$space-2;
+  }
+}
+
+// ── Admin Buttons ─────────────────────────────────────────────
+.adm-btn {
+  padding: v.$space-2 v.$space-5;
+  border-radius: v.$radius-md;
+  font-size: v.$text-sm;
+  font-weight: v.$fw-medium;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all v.$duration-fast;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-2;
+
+  &--primary { background: v.$green-primary; color: #fff; border-color: v.$green-primary; &:hover { background: v.$green-mid; } }
+  &--success { background: #E8F5E2; color: #2A5C1B; border-color: rgba(#315C2B, 0.3); &:hover { background: v.$green-primary; color: #fff; } }
+  &--danger  { background: rgba(#C0392B, 0.08); color: #C0392B; border-color: rgba(#C0392B, 0.2); &:hover { background: #C0392B; color: #fff; } }
+  &--ghost   { background: transparent; color: v.$text-secondary; border-color: v.$border-mid; &:hover { background: v.$ivory; } }
+}
+
+.ao-status-row {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  flex-wrap: wrap;
+}
+
+.ao-status-label {
+  font-size: v.$text-xs;
+  font-weight: v.$fw-semibold;
+  color: v.$text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ao-status-btn {
+  @extend .adm-btn;
+  font-size: v.$text-xs;
+  padding: v.$space-1 v.$space-3;
+}
+
+// ── Confirm dialog ────────────────────────────────────────────
+.ao-confirm-dialog {
+  background: #fff;
+  border-radius: v.$radius-xl;
+  padding: v.$space-8;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: v.$shadow-xl;
+  animation: slideUp 0.2s v.$ease-out;
+
+  &__title {
+    font-size: v.$text-lg;
+    font-weight: v.$fw-bold;
+    color: v.$text-primary;
+    margin-bottom: v.$space-3;
+  }
+
+  &__message {
+    font-size: v.$text-sm;
+    color: v.$text-secondary;
+    line-height: 1.6;
+    margin-bottom: v.$space-6;
+  }
+
+  &__actions {
+    display: flex;
+    gap: v.$space-3;
+    flex-wrap: wrap;
+  }
+}
+
+// ── Shipping modal ────────────────────────────────────────────
+.ao-shipping-modal {
+  max-width: 480px;
+}
+
+.ao-shipping-fields {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-4;
+  margin-bottom: v.$space-6;
+
+  .form-group { display: flex; flex-direction: column; gap: v.$space-1; }
+  .form-label { font-size: v.$text-sm; font-weight: v.$fw-medium; color: v.$brown-dark; }
+  .form-input {
+    padding: v.$space-3 v.$space-4;
+    border: 1.5px solid v.$border-mid;
+    border-radius: v.$radius-md;
+    font-size: v.$text-sm;
+    font-family: v.$font-body;
+    &:focus { outline: none; border-color: v.$green-primary; }
+  }
+}
+
+// ── Animations ────────────────────────────────────────────────
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}

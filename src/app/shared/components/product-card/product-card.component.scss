@@ -1,0 +1,260 @@
+@use 'styles/variables' as v;
+@use 'styles/mixins' as m;
+
+.pcard {
+  background: v.$white;
+  border-radius: 12px;
+  border: 1px solid rgba(v.$spice-dark, 0.08);
+  overflow: hidden;
+  transition: all v.$duration-base v.$ease-out;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &:hover,
+  &:focus-within {
+    border-color: rgba(v.$spice-dark, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(v.$spice-dark, 0.08);
+
+    .pcard__image {
+      transform: scale(1.04);
+    }
+
+    .pcard__quick-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // ── Image Wrap ────────────────────────────────────────────
+  &__image-wrap {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f4f0e8;
+  }
+
+  &__image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform v.$duration-slow v.$ease-out;
+  }
+
+  &__quick-badge {
+    position: absolute;
+    bottom: v.$space-3;
+    left: 50%;
+    transform: translate(-50%, 8px);
+    background: rgba(v.$white, 0.95);
+    color: v.$spice-dark;
+    border: none;
+    padding: v.$space-2 v.$space-4;
+    border-radius: v.$radius-full;
+    font-size: v.$text-xs;
+    font-weight: v.$fw-semibold;
+    opacity: 0;
+    cursor: pointer;
+    transition: all v.$duration-base v.$ease-out;
+    box-shadow: v.$shadow-sm;
+
+    &:hover {
+      background: v.$white;
+      color: v.$rust-primary;
+    }
+  }
+
+  &__number {
+    position: absolute;
+    top: v.$space-3;
+    left: v.$space-3;
+    z-index: 2;
+    font-family: v.$font-display;
+    font-size: 13px;
+    font-style: italic;
+    color: v.$rust-primary;
+    background: rgba(v.$white, 0.9);
+    padding: 1px 7px;
+    border-radius: 4px;
+  }
+
+  // ── Content ──────────────────────────────────────────────
+  &__content {
+    padding: v.$space-5;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__tag-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: v.$space-2;
+  }
+
+  &__tamil-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: v.$fw-semibold;
+    color: v.$rust-primary;
+  }
+
+  &__cat-tag {
+    font-size: 10px;
+    font-weight: v.$fw-medium;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: v.$text-muted;
+    background: #f3f0ea;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  &__name {
+    font-family: v.$font-display;
+    font-size: 1.15rem;
+    font-weight: v.$fw-semibold;
+    line-height: 1.25;
+    color: v.$spice-dark;
+    margin: 0;
+    @include m.line-clamp(1);
+  }
+
+  &__name-link {
+    color: inherit;
+    transition: color v.$duration-fast;
+    
+    &:hover {
+      color: v.$rust-primary;
+    }
+  }
+
+  &__aroma-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: v.$space-2;
+    margin-top: 2px;
+  }
+
+  &__aroma-tag {
+    font-size: 11px;
+    color: #55433c;
+    font-weight: 500;
+  }
+
+  &__heat-tag {
+    font-size: 10px;
+    color: v.$rust-primary;
+    background: #fdf2f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  &__meta-row {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    margin-top: v.$space-1;
+  }
+
+  &__weight-pill {
+    background: v.$spice-dark;
+    color: v.$white;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  &__batch-tag {
+    background: #fef3c7;
+    color: #b45309;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__footer {
+    @include m.flex-between;
+    margin-top: auto;
+    padding-top: v.$space-3;
+    gap: v.$space-3;
+  }
+
+  &__price-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__price-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: v.$text-muted;
+  }
+
+  &__price {
+    font-family: v.$font-display;
+    font-size: 1.25rem;
+    font-weight: v.$fw-bold;
+    color: v.$spice-dark;
+    line-height: 1;
+  }
+
+  // ── Add to Cart Button ───────────────────────────────────
+  &__add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: 6px;
+    background: v.$rust-primary;
+    color: v.$white;
+    border: none;
+    font-family: v.$font-body;
+    font-size: 12px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all v.$duration-base v.$ease-out;
+
+    &:hover:not(:disabled) {
+      background: v.$rust-dark;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 38, 18, 0.3);
+    }
+
+    &:disabled {
+      background: v.$border-light;
+      color: v.$text-muted;
+      cursor: not-allowed;
+    }
+
+    &--adding {
+      opacity: 0.85;
+    }
+  }
+
+  &__oos {
+    font-size: 11px;
+    color: v.$rust-primary;
+    font-weight: v.$fw-semibold;
+  }
+}
+
+
