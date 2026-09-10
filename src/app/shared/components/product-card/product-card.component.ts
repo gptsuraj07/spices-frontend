@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../../core/models';
 import { CartService } from '../../../core/services/cart.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -147,7 +148,8 @@ export class ProductCardComponent {
   getImageUrl(url: string | null | undefined): string | null {
     if (!url || !url.trim()) return null;
     if (url.startsWith('/')) {
-      return `http://localhost:5000${url}`;
+      const base = environment.apiUrl.replace(/\/api\/?$/, '');
+      return `${base}${url}`;
     }
     return url;
   }

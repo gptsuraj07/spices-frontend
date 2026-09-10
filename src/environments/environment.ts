@@ -1,4 +1,11 @@
+const isLocal = typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5000/api'
+  production: !isLocal,
+  apiUrl: isLocal
+    ? 'http://localhost:5000/api'
+    : 'https://spices-backend-production.up.railway.app/api'
 };
+
+

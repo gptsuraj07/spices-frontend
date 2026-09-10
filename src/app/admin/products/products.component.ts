@@ -3,6 +3,7 @@ import { Product } from '../../core/models';
 import { ProductService } from '../../core/services/product.service';
 import { ImageCompressionService } from '../../core/services/image-compression.service';
 import { ToastService } from '../../core/services/toast.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-products',
@@ -185,7 +186,8 @@ export class AdminProductsComponent implements OnInit {
   getImageUrl(url: string | null | undefined): string | null {
     if (!url || !url.trim()) return null;
     if (url.startsWith('/')) {
-      return `http://localhost:5000${url}`;
+      const base = environment.apiUrl.replace(/\/api\/?$/, '');
+      return `${base}${url}`;
     }
     return url;
   }
