@@ -10,9 +10,12 @@
     <nav class="header__nav" role="navigation" aria-label="Main navigation">
       <ul class="header__nav-list">
         <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="header__nav-link">Home</a></li>
-        <li><a routerLink="/shop" routerLinkActive="active" class="header__nav-link">Shop</a></li>
-        <li><a routerLink="/about" routerLinkActive="active" class="header__nav-link">About</a></li>
-        <li><a routerLink="/contact" routerLinkActive="active" class="header__nav-link">Contact</a></li>
+        <li><a routerLink="/shop" routerLinkActive="active" class="header__nav-link">All Shop</a></li>
+        <li><a routerLink="/category/kozhambu" routerLinkActive="active" class="header__nav-link">Kuzhambu</a></li>
+        <li><a routerLink="/category/rasam" routerLinkActive="active" class="header__nav-link">Rasam</a></li>
+        <li><a routerLink="/category/sambar" routerLinkActive="active" class="header__nav-link">Sambar</a></li>
+        <li><a routerLink="/category/tiffin-mixes" routerLinkActive="active" class="header__nav-link">Tiffin Mixes</a></li>
+        <li><a routerLink="/category/combos" routerLinkActive="active" class="header__nav-link">Combos</a></li>
         <li><a routerLink="/track-order" routerLinkActive="active" class="header__nav-link header__nav-link--track" id="track-order-nav">Track Order →</a></li>
       </ul>
     </nav>
@@ -55,7 +58,7 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
         <input type="search" class="header__search-input" [(ngModel)]="searchQuery" name="searchQuery"
-          placeholder="Search for rasam, kozhambu, spices..." aria-label="Search products" autocomplete="off"
+          placeholder="Search for rasam, kozhambu, sambar, podi..." aria-label="Search products" autocomplete="off"
           [autofocus]="searchOpen" />
         <button type="submit" class="btn btn-primary btn-sm">Search</button>
         <button type="button" class="header__search-close" (click)="closeSearch()" aria-label="Close search">
@@ -73,9 +76,12 @@
     <nav>
       <ul class="header__mobile-list">
         <li><a routerLink="/" (click)="closeMobileMenu()" class="header__mobile-link">Home</a></li>
-        <li><a routerLink="/shop" (click)="closeMobileMenu()" class="header__mobile-link">Shop</a></li>
-        <li><a routerLink="/about" (click)="closeMobileMenu()" class="header__mobile-link">About</a></li>
-        <li><a routerLink="/contact" (click)="closeMobileMenu()" class="header__mobile-link">Contact</a></li>
+        <li><a routerLink="/shop" (click)="closeMobileMenu()" class="header__mobile-link">All Products</a></li>
+        <li><a routerLink="/category/kozhambu" (click)="closeMobileMenu()" class="header__mobile-link">🍲 Kuzhambu Powders</a></li>
+        <li><a routerLink="/category/rasam" (click)="closeMobileMenu()" class="header__mobile-link">🥣 Rasam Powders</a></li>
+        <li><a routerLink="/category/sambar" (click)="closeMobileMenu()" class="header__mobile-link">🥘 Sambar Powders</a></li>
+        <li><a routerLink="/category/tiffin-mixes" (click)="closeMobileMenu()" class="header__mobile-link">🥞 Tiffin Mixes & Podis</a></li>
+        <li><a routerLink="/category/combos" (click)="closeMobileMenu()" class="header__mobile-link">🎁 Signature Combos</a></li>
         <li><a routerLink="/track-order" (click)="closeMobileMenu()" class="header__mobile-link header__mobile-link--track" id="track-order-mobile-nav">📦 Track Order</a></li>
       </ul>
     </nav>

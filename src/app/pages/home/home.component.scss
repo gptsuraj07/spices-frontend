@@ -9,12 +9,10 @@
 .hero {
   position: relative;
   background: linear-gradient(135deg, #faf5ee 0%, #f4ede0 100%);
-  padding: v.$space-16 0 v.$space-20;
-  border-bottom: 1px solid rgba(139, 38, 18, 0.1);
-  overflow: hidden;
+  padding: v.$space-8 0 v.$space-10;
 
   @include m.respond-to('md') {
-    padding: v.$space-10 0 v.$space-12;
+    padding: v.$space-6 0 v.$space-8;
   }
 
   &__bg-pattern {

@@ -1,5 +1,5 @@
 <!-- =========================================================
-     ARIDHU — HERITAGE SHOP COLLECTION PAGE
+     ARIDHU — CREATIVE CATEGORY SHELVES SHOP PAGE
      ========================================================= -->
 
 <div class="shop-page page-enter">
@@ -12,7 +12,7 @@
       <h1 class="shop-hero__title">The Heritage Spice Collection</h1>
       <div class="shop-hero__tamil">பாரம்பரிய பொடி வகைகள்</div>
       <p class="shop-hero__sub">
-        Whole spices slow-roasted in heavy iron kadais and coarsely stone-pounded.
+        Whole spices slow-roasted in heavy iron kadais and stone-pounded. Select your favorite podi below.
       </p>
     </div>
   </div>
@@ -20,48 +20,52 @@
   <!-- MAIN SHOP CONTAINER -->
   <div class="container shop-page__body">
 
-    <!-- TOP CONTROL BAR (Search + Category Quick Tabs + Sort) -->
+    <!-- TOP CONTROL BAR (SEARCH + CATEGORY QUICK JUMP + SORT) -->
     <div class="shop-controls">
 
       <!-- Search Input Box -->
       <div class="shop-search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          class="shop-search__icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shop-search__icon">
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
-        <input type="text" class="shop-search__input" placeholder="Search Rasam, Kozhambu, Podi..."
+        <input type="text" class="shop-search__input" placeholder="Search Rasam, Kozhambu, Sambar, Podi..."
           [ngModel]="searchQuery" (ngModelChange)="onSearchChange($event)" />
-        <button *ngIf="searchQuery" class="shop-search__clear" (click)="clearSearch()" type="button"
-          aria-label="Clear search">
+        <button *ngIf="searchQuery" class="shop-search__clear" (click)="clearSearch()" type="button" aria-label="Clear search">
           ✕
         </button>
       </div>
 
-      <!-- Quick Category Switcher Tabs -->
+      <!-- Category Navigation Tabs -->
       <div class="shop-tabs">
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'all'"
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'all' && !searchQuery"
           (click)="selectCategoryTab('all')">
-          All Blends (14)
-        </button>
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-rasam'"
-          (click)="selectCategoryTab('cat-rasam')">
-          7 Rasams (ரசம்)
+          ✨ All Category Shelves (23)
         </button>
         <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-kozhambu'"
           (click)="selectCategoryTab('cat-kozhambu')">
-          7 Kozhambus (குழம்பு)
+          🍲 Kuzhambu (7)
+        </button>
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-rasam'"
+          (click)="selectCategoryTab('cat-rasam')">
+          🥣 Rasam (7)
+        </button>
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-sambar'"
+          (click)="selectCategoryTab('cat-sambar')">
+          🥘 Sambar (2)
+        </button>
+        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-tiffin'"
+          (click)="selectCategoryTab('cat-tiffin')">
+          🥞 Tiffin &amp; Podis (7)
         </button>
         <button class="shop-tab shop-tab--combo" [class.shop-tab--active]="activeCategoryTab === 'combos'"
           (click)="selectCategoryTab('combos')">
-          2 Signature Combos (காம்போ)
+          🎁 Combos (2)
         </button>
       </div>
 
-      <!-- Right Sort & Mobile Filter Toggle -->
+      <!-- Right Actions (Filters + Sort) -->
       <div class="shop-actions">
-
-        <!-- Mobile Filter Toggle Button -->
         <button class="btn btn-outline btn-filter-toggle" type="button" (click)="toggleFilter()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="4" y1="6" x2="20" y2="6" />
@@ -71,7 +75,6 @@
           Filters
         </button>
 
-        <!-- Sort Select -->
         <div class="shop-sort">
           <label for="sort-select" class="shop-sort__label">Sort:</label>
           <select id="sort-select" class="form-select shop-sort__select" [ngModel]="currentSort"
@@ -79,12 +82,11 @@
             <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
           </select>
         </div>
-
       </div>
 
     </div>
 
-    <!-- ACTIVE FILTER BADGES ROW -->
+    <!-- ACTIVE FILTERS BADGES ROW -->
     <div class="active-filters-row"
       *ngIf="searchQuery || activeCategoryTab !== 'all' || currentFilter.minPrice || currentFilter.maxPrice">
       <span class="active-filters-label">Active Filters:</span>
@@ -107,21 +109,209 @@
       <button class="clear-all-btn" (click)="clearAllFilters()" type="button">Clear All</button>
     </div>
 
-    <!-- MAIN SHOP LAYOUT GRID (SIDEBAR + MAIN CONTENT AREA) -->
+    <!-- MAIN LAYOUT GRID (SIDEBAR + CONTENT AREA) -->
     <div class="shop-layout">
 
       <!-- Sidebar Filters (Desktop & Mobile Drawer) -->
       <app-filter-sidebar [categories]="categories" [currentFilter]="currentFilter" [isOpen]="filterOpen"
         (filterChange)="onFilterChange($event)" (close)="filterOpen = false"></app-filter-sidebar>
 
-      <!-- Overlay backdrop for mobile filter drawer -->
       <div class="overlay" *ngIf="filterOpen" (click)="filterOpen = false" aria-hidden="true"></div>
 
       <!-- Main Content Container -->
       <div class="shop-grid-container">
 
-        <!-- CASE A: COMBOS SELECTED (DISPLAY ONLY THE 2 COMBOS) -->
-        <div *ngIf="activeCategoryTab === 'combos'" class="combos-page-view">
+        <!-- =========================================================
+             MODE A: CATEGORY SHOWCASE SHELVES VIEW (DEFAULT / IMAGE 2)
+             Shown when viewing All categories and no search query active
+             ========================================================= -->
+        <ng-container *ngIf="activeCategoryTab === 'all' && !searchQuery && !currentFilter.minPrice && !currentFilter.maxPrice">
+          <div class="category-shelves-list">
+
+            <!-- 1. KOZHAMBU POWDERS SHOWCASE (TERRACOTTA THEME) -->
+            <div class="cat-shelf cat-shelf--kozhambu" id="cat-section-kozhambu">
+              <div class="cat-shelf__header">
+                <div class="cat-shelf__title-group">
+                  <span class="cat-shelf__icon">🍲</span>
+                  <div>
+                    <h2 class="cat-shelf__title">Kuzhambu Powders <span class="count">(7)</span></h2>
+                    <span class="cat-shelf__tamil">பாரம்பரிய குழம்பு பொடிகள்</span>
+                  </div>
+                </div>
+                <a routerLink="/category/kozhambu" class="cat-shelf__view-all">View Category →</a>
+              </div>
+
+              <div class="cat-shelf__grid">
+                <div *ngFor="let p of productsByKozhambu" class="mini-card" (click)="navigateToProduct(p.slug)">
+                  <div class="mini-card__art mini-card__art--kozhambu">
+                    <span class="mini-card__emoji">🍲</span>
+                    <span class="mini-card__badge">100g</span>
+                  </div>
+                  <div class="mini-card__body">
+                    <h3 class="mini-card__name">{{ p.name }}</h3>
+                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                    <div class="mini-card__footer">
+                      <span class="mini-card__price">₹{{ p.price }}</span>
+                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                        [disabled]="addingProductId === p.id">
+                        {{ addingProductId === p.id ? '...' : '+ Add' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. RASAM POWDERS SHOWCASE (HERBAL GREEN THEME) -->
+            <div class="cat-shelf cat-shelf--rasam" id="cat-section-rasam">
+              <div class="cat-shelf__header">
+                <div class="cat-shelf__title-group">
+                  <span class="cat-shelf__icon">🥣</span>
+                  <div>
+                    <h2 class="cat-shelf__title">Rasam Powders <span class="count">(7)</span></h2>
+                    <span class="cat-shelf__tamil">பாரம்பரிய ரசம் பொடிகள்</span>
+                  </div>
+                </div>
+                <a routerLink="/category/rasam" class="cat-shelf__view-all">View Category →</a>
+              </div>
+
+              <div class="cat-shelf__grid">
+                <div *ngFor="let p of productsByRasam" class="mini-card" (click)="navigateToProduct(p.slug)">
+                  <div class="mini-card__art mini-card__art--rasam">
+                    <span class="mini-card__emoji">🥣</span>
+                    <span class="mini-card__badge">100g</span>
+                  </div>
+                  <div class="mini-card__body">
+                    <h3 class="mini-card__name">{{ p.name }}</h3>
+                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                    <div class="mini-card__footer">
+                      <span class="mini-card__price">₹{{ p.price }}</span>
+                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                        [disabled]="addingProductId === p.id">
+                        {{ addingProductId === p.id ? '...' : '+ Add' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. SAMBAR POWDERS SHOWCASE (WARM GOLD THEME) -->
+            <div class="cat-shelf cat-shelf--sambar" id="cat-section-sambar">
+              <div class="cat-shelf__header">
+                <div class="cat-shelf__title-group">
+                  <span class="cat-shelf__icon">🥘</span>
+                  <div>
+                    <h2 class="cat-shelf__title">Sambar Powders <span class="count">(2)</span></h2>
+                    <span class="cat-shelf__tamil">பாரம்பரிய சாம்பார் பொடிகள்</span>
+                  </div>
+                </div>
+                <a routerLink="/category/sambar" class="cat-shelf__view-all">View Category →</a>
+              </div>
+
+              <div class="cat-shelf__grid cat-shelf__grid--2col">
+                <div *ngFor="let p of productsBySambar" class="mini-card" (click)="navigateToProduct(p.slug)">
+                  <div class="mini-card__art mini-card__art--sambar">
+                    <span class="mini-card__emoji">🥘</span>
+                    <span class="mini-card__badge">100g</span>
+                  </div>
+                  <div class="mini-card__body">
+                    <h3 class="mini-card__name">{{ p.name }}</h3>
+                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                    <div class="mini-card__footer">
+                      <span class="mini-card__price">₹{{ p.price }}</span>
+                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                        [disabled]="addingProductId === p.id">
+                        {{ addingProductId === p.id ? '...' : '+ Add' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. TIFFIN MIXES & PODIS SHOWCASE (SUNSET AMBER THEME) -->
+            <div class="cat-shelf cat-shelf--tiffin" id="cat-section-tiffin">
+              <div class="cat-shelf__header">
+                <div class="cat-shelf__title-group">
+                  <span class="cat-shelf__icon">🥞</span>
+                  <div>
+                    <h2 class="cat-shelf__title">Tiffin Mixes &amp; Podis <span class="count">(7)</span></h2>
+                    <span class="cat-shelf__tamil">டிபன் மற்றும் பொடி வகைகள்</span>
+                  </div>
+                </div>
+                <a routerLink="/category/tiffinmixed" class="cat-shelf__view-all">View Category →</a>
+              </div>
+
+              <div class="cat-shelf__grid">
+                <div *ngFor="let p of productsByTiffin" class="mini-card" (click)="navigateToProduct(p.slug)">
+                  <div class="mini-card__art mini-card__art--tiffin">
+                    <span class="mini-card__emoji">🥞</span>
+                    <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
+                  </div>
+                  <div class="mini-card__body">
+                    <h3 class="mini-card__name">{{ p.name }}</h3>
+                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                    <div class="mini-card__footer">
+                      <span class="mini-card__price">₹{{ p.price }}</span>
+                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                        [disabled]="addingProductId === p.id">
+                        {{ addingProductId === p.id ? '...' : '+ Add' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. SIGNATURE COMBOS SHOWCASE (HERITAGE MAROON THEME) -->
+            <div class="cat-shelf cat-shelf--combos" id="cat-section-combos">
+              <div class="cat-shelf__header">
+                <div class="cat-shelf__title-group">
+                  <span class="cat-shelf__icon">🎁</span>
+                  <div>
+                    <h2 class="cat-shelf__title">Signature 7-Day Combos <span class="count">(2)</span></h2>
+                    <span class="cat-shelf__tamil">வாராந்திர சடங்கு பெட்டிகள்</span>
+                  </div>
+                </div>
+                <button class="cat-shelf__view-all" (click)="selectCategoryTab('combos')" type="button">View Combos →</button>
+              </div>
+
+              <div class="combos-grid">
+                <div *ngFor="let combo of combos" class="combo-shop-card">
+                  <div class="combo-shop-card__badge">SIGNATURE 7-PACK SET</div>
+                  <h3 class="combo-shop-card__title">{{ combo.name }}</h3>
+                  <span class="combo-shop-card__tamil">{{ getComboTamilName(combo.name) }}</span>
+                  <p class="combo-shop-card__desc">{{ combo.shortDescription }}</p>
+
+                  <div class="combo-shop-card__footer">
+                    <div class="price-box">
+                      <span class="price">₹{{ combo.price }}</span>
+                      <span class="savings-tag">Save ₹350 vs Individual</span>
+                    </div>
+
+                    <div class="combo-actions">
+                      <button class="btn btn-primary" type="button" (click)="addComboToCart(combo)"
+                        [disabled]="addingComboId === combo.id">
+                        <span *ngIf="addingComboId !== combo.id">Add Combo — ₹{{ combo.price }}</span>
+                        <span *ngIf="addingComboId === combo.id">Adding...</span>
+                      </button>
+                      <a [routerLink]="['/combo', combo.slug]" class="btn btn-outline">
+                        View Details
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+
+        <!-- =========================================================
+             MODE B: COMBOS PAGE TAB VIEW
+             ========================================================= -->
+        <div *ngIf="activeCategoryTab === 'combos' && !searchQuery" class="combos-page-view">
           <div class="combos-header text-center">
             <span class="combos-tag">CURATED SIGNATURE BOXES</span>
             <h2 class="combos-title">Complete 7-Day Collection Boxes (2)</h2>
@@ -166,17 +356,19 @@
           </div>
         </div>
 
-        <!-- CASE B: INDIVIDUAL PRODUCTS (ALL BLENDS, RASAM, KOZHAMBU) -->
-        <div *ngIf="activeCategoryTab !== 'combos'">
+        <!-- =========================================================
+             MODE C: FILTERED GRID VIEW (TARGETED CATEGORY TAB OR SEARCH)
+             ========================================================= -->
+        <div *ngIf="activeCategoryTab !== 'combos' && (activeCategoryTab !== 'all' || searchQuery || currentFilter.minPrice || currentFilter.maxPrice)">
           <div class="shop-count-bar" *ngIf="!loading">
-            <span class="shop-count-text">Showing <strong>{{ products.length }}</strong> of {{ totalCount }} artisanal
-              spice blends</span>
+            <span class="shop-count-text">Showing <strong>{{ products.length }}</strong> of {{ totalCount }} artisanal spice blends</span>
           </div>
 
           <ng-container *ngIf="!loading; else loadingGrid">
             <div class="product-grid" *ngIf="products.length > 0; else emptyState">
-              <app-product-card *ngFor="let p of products; let i = index" [product]="p" [index]="i"
-                [showCategory]="false"></app-product-card>
+              <div *ngFor="let p of products; let i = index" [id]="'pcard-' + p.slug">
+                <app-product-card [product]="p" [index]="i" [showCategory]="false"></app-product-card>
+              </div>
             </div>
 
             <ng-template #emptyState>

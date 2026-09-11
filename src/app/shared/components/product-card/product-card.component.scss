@@ -4,35 +4,41 @@
 .pcard {
   background: v.$white;
   border-radius: 12px;
-  border: 1px solid rgba(v.$spice-dark, 0.08);
+  border: 1px solid rgba(v.$spice-dark, 0.1);
   overflow: hidden;
   transition: all v.$duration-base v.$ease-out;
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   &:hover,
   &:focus-within {
-    border-color: rgba(v.$spice-dark, 0.2);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(v.$spice-dark, 0.08);
+    border-color: rgba(139, 38, 18, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(139, 38, 18, 0.09);
 
     .pcard__image {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
 
     .pcard__quick-badge {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(-50%, 0);
+    }
+
+    .pcard__art-bg {
+      transform: scale(1.06);
     }
   }
 
-  // ── Image Wrap ────────────────────────────────────────────
+  // ── Image Wrap & Art Banner ─────────────────────────────────
   &__image-wrap {
     position: relative;
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/10;
+    max-height: 145px;
     overflow: hidden;
-    background: #f4f0e8;
+    background: #f5eedf;
   }
 
   &__image-link {
@@ -48,17 +54,89 @@
     transition: transform v.$duration-slow v.$ease-out;
   }
 
+  // Rich Heritage Art Banner Fallback
+  &__art-banner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2d1b15 0%, #1a0f0c 100%);
+    color: #ffffff;
+
+    &--kozhambu {
+      background: linear-gradient(135deg, #3d1c14 0%, #240e08 100%);
+    }
+
+    &--rasam {
+      background: linear-gradient(135deg, #2d2615 0%, #171207 100%);
+    }
+
+    &--sambar {
+      background: linear-gradient(135deg, #3b2210 0%, #201107 100%);
+    }
+
+    &--tiffin {
+      background: linear-gradient(135deg, #1c2b1d 0%, #0c170d 100%);
+    }
+  }
+
+  &__art-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    background-image: radial-gradient(#d97706 1px, transparent 0);
+    background-size: 16px 16px;
+    transition: transform 0.4s ease;
+  }
+
+  &__art-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+
+  &__art-icon {
+    font-size: 1.8rem;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+
+  &__art-tamil {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fde68a;
+    letter-spacing: 0.02em;
+    margin-bottom: 1px;
+  }
+
+  &__art-brand {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #a89890;
+    text-transform: uppercase;
+  }
+
   &__quick-badge {
     position: absolute;
-    bottom: v.$space-3;
+    bottom: 8px;
     left: 50%;
     transform: translate(-50%, 8px);
-    background: rgba(v.$white, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     color: v.$spice-dark;
     border: none;
-    padding: v.$space-2 v.$space-4;
+    padding: 4px 12px;
     border-radius: v.$radius-full;
-    font-size: v.$text-xs;
+    font-size: 10px;
     font-weight: v.$fw-semibold;
     opacity: 0;
     cursor: pointer;
@@ -66,36 +144,37 @@
     box-shadow: v.$shadow-sm;
 
     &:hover {
-      background: v.$white;
+      background: #ffffff;
       color: v.$rust-primary;
     }
   }
 
   &__number {
     position: absolute;
-    top: v.$space-3;
-    left: v.$space-3;
+    top: 6px;
+    right: 6px;
     z-index: 2;
-    font-family: v.$font-display;
-    font-size: 13px;
-    font-style: italic;
-    color: v.$rust-primary;
-    background: rgba(v.$white, 0.9);
-    padding: 1px 7px;
+    font-family: v.$font-body;
+    font-size: 10px;
+    font-weight: 700;
+    color: #2d1b15;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1px 6px;
     border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   // ── Content ──────────────────────────────────────────────
   &__content {
-    padding: v.$space-5;
+    padding: 10px 12px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: v.$space-2;
+    gap: 4px;
 
     @include m.respond-to('xs') {
-      padding: v.$space-3;
-      gap: 6px;
+      padding: 8px 10px;
+      gap: 3px;
     }
   }
 
@@ -103,37 +182,37 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: v.$space-2;
+    gap: 4px;
     flex-wrap: wrap;
   }
 
   &__tamil-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: v.$fw-semibold;
     color: v.$rust-primary;
     overflow-wrap: break-word;
   }
 
   &__cat-tag {
-    font-size: 10px;
-    font-weight: v.$fw-medium;
+    font-size: 9px;
+    font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: v.$text-muted;
-    background: #f3f0ea;
-    padding: 2px 7px;
+    color: #66554d;
+    background: #f3ede2;
+    padding: 1px 6px;
     border-radius: 4px;
     white-space: nowrap;
   }
 
   &__name {
     font-family: v.$font-display;
-    font-size: 1.15rem;
-    font-weight: v.$fw-semibold;
-    line-height: 1.28;
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.24;
     color: v.$spice-dark;
-    margin: 0;
+    margin: 2px 0 0;
     overflow-wrap: break-word;
     word-break: break-word;
     @include m.line-clamp(2);
@@ -152,24 +231,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: v.$space-2;
-    margin-top: 2px;
+    gap: 4px;
+    margin-top: 1px;
     flex-wrap: wrap;
   }
 
   &__aroma-tag {
-    font-size: 11px;
+    font-size: 10px;
     color: #55433c;
     font-weight: 500;
-    overflow-wrap: break-word;
   }
 
   &__heat-tag {
-    font-size: 10px;
+    font-size: 9px;
     color: v.$rust-primary;
     background: #fdf2f0;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 1px 5px;
+    border-radius: 3px;
     font-weight: 600;
     white-space: nowrap;
   }
@@ -177,39 +255,39 @@
   &__meta-row {
     display: flex;
     align-items: center;
-    gap: v.$space-2;
-    margin-top: v.$space-1;
+    gap: 4px;
+    margin-top: 2px;
     flex-wrap: wrap;
   }
 
   &__weight-pill {
     background: v.$spice-dark;
     color: v.$white;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: v.$fw-semibold;
-    padding: 2px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.04em;
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
     white-space: nowrap;
   }
 
   &__batch-tag {
     background: #fef3c7;
     color: #b45309;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 4px;
+    padding: 1px 5px;
+    border-radius: 3px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     white-space: nowrap;
   }
 
   &__footer {
     @include m.flex-between;
     margin-top: auto;
-    padding-top: v.$space-3;
-    gap: v.$space-2;
+    padding-top: 8px;
+    gap: 4px;
     flex-wrap: wrap;
   }
 
@@ -219,41 +297,40 @@
   }
 
   &__price-label {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     color: v.$text-muted;
   }
 
   &__price {
     font-family: v.$font-display;
-    font-size: 1.25rem;
-    font-weight: v.$fw-bold;
+    font-size: 1.15rem;
+    font-weight: 700;
     color: v.$spice-dark;
-    line-height: 1.1;
+    line-height: 1;
   }
 
   // ── Add to Cart Button ───────────────────────────────────
   &__add-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 16px;
+    gap: 4px;
+    padding: 5px 12px;
     border-radius: 6px;
     background: v.$rust-primary;
     color: v.$white;
     border: none;
     font-family: v.$font-body;
-    font-size: 12px;
-    font-weight: v.$fw-semibold;
-    letter-spacing: 0.02em;
+    font-size: 11px;
+    font-weight: 600;
     cursor: pointer;
     transition: all v.$duration-base v.$ease-out;
 
     &:hover:not(:disabled) {
       background: v.$rust-dark;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(139, 38, 18, 0.3);
+      box-shadow: 0 3px 10px rgba(139, 38, 18, 0.3);
     }
 
     &:disabled {
@@ -268,10 +345,8 @@
   }
 
   &__oos {
-    font-size: 11px;
+    font-size: 10px;
     color: v.$rust-primary;
-    font-weight: v.$fw-semibold;
+    font-weight: 600;
   }
 }
-
-

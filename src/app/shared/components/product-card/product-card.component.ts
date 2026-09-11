@@ -9,10 +9,10 @@ import { environment } from '../../../../environments/environment';
   standalone: false,
   template: `
     <article class="pcard" [class.pcard--featured]="product.featured" tabindex="0">
-      <!-- Image Area -->
+      <!-- Visual Banner / Image Area -->
       <div class="pcard__image-wrap">
         <a [routerLink]="['/product', product.slug]" class="pcard__image-link" [attr.aria-label]="product.name">
-          <ng-container *ngIf="getImageUrl(product.imageUrl) as formattedUrl; else placeholder">
+          <ng-container *ngIf="getImageUrl(product.imageUrl) as formattedUrl; else artBanner">
             <img
               [src]="formattedUrl"
               [alt]="product.name"
@@ -20,31 +20,40 @@ import { environment } from '../../../../environments/environment';
               loading="lazy"
             />
           </ng-container>
-          <ng-template #placeholder>
-            <app-image-placeholder variant="product" aspect="1/1"></app-image-placeholder>
+          
+          <!-- Rich Heritage Spice Art Banner when no image is uploaded -->
+          <ng-template #artBanner>
+            <div class="pcard__art-banner" [class]="'pcard__art-banner--' + getCategoryClass()">
+              <div class="pcard__art-bg"></div>
+              <div class="pcard__art-content">
+                <span class="pcard__art-icon">{{ getCategoryIcon() }}</span>
+                <span class="pcard__art-tamil">{{ getTamilName(product.name) }}</span>
+                <span class="pcard__art-brand">ARIDHU HERITAGE</span>
+              </div>
+            </div>
           </ng-template>
         </a>
 
-        <!-- Quick view action -->
+        <!-- Quick View Hover Action -->
         <button class="pcard__quick-badge" type="button" (click)="onQuickView.emit(product)">
           Quick View
         </button>
 
-        <!-- Product Numbering Badge (e.g. 01) -->
+        <!-- Product Index Badge -->
         <div class="pcard__number" *ngIf="index !== undefined && index !== null">
-          <span>0{{ index + 1 }}</span>
+          #{{ index + 1 }}
         </div>
       </div>
 
       <!-- Content Area -->
       <div class="pcard__content">
-        <!-- Tamil Badge & Category Tag -->
+        <!-- Tag Row: Tamil Badge & Category Tag -->
         <div class="pcard__tag-row">
           <span class="pcard__tamil-title">{{ getTamilName(product.name) }}</span>
           <span class="pcard__cat-tag">{{ getCategoryTag() }}</span>
         </div>
 
-        <!-- Name -->
+        <!-- Product Name -->
         <h3 class="pcard__name">
           <a [routerLink]="['/product', product.slug]" class="pcard__name-link">
             {{ product.name }}
@@ -57,13 +66,13 @@ import { environment } from '../../../../environments/environment';
           <span class="pcard__heat-tag">{{ getSpiceHeat() }}</span>
         </div>
 
-        <!-- Weight Badge Pill -->
+        <!-- Weight & Batch Meta -->
         <div class="pcard__meta-row">
           <span class="pcard__weight-pill">{{ product.weight }}{{ product.weightUnit }}</span>
-          <span class="pcard__batch-tag">Small Batch</span>
+          <span class="pcard__batch-tag">Iron-Roasted</span>
         </div>
 
-        <!-- Price + Action Footer -->
+        <!-- Price & Add to Cart Footer -->
         <div class="pcard__footer">
           <div class="pcard__price-box">
             <span class="pcard__price-label">Price</span>
@@ -106,36 +115,38 @@ export class ProductCardComponent {
 
   private tamilNames: Record<string, string> = {
     'Kalyana Rasam Powder': 'கல்யாண ரசம் பொடி',
-    'Milagu Rasam Powder': 'தாளித்த மிளகு ரசம் பொடி',
-    'Kandathippili Rasam Powder': 'கண்டதிப்பிலி ரசம் பொடி',
-    'Kollu Rasam Powder': 'கொள்ளு ரசம் பொடி',
-    'Cinnamon Rasam Powder': 'இலவங்கப்பட்டை ரசம் பொடி',
-    'Poricha Rasam Powder': 'பொரிச்ச ரசம் பொடி',
     'Ginger Lemon Rasam Powder': 'இஞ்சி எலுமிச்சை ரசம் பொடி',
+    'Mor Rasam Powder': 'மோர் ரசம் பொடி',
+    'Kandathippili Rasam Powder': 'கண்டதிப்பிலி ரசம் பொடி',
+    'Cinnamon Rasam Powder': 'இலவங்கப்பட்டை ரசம் பொடி',
+    'Kollu Rasam Powder': 'கொள்ளு ரசம் பொடி',
+    'Poricha Rasam Powder': 'பொரிச்ச ரசம் பொடி',
     'Vatha Kuzhambu Powder': 'வத்த குழம்பு பொடி',
     'Ennai Kathirikai Kuzhambu Powder': 'எண்ணெய் கத்திரிக்காய் குழம்பு பொடி',
     'Mor Kuzhambu Powder': 'மோர் குழம்பு பொடி',
     'Talaga Kuzhambu Powder': 'தஞ்சாவூர் தாளக குழம்பு பொடி',
-    'Vendaya Vendaikai Kuzhambu Powder': 'வெந்தய வெண்டைக்காய் பொடி',
+    'Vendaya Vendaikai Kuzhambu Powder': 'வெந்தய வெண்டைக்காய் குழம்பு பொடி',
     'Kootu Kuzhambu Powder': 'கூட்டு குழம்பு பொடி',
     'Narthangai Kuzhambu Powder': 'நார்த்தங்காய் குழம்பு பொடி',
-    'Sambar Powder': 'அரிது சாம்பார் பொடி',
-    'Idli / Dosa Chilli Powder': 'இட்லி / தோசை மிளகாய் பொடி',
+    'Chennai Sambar Powder': 'சென்னை சாம்பார் பொடி',
+    'Sambar with Coconut Milk Powder': 'தேங்காய் பால் சாம்பார் பொடி',
+    'Idli Dosa Milagai Podi': 'இட்லி தோசை மிளகாய் பொடி',
+    'Dal / Paruppu Podi': 'பருப்பு பொடி',
+    'Kothamalli Thugayal Podi': 'கொத்தமல்லி துவையல் பொடி',
+    'Pudina Thugayal Podi': 'புதினா துவையல் பொடி',
+    'Vegetable / Rice Mix Podi': 'காய்கறி / சாத பொடி',
+    'Arisi Upma (Tiffin Mix)': 'அரிசி உப்மா (டிபன் மிக்ஸ்)',
+    'Arisi Paruppu Sadam (Tiffin Mix)': 'அரிசி பருப்பு சாதம்',
   };
-
-  constructor(
-    private cartService: CartService,
-    private toastService: ToastService,
-  ) {}
 
   private aromaProfiles: Record<string, { heat: string; aroma: string }> = {
     'Kalyana Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Tangy & Peppery' },
-    'Milagu Rasam Powder': { heat: '🌶️🌶️🌶️ Fiery', aroma: 'Black Pepper Warmth' },
-    'Kandathippili Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Herbal & Earthy' },
-    'Kollu Rasam Powder': { heat: '🌶️ Mild', aroma: 'Wholesome Horsegram' },
-    'Cinnamon Rasam Powder': { heat: '🌶️ Mild', aroma: 'Sweet Cinnamon Spice' },
-    'Poricha Rasam Powder': { heat: '🌶️ Mild', aroma: 'Gentle Roasted Lentil' },
     'Ginger Lemon Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Zesty Ginger Citrus' },
+    'Mor Rasam Powder': { heat: '🌶️ Mild', aroma: 'Cooling Cumin & Curd' },
+    'Kandathippili Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Herbal Long Pepper' },
+    'Cinnamon Rasam Powder': { heat: '🌶️ Mild', aroma: 'Sweet Cinnamon Spice' },
+    'Kollu Rasam Powder': { heat: '🌶️ Mild', aroma: 'Wholesome Horsegram' },
+    'Poricha Rasam Powder': { heat: '🌶️ Mild', aroma: 'Gentle Roasted Lentil' },
     'Vatha Kuzhambu Powder': { heat: '🌶️🌶️🌶️ Fiery', aroma: 'Tangy Sundakkai Spice' },
     'Ennai Kathirikai Kuzhambu Powder': { heat: '🌶️🌶️ Medium', aroma: 'Rich Roasted Sesame' },
     'Mor Kuzhambu Powder': { heat: '🌶️ Mild', aroma: 'Creamy Coconut & Cumin' },
@@ -143,7 +154,21 @@ export class ProductCardComponent {
     'Vendaya Vendaikai Kuzhambu Powder': { heat: '🌶️ Mild', aroma: 'Bittersweet Fenugreek' },
     'Kootu Kuzhambu Powder': { heat: '🌶️ Mild', aroma: 'Subtle Cumin & Coconut' },
     'Narthangai Kuzhambu Powder': { heat: '🌶️🌶️ Medium', aroma: 'Sun-Dried Citron Tang' },
+    'Chennai Sambar Powder': { heat: '🌶️🌶️ Medium', aroma: 'Madras Home Roasted' },
+    'Sambar with Coconut Milk Powder': { heat: '🌶️ Mild', aroma: 'Velvet Coconut Cream' },
+    'Idli Dosa Milagai Podi': { heat: '🌶️🌶️🌶️ Fiery', aroma: 'Roasted Sesame & Chilli' },
+    'Dal / Paruppu Podi': { heat: '🌶️ Mild', aroma: 'Golden Roasted Dal' },
+    'Kothamalli Thugayal Podi': { heat: '🌶️🌶️ Medium', aroma: 'Fresh Coriander Herb' },
+    'Pudina Thugayal Podi': { heat: '🌶️🌶️ Medium', aroma: 'Zesty Mint Leaf' },
+    'Vegetable / Rice Mix Podi': { heat: '🌶️ Mild', aroma: 'Aromatic Stir-Fry Blend' },
+    'Arisi Upma (Tiffin Mix)': { heat: '🌶️ Mild', aroma: 'Pepper Broken Rice' },
+    'Arisi Paruppu Sadam (Tiffin Mix)': { heat: '🌶️ Mild', aroma: 'Kongu Rice & Lentil' },
   };
+
+  constructor(
+    private cartService: CartService,
+    private toastService: ToastService,
+  ) {}
 
   getImageUrl(url: string | null | undefined): string | null {
     if (!url || !url.trim()) return null;
@@ -155,7 +180,7 @@ export class ProductCardComponent {
   }
 
   getTamilName(name: string): string {
-    return this.tamilNames[name] || 'அரிது பாரம்பரிய பொடி';
+    return this.tamilNames[name] || 'அரிதுபாரம்பரிய பொடி';
   }
 
   getSpiceHeat(): string {
@@ -170,7 +195,27 @@ export class ProductCardComponent {
     if (!this.product) return 'powders';
     if (this.product.categoryId === 'cat-rasam') return 'rasam';
     if (this.product.categoryId === 'cat-kozhambu') return 'kozhambu';
+    if (this.product.categoryId === 'cat-sambar') return 'sambar';
+    if (this.product.categoryId === 'cat-tiffin') return 'tiffin';
     return 'powders';
+  }
+
+  getCategoryClass(): string {
+    if (!this.product) return 'default';
+    if (this.product.categoryId === 'cat-rasam') return 'rasam';
+    if (this.product.categoryId === 'cat-kozhambu') return 'kozhambu';
+    if (this.product.categoryId === 'cat-sambar') return 'sambar';
+    if (this.product.categoryId === 'cat-tiffin') return 'tiffin';
+    return 'default';
+  }
+
+  getCategoryIcon(): string {
+    if (!this.product) return '🌶️';
+    if (this.product.categoryId === 'cat-rasam') return '🥣';
+    if (this.product.categoryId === 'cat-kozhambu') return '🍲';
+    if (this.product.categoryId === 'cat-sambar') return '🥘';
+    if (this.product.categoryId === 'cat-tiffin') return '🥞';
+    return '🌶️';
   }
 
   addToCart(): void {

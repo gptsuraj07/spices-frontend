@@ -38,6 +38,8 @@ export interface CraftStep {
 export class HomeComponent implements OnInit {
   rasam_products: Product[] = [];
   kozhambu_products: Product[] = [];
+  sambar_products: Product[] = [];
+  tiffin_products: Product[] = [];
   all_products: Product[] = [];
   combos: Combo[] = [];
   categories: Category[] = [];
@@ -45,8 +47,8 @@ export class HomeComponent implements OnInit {
   addingRitual = false;
   addingComboId: string | null = null;
 
-  // Active Category Filter: 'all' | 'rasam' | 'kozhambu'
-  selectedFilter: 'all' | 'rasam' | 'kozhambu' = 'all';
+  // Active Category Filter
+  selectedFilter: 'all' | 'kozhambu' | 'rasam' | 'sambar' | 'tiffin' = 'all';
 
   // Interactive 7-Day Rasam Ritual
   activeDayIndex = 0;
@@ -77,7 +79,7 @@ export class HomeComponent implements OnInit {
       tamilName: 'பொரிச்ச ரசம்',
       tagline: 'Wholesome Lentil & Pepper Comfort',
       slug: 'poricha-rasam-powder',
-      productId: 'rasam-006',
+      productId: 'rasam-007',
       ingredients: [
         { name: 'Toor Dal', icon: '🌾' },
         { name: 'Cumin Seeds', icon: '🌱' },
@@ -111,21 +113,21 @@ export class HomeComponent implements OnInit {
     {
       code: 'THU',
       day: 'Thursday',
-      name: 'Milagu Rasam Powder',
-      tamilName: 'தாளித்த மிளகு ரசம்',
-      tagline: 'Immunity-Boosting Black Pepper Heat',
-      slug: 'milagu-rasam-powder',
-      productId: 'rasam-002',
+      name: 'Mor Rasam Powder',
+      tamilName: 'மோர் ரசம்',
+      tagline: 'Cooling Cumin & Curd Comfort',
+      slug: 'mor-rasam-powder',
+      productId: 'rasam-003',
       ingredients: [
-        { name: 'Malabar Black Pepper', icon: '⚫' },
-        { name: 'Country Garlic', icon: '🧄' },
-        { name: 'Tamarind Pulp', icon: '🍯' },
+        { name: 'Cumin Seeds', icon: '🌱' },
+        { name: 'Curry Leaves', icon: '🍃' },
+        { name: 'Roasted Coriander', icon: '🌿' },
         { name: 'Mustard Seeds', icon: '🟡' },
       ],
-      heat: '🌶️🌶️🌶️ Fiery Heat',
-      aroma: 'Pungent & Deeply Warming',
+      heat: '🌶️ Mild Heat',
+      aroma: 'Cooling & Aromatic',
       pairing: 'Tamarind rice, ghee, or enjoyed straight in a brass tumbler',
-      description: 'Crafted from coarse Malabar black peppercorns—traditional South Indian cold & cough defense.',
+      description: 'Crafted with fine cumin and coriander to turn fresh buttermilk into a soothing herbal meal.',
     },
     {
       code: 'FRI',
@@ -134,7 +136,7 @@ export class HomeComponent implements OnInit {
       tamilName: 'இஞ்சி எலுமிச்சை ரசம்',
       tagline: 'Zesty Citrus & Ginger Refreshment',
       slug: 'ginger-lemon-rasam-powder',
-      productId: 'rasam-007',
+      productId: 'rasam-002',
       ingredients: [
         { name: 'Fresh Lemon Zest', icon: '🍋' },
         { name: 'Mountain Ginger', icon: '🫚' },
@@ -153,9 +155,9 @@ export class HomeComponent implements OnInit {
       tamilName: 'கண்டதிப்பிலி ரசம்',
       tagline: 'Rare Long Pepper Siddha Herbal Spice',
       slug: 'kandathippili-rasam-powder',
-      productId: 'rasam-003',
+      productId: 'rasam-004',
       ingredients: [
-        { name: 'Wild Long Pepper', icon: '🌾' },
+        { name: 'Wild Long Pepper Stem', icon: '🌾' },
         { name: 'Coriander Seeds', icon: '🌿' },
         { name: 'Red Chillies', icon: '🌶️' },
         { name: 'Dry Ginger', icon: '🫚' },
@@ -172,7 +174,7 @@ export class HomeComponent implements OnInit {
       tamilName: 'கொள்ளு ரசம்',
       tagline: 'Protein-Rich Nutty Horsegram Comfort',
       slug: 'kollu-rasam-powder',
-      productId: 'rasam-004',
+      productId: 'rasam-006',
       ingredients: [
         { name: 'Roasted Horsegram', icon: '🌾' },
         { name: 'Cumin Seeds', icon: '🌱' },
@@ -231,13 +233,13 @@ export class HomeComponent implements OnInit {
       this.categories = cats;
     });
 
-    this.productService.getByCategory('cat-rasam').subscribe(rasamProducts => {
-      this.rasam_products = rasamProducts;
-      this.productService.getByCategory('cat-kozhambu').subscribe(kozhambuProducts => {
-        this.kozhambu_products = kozhambuProducts;
-        this.all_products = [...this.rasam_products, ...this.kozhambu_products];
-        this.loading = false;
-      });
+    this.productService.getAll().subscribe(allProducts => {
+      this.all_products = allProducts;
+      this.rasam_products = allProducts.filter(p => p.categoryId === 'cat-rasam');
+      this.kozhambu_products = allProducts.filter(p => p.categoryId === 'cat-kozhambu');
+      this.sambar_products = allProducts.filter(p => p.categoryId === 'cat-sambar');
+      this.tiffin_products = allProducts.filter(p => p.categoryId === 'cat-tiffin');
+      this.loading = false;
     });
 
     this.comboService.getActive().subscribe(combos => {
@@ -271,13 +273,15 @@ export class HomeComponent implements OnInit {
     this.activeDayIndex = index;
   }
 
-  setFilter(filter: 'all' | 'rasam' | 'kozhambu'): void {
+  setFilter(filter: 'all' | 'kozhambu' | 'rasam' | 'sambar' | 'tiffin'): void {
     this.selectedFilter = filter;
   }
 
   get filteredProducts(): Product[] {
     if (this.selectedFilter === 'rasam') return this.rasam_products;
     if (this.selectedFilter === 'kozhambu') return this.kozhambu_products;
+    if (this.selectedFilter === 'sambar') return this.sambar_products;
+    if (this.selectedFilter === 'tiffin') return this.tiffin_products;
     return this.all_products;
   }
 

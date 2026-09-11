@@ -2,7 +2,7 @@
 @use 'styles/mixins' as m;
 
 // ============================================================
-// ARIDHU — HERITAGE SHOP PAGE STYLES (100% RESPONSIVE)
+// ARIDHU — HERITAGE SHOP PAGE STYLES (CATEGORY SHELVES & COMPACT GRID)
 // ============================================================
 
 .shop-page {
@@ -10,51 +10,49 @@
   background: #faf6f0;
 
   &__body {
-    padding-top: v.$space-8;
-    padding-bottom: v.$space-20;
+    padding-top: 16px;
+    padding-bottom: 48px;
   }
 }
 
-// ── STORE BANNER ──────────────────────────────────────────────
+// ── COMPACT STORE BANNER ──────────────────────────────────────
 .shop-hero {
   background: linear-gradient(135deg, #2d1b15 0%, #1a0f0c 100%);
   color: #ffffff;
-  padding: v.$space-10 0 v.$space-12;
+  padding: 24px 0 28px;
   border-bottom: 1px solid rgba(200, 138, 46, 0.2);
 
   &__tag {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     color: v.$amber-gold;
     text-transform: uppercase;
-    margin-bottom: v.$space-2;
+    margin-bottom: 2px;
     display: block;
   }
 
   &__title {
     font-family: v.$font-display;
-    font-size: clamp(1.75rem, 4.5vw, 3.8rem);
+    font-size: clamp(1.5rem, 3.5vw, 2.6rem);
     font-weight: 500;
     color: #ffffff;
-    line-height: 1.18;
+    line-height: 1.15;
     margin: 0 0 2px;
-    overflow-wrap: break-word;
-    word-break: break-word;
   }
 
   &__tamil {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: v.$amber-gold;
-    margin-bottom: v.$space-3;
+    margin-bottom: 4px;
   }
 
   &__sub {
-    font-size: 1rem;
+    font-size: 0.88rem;
     color: #d1c5bf;
-    line-height: 1.6;
-    max-width: 640px;
+    line-height: 1.45;
+    max-width: 580px;
     margin: 0 auto;
   }
 }
@@ -64,14 +62,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: v.$space-4;
+  gap: 12px;
   flex-wrap: wrap;
   background: #ffffff;
-  padding: v.$space-4 v.$space-6;
-  border-radius: 16px;
-  border: 1px solid rgba(139, 38, 18, 0.12);
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 38, 18, 0.14);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
-  margin-bottom: v.$space-6;
+  margin-bottom: 20px;
 
   @include m.respond-to('lg') {
     flex-direction: column;
@@ -82,7 +80,7 @@
 // Search Box
 .shop-search {
   position: relative;
-  min-width: 260px;
+  min-width: 240px;
 
   @include m.respond-to('lg') {
     width: 100%;
@@ -90,7 +88,7 @@
 
   &__icon {
     position: absolute;
-    left: 14px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     color: v.$rust-primary;
@@ -99,11 +97,11 @@
 
   &__input {
     width: 100%;
-    padding: 10px 36px 10px 42px;
+    padding: 8px 32px 8px 38px;
     border-radius: v.$radius-full;
     border: 1px solid rgba(139, 38, 18, 0.2);
     background: #faf6f0;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: v.$spice-dark;
     transition: all 0.2s ease;
 
@@ -117,39 +115,49 @@
 
   &__clear {
     position: absolute;
-    right: 12px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
     border: none;
     color: v.$text-muted;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
   }
 }
 
-// Category Switcher Tabs
+// Category Navigation Tabs (Horizontal Scroll on Mobile)
 .shop-tabs {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @include m.respond-to('lg') {
-    justify-content: center;
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 
 .shop-tab {
+  white-space: nowrap;
   background: #faf6f0;
   color: v.$spice-dark;
   border: 1px solid rgba(139, 38, 18, 0.15);
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
   border-radius: v.$radius-full;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
 
   &:hover {
     background: #f4ede0;
@@ -160,7 +168,7 @@
     background: v.$rust-primary;
     color: #ffffff;
     border-color: v.$rust-primary;
-    box-shadow: 0 3px 10px rgba(139, 38, 18, 0.25);
+    box-shadow: 0 2px 8px rgba(139, 38, 18, 0.2);
   }
 
   &--combo {
@@ -178,7 +186,7 @@
 .shop-actions {
   display: flex;
   align-items: center;
-  gap: v.$space-3;
+  gap: 10px;
 
   @include m.respond-to('lg') {
     justify-content: space-between;
@@ -189,11 +197,11 @@
 .btn-filter-toggle {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: 4px;
+  padding: 6px 14px;
   border-radius: v.$radius-full;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
   border: 1px solid rgba(139, 38, 18, 0.2);
   color: v.$spice-dark;
 }
@@ -201,20 +209,20 @@
 .shop-sort {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 
   &__label {
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: v.$spice-dark;
   }
 
   &__select {
-    padding: 8px 30px 8px 14px;
+    padding: 6px 28px 6px 12px;
     border-radius: v.$radius-full;
     border: 1px solid rgba(139, 38, 18, 0.2);
     background: #faf6f0;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: v.$spice-dark;
   }
@@ -224,15 +232,15 @@
 .active-filters-row {
   display: flex;
   align-items: center;
-  gap: v.$space-2;
+  gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: v.$space-6;
-  padding: v.$space-3 v.$space-4;
+  margin-bottom: 16px;
+  padding: 8px 12px;
   background: rgba(139, 38, 18, 0.04);
-  border-radius: 12px;
+  border-radius: 10px;
 
   .active-filters-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: v.$spice-dark;
     text-transform: uppercase;
@@ -241,14 +249,14 @@
   .active-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     background: #ffffff;
     border: 1px solid rgba(139, 38, 18, 0.2);
     color: v.$rust-primary;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 16px;
+    padding: 3px 8px;
+    border-radius: 14px;
 
     button {
       background: transparent;
@@ -256,7 +264,7 @@
       color: v.$rust-primary;
       font-weight: 800;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 
@@ -264,7 +272,7 @@
     background: transparent;
     border: none;
     color: v.$rust-primary;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-decoration: underline;
     cursor: pointer;
@@ -272,34 +280,449 @@
   }
 }
 
+// ── MAIN LAYOUT GRID (SIDEBAR + MAIN CONTENT AREA) ────────────
+.shop-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  align-items: start;
+
+  @include m.respond-to('lg') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shop-grid-container {
+  min-width: 0;
+}
+
+// ============================================================
+// 🌟 CREATIVE CATEGORY SHOWCASE SHELVES (IMAGE 2 STYLE)
+// ============================================================
+
+.category-shelves-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cat-shelf {
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+
+  @include m.respond-to('xs') {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  // 1. Kozhambu Theme (Warm Terracotta Red)
+  &--kozhambu {
+    background: #fff6f3;
+    border: 1.5px solid #fca5a5;
+
+    .cat-shelf__icon {
+      background: #fee2e2;
+    }
+
+    .cat-shelf__title {
+      color: #991b1b;
+    }
+
+    .cat-shelf__view-all {
+      color: #991b1b;
+      background: #fee2e2;
+
+      &:hover {
+        background: #fca5a5;
+      }
+    }
+  }
+
+  // 2. Rasam Theme (Herbal Green)
+  &--rasam {
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+
+    .cat-shelf__icon {
+      background: #dcfce7;
+    }
+
+    .cat-shelf__title {
+      color: #166534;
+    }
+
+    .cat-shelf__view-all {
+      color: #166534;
+      background: #dcfce7;
+
+      &:hover {
+        background: #86efac;
+      }
+    }
+  }
+
+  // 3. Sambar Theme (Warm Sambar Gold)
+  &--sambar {
+    background: #fefce8;
+    border: 1.5px solid #fde047;
+
+    .cat-shelf__icon {
+      background: #fef9c3;
+    }
+
+    .cat-shelf__title {
+      color: #854d0e;
+    }
+
+    .cat-shelf__view-all {
+      color: #854d0e;
+      background: #fef9c3;
+
+      &:hover {
+        background: #fde047;
+      }
+    }
+  }
+
+  // 4. Tiffin Theme (Sunset Amber)
+  &--tiffin {
+    background: #fffbeb;
+    border: 1.5px solid #fcd34d;
+
+    .cat-shelf__icon {
+      background: #fef3c7;
+    }
+
+    .cat-shelf__title {
+      color: #92400e;
+    }
+
+    .cat-shelf__view-all {
+      color: #92400e;
+      background: #fef3c7;
+
+      &:hover {
+        background: #fcd34d;
+      }
+    }
+  }
+
+  // 5. Combos Theme (Royal Maroon)
+  &--combos {
+    background: #fff1f2;
+    border: 1.5px solid #fda4af;
+
+    .cat-shelf__icon {
+      background: #ffe4e6;
+    }
+
+    .cat-shelf__title {
+      color: #9f1239;
+    }
+
+    .cat-shelf__view-all {
+      color: #9f1239;
+      background: #ffe4e6;
+
+      &:hover {
+        background: #fda4af;
+      }
+    }
+  }
+
+  // Shelf Header
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+
+    .count {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    @include m.respond-to('xs') {
+      font-size: 1.15rem;
+    }
+  }
+
+  &__tamil {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #66554d;
+    display: block;
+    margin-top: 2px;
+  }
+
+  &__view-all {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    @include m.respond-to('xs') {
+      padding: 4px 10px;
+      font-size: 0.72rem;
+    }
+  }
+
+  // Mini Cards Responsive Grid (2-column on mobile, 4-column on desktop)
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+
+    @include m.respond-to('xl') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include m.respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include m.respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include m.respond-to('xs') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    &--2col {
+      grid-template-columns: repeat(2, 1fr);
+
+      @include m.respond-to('xs') {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+// ── MINI PRODUCT CARD (CLEAN VISUAL DESIGN INSIDE CATEGORY SHELVES) ──
+.mini-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: v.$rust-primary;
+
+    .mini-card__add-btn {
+      background: v.$rust-primary;
+      color: #ffffff;
+    }
+  }
+
+  &__art {
+    position: relative;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #faf6f0;
+
+    @include m.respond-to('xs') {
+      height: 75px;
+    }
+
+    &--kozhambu {
+      background: linear-gradient(135deg, #fee2e2 0%, #fef2f2 100%);
+    }
+
+    &--rasam {
+      background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+    }
+
+    &--sambar {
+      background: linear-gradient(135deg, #fef9c3 0%, #fefce8 100%);
+    }
+
+    &--tiffin {
+      background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+    }
+  }
+
+  &__emoji {
+    font-size: 2.2rem;
+
+    @include m.respond-to('xs') {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  &__body {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    @include m.respond-to('xs') {
+      padding: 8px 10px 10px;
+    }
+  }
+
+  &__name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: v.$spice-dark;
+    margin: 0 0 2px;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @include m.respond-to('xs') {
+      font-size: 0.78rem;
+    }
+  }
+
+  &__tamil {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: v.$rust-primary;
+    margin-bottom: 8px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include m.respond-to('xs') {
+      font-size: 0.68rem;
+      margin-bottom: 6px;
+    }
+  }
+
+  &__footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+  }
+
+  &__price {
+    font-family: v.$font-display;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: v.$spice-dark;
+
+    @include m.respond-to('xs') {
+      font-size: 0.88rem;
+    }
+  }
+
+  &__add-btn {
+    background: rgba(139, 38, 18, 0.08);
+    color: v.$rust-primary;
+    border: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: v.$rust-primary;
+      color: #ffffff;
+    }
+
+    @include m.respond-to('xs') {
+      padding: 3px 8px;
+      font-size: 0.68rem;
+    }
+  }
+}
+
 // ── COMBOS VIEW SECTION ──────────────────────────────────────
 .combos-page-view {
-  margin-bottom: v.$space-12;
+  margin-bottom: 32px;
 }
 
 .combos-header {
-  margin-bottom: v.$space-8;
+  margin-bottom: 20px;
 }
 
 .combos-tag {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: v.$amber-gold;
   text-transform: uppercase;
   display: block;
-  margin-bottom: v.$space-1;
+  margin-bottom: 2px;
 }
 
 .combos-title {
   font-family: v.$font-display;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: v.$spice-dark;
-  margin: 0 0 v.$space-2;
+  margin: 0 0 4px;
 }
 
 .combos-sub {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #66554d;
   margin: 0;
 }
@@ -307,7 +730,7 @@
 .combos-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: v.$space-8;
+  gap: 16px;
 
   @include m.respond-to('lg') {
     grid-template-columns: 1fr;
@@ -317,10 +740,10 @@
 .combo-shop-card {
   background: linear-gradient(135deg, #2d1b15 0%, #1a0f0c 100%);
   color: #ffffff;
-  border-radius: 20px;
-  padding: v.$space-8;
+  border-radius: 16px;
+  padding: 18px;
   border: 1px solid rgba(200, 138, 46, 0.3);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 
@@ -328,57 +751,57 @@
     align-self: flex-start;
     background: v.$amber-gold;
     color: #2d1b15;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    padding: 3px 10px;
-    border-radius: 10px;
-    margin-bottom: v.$space-3;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
   }
 
   &__title {
     font-family: v.$font-display;
-    font-size: 1.8rem;
+    font-size: 1.35rem;
     font-weight: 600;
     color: #ffffff;
     margin: 0 0 2px;
   }
 
   &__tamil {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: v.$amber-gold;
     display: block;
-    margin-bottom: v.$space-3;
+    margin-bottom: 8px;
   }
 
   &__desc {
-    font-size: 0.92rem;
+    font-size: 0.82rem;
     color: #d1c5bf;
-    line-height: 1.55;
-    margin-bottom: v.$space-4;
+    line-height: 1.4;
+    margin-bottom: 12px;
   }
 
   &__list-box {
     background: rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: v.$space-4;
-    margin-bottom: v.$space-6;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 14px;
 
     .list-title {
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       color: v.$amber-gold;
       text-transform: uppercase;
       display: block;
-      margin-bottom: v.$space-2;
+      margin-bottom: 4px;
     }
 
     .list-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
+      gap: 3px 8px;
 
       @include m.respond-to('xs') {
         grid-template-columns: 1fr;
@@ -386,7 +809,7 @@
     }
 
     .list-item {
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       color: #e5dace;
 
       small {
@@ -399,32 +822,27 @@
   &__footer {
     margin-top: auto;
     display: flex;
-    flex-direction: column;
-    gap: v.$space-4;
-    padding-top: v.$space-4;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
 
     .price-box {
       display: flex;
       flex-direction: column;
 
-      .price-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: #a89890;
-      }
-
       .price {
         font-family: v.$font-display;
-        font-size: 2.2rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: v.$amber-gold;
         line-height: 1;
       }
 
       .savings-tag {
-        font-size: 0.78rem;
+        font-size: 0.72rem;
         color: #4ade80;
         font-weight: 700;
         margin-top: 2px;
@@ -434,61 +852,18 @@
     .combo-actions {
       display: flex;
       align-items: center;
-      gap: v.$space-3;
-      flex-wrap: wrap;
+      gap: 8px;
     }
   }
 }
 
-// Combos Highlight Section in Shop
-.shop-combos-highlight {
-  margin-top: v.$space-12;
-  padding-top: v.$space-10;
-  border-top: 2px dashed rgba(139, 38, 18, 0.15);
-
-  &__header {
-    margin-bottom: v.$space-6;
-
-    .highlight-tag {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: v.$rust-primary;
-      text-transform: uppercase;
-      display: block;
-    }
-
-    .highlight-title {
-      font-family: v.$font-display;
-      font-size: 1.8rem;
-      color: v.$spice-dark;
-      margin: 0;
-    }
-  }
-}
-
-// ── MAIN SHOP LAYOUT ──────────────────────────────────────────
-.shop-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: v.$space-8;
-  align-items: start;
-
-  @include m.respond-to('lg') {
-    grid-template-columns: 1fr;
-  }
-}
-
-.shop-grid-container {
-  min-width: 0;
-}
-
+// ── FILTERED GRID VIEW (FOR SEARCH / SPECIFIC FILTERS) ────────
 .shop-count-bar {
-  margin-bottom: v.$space-4;
+  margin-bottom: 12px;
 }
 
 .shop-count-text {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #66554d;
 
   strong {
@@ -496,58 +871,64 @@
   }
 }
 
-// Responsive Product Grid
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: v.$space-6;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
 
   @include m.respond-to('xl') {
     grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  @include m.respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
 
   @include m.respond-to('md') {
     grid-template-columns: repeat(2, 1fr);
-    gap: v.$space-4;
+    gap: 10px;
   }
 
   @include m.respond-to('xs') {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 }
 
 .product-skeleton {
-  height: 380px;
-  border-radius: 12px;
+  height: 280px;
+  border-radius: 10px;
 }
 
 // Empty State Card
 .empty-state {
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 14px;
   border: 1px dashed rgba(139, 38, 18, 0.3);
-  padding: v.$space-12;
+  padding: 36px 20px;
   text-align: center;
-  max-width: 540px;
-  margin: v.$space-8 auto;
+  max-width: 480px;
+  margin: 24px auto;
 
   &__icon {
-    font-size: 3.5rem;
-    margin-bottom: v.$space-3;
+    font-size: 3rem;
+    margin-bottom: 8px;
   }
 
   &__title {
     font-family: v.$font-display;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: v.$spice-dark;
-    margin-bottom: v.$space-2;
+    margin-bottom: 4px;
   }
 
   &__description {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: #66554d;
-    line-height: 1.5;
-    margin-bottom: v.$space-6;
+    line-height: 1.45;
+    margin-bottom: 16px;
   }
 }

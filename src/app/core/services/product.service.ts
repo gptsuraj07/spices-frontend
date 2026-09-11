@@ -1,5 +1,5 @@
 // ============================================================
-// ARIDHU — Product Service (Connected to Backend API)
+// ARIDHU — Product Service (Connected to Backend API & Local Fallback)
 // ============================================================
 
 import { Injectable } from '@angular/core';
@@ -18,29 +18,38 @@ export class ProductService {
 
   getAll(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl).pipe(
+      map(data => data && data.length > 0 ? data : ALL_PRODUCTS),
       catchError(() => of([...ALL_PRODUCTS]))
     );
   }
 
   getFeatured(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/featured`).pipe(
+      map(data => data && data.length > 0 ? data : ALL_PRODUCTS.filter(p => p.featured && p.status === 'active')),
       catchError(() => of(ALL_PRODUCTS.filter(p => p.featured && p.status === 'active')))
     );
   }
 
   getByCategory(categoryId: string): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl, { params: new HttpParams().set('categoryId', categoryId) }).pipe(
+      map(data => data && data.length > 0 ? data : ALL_PRODUCTS.filter(p => p.categoryId === categoryId)),
       catchError(() => of(ALL_PRODUCTS.filter(p => p.categoryId === categoryId && p.status === 'active')))
     );
   }
 
   getByCategorySlug(slug: string): Observable<Product[]> {
+    const catMap: Record<string, string> = {
+      'rasam': 'cat-rasam',
+      'kozhambu': 'cat-kozhambu',
+      'sambar': 'cat-sambar',
+      'tiffin-mixes': 'cat-tiffin',
+      'tiffin': 'cat-tiffin',
+    };
+    const catId = catMap[slug] || slug;
+
     return this.http.get<Product[]>(this.apiUrl, { params: new HttpParams().set('categorySlug', slug) }).pipe(
-      catchError(() => {
-        const catMap: Record<string, string> = { 'rasam': 'cat-rasam', 'kozhambu': 'cat-kozhambu' };
-        const catId = catMap[slug];
-        return of(ALL_PRODUCTS.filter(p => p.categoryId === catId));
-      })
+      map(data => data && data.length > 0 ? data : ALL_PRODUCTS.filter(p => p.categoryId === catId)),
+      catchError(() => of(ALL_PRODUCTS.filter(p => p.categoryId === catId)))
     );
   }
 
@@ -62,7 +71,7 @@ export class ProductService {
     );
   }
 
-  filter(filter: ProductFilter, sort: SortOption = 'featured', page = 1, perPage = 20): Observable<PaginatedResponse<Product>> {
+  filter(filter: ProductFilter, sort: SortOption = 'featured', page = 1, perPage = 50): Observable<PaginatedResponse<Product>> {
     let params = new HttpParams().set('sort', sort);
     if (filter.categoryId) params = params.set('categoryId', filter.categoryId);
     if (filter.minPrice !== undefined) params = params.set('minPrice', filter.minPrice.toString());
@@ -71,9 +80,20 @@ export class ProductService {
 
     return this.http.get<Product[]>(this.apiUrl, { params }).pipe(
       map(data => {
-        const total = data.length;
+        let results = (data && data.length > 0) ? data : [...ALL_PRODUCTS];
+
+        if (filter.categoryId) {
+          results = results.filter(p => p.categoryId === filter.categoryId);
+        }
+        if (filter.search) {
+          const q = filter.search.toLowerCase();
+          results = results.filter(p => p.name.toLowerCase().includes(q) || p.shortDescription.toLowerCase().includes(q));
+        }
+
+        const total = results.length;
         const start = (page - 1) * perPage;
-        const paginatedData = data.slice(start, start + perPage);
+        const paginatedData = results.slice(start, start + perPage);
+
         return {
           data: paginatedData,
           total,
@@ -93,7 +113,7 @@ export class ProductService {
           data: results,
           total: results.length,
           page: 1,
-          perPage: 20,
+          perPage: 50,
           totalPages: 1,
         });
       })
@@ -103,6 +123,7 @@ export class ProductService {
   search(query: string): Observable<Product[]> {
     if (!query.trim()) return of([]);
     return this.http.get<Product[]>(this.apiUrl, { params: new HttpParams().set('search', query) }).pipe(
+      map(data => data && data.length > 0 ? data : ALL_PRODUCTS.filter(p => p.name.toLowerCase().includes(query.toLowerCase()))),
       catchError(() => of(ALL_PRODUCTS.filter(p => p.name.toLowerCase().includes(query.toLowerCase()))))
     );
   }
