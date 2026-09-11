@@ -28,7 +28,7 @@ import { environment } from '../../../../environments/environment';
               <div class="pcard__art-content">
                 <span class="pcard__art-icon">{{ getCategoryIcon() }}</span>
                 <span class="pcard__art-tamil">{{ getTamilName(product.name) }}</span>
-                <span class="pcard__art-brand">ARIDHU HERITAGE</span>
+                <span class="pcard__art-brand">ARIDHU FOODS</span>
               </div>
             </div>
           </ng-template>

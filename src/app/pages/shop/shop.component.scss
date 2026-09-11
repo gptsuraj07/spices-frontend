@@ -2,7 +2,7 @@
 @use 'styles/mixins' as m;
 
 // ============================================================
-// ARIDHU — HERITAGE SHOP PAGE STYLES (CATEGORY SHELVES & COMPACT GRID)
+// ARIDHU FOODS — HARMONIOUS ELEGANT CATEGORY SHELVES DESIGN
 // ============================================================
 
 .shop-page {
@@ -33,9 +33,9 @@
   }
 
   &__title {
-    font-family: v.$font-display;
-    font-size: clamp(1.5rem, 3.5vw, 2.6rem);
-    font-weight: 500;
+    font-family: v.$font-body;
+    font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+    font-weight: 700;
     color: #ffffff;
     line-height: 1.15;
     margin: 0 0 2px;
@@ -102,6 +102,7 @@
     border: 1px solid rgba(139, 38, 18, 0.2);
     background: #faf6f0;
     font-size: 0.85rem;
+    font-family: v.$font-body;
     color: v.$spice-dark;
     transition: all 0.2s ease;
 
@@ -132,7 +133,7 @@
   align-items: center;
   gap: 6px;
   overflow-x: auto;
-  padding-bottom: 2px;
+  padding-bottom: 4px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 
@@ -150,10 +151,11 @@
   white-space: nowrap;
   background: #faf6f0;
   color: v.$spice-dark;
-  border: 1px solid rgba(139, 38, 18, 0.15);
+  border: 1px solid rgba(139, 38, 18, 0.18);
   font-size: 0.8rem;
-  font-weight: 600;
-  padding: 6px 14px;
+  font-family: v.$font-body;
+  font-weight: 700;
+  padding: 7px 14px;
   border-radius: v.$radius-full;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -168,13 +170,13 @@
     background: v.$rust-primary;
     color: #ffffff;
     border-color: v.$rust-primary;
-    box-shadow: 0 2px 8px rgba(139, 38, 18, 0.2);
+    box-shadow: 0 3px 10px rgba(139, 38, 18, 0.25);
   }
 
   &--combo {
     background: #fef3c7;
     color: #b45309;
-    border-color: rgba(200, 138, 46, 0.4);
+    border-color: rgba(200, 138, 46, 0.5);
 
     &:hover {
       background: #fde68a;
@@ -201,6 +203,7 @@
   padding: 6px 14px;
   border-radius: v.$radius-full;
   font-size: 0.8rem;
+  font-family: v.$font-body;
   font-weight: 600;
   border: 1px solid rgba(139, 38, 18, 0.2);
   color: v.$spice-dark;
@@ -213,6 +216,7 @@
 
   &__label {
     font-size: 0.8rem;
+    font-family: v.$font-body;
     font-weight: 600;
     color: v.$spice-dark;
   }
@@ -223,6 +227,7 @@
     border: 1px solid rgba(139, 38, 18, 0.2);
     background: #faf6f0;
     font-size: 0.8rem;
+    font-family: v.$font-body;
     font-weight: 600;
     color: v.$spice-dark;
   }
@@ -297,7 +302,7 @@
 }
 
 // ============================================================
-// 🌟 CREATIVE CATEGORY SHOWCASE SHELVES (IMAGE 2 STYLE)
+// 🌟 HARMONIOUS ELEGANT CATEGORY SHELVES (NO WEIRD SIDE STRIPES)
 // ============================================================
 
 .category-shelves-list {
@@ -307,184 +312,230 @@
 }
 
 .cat-shelf {
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(45, 27, 21, 0.04);
   transition: all 0.2s ease;
+  border: 1.5px solid rgba(45, 27, 21, 0.1);
 
-  @include m.respond-to('xs') {
-    padding: 14px;
-    border-radius: 14px;
-  }
-
-  // 1. Kozhambu Theme (Warm Terracotta Red)
+  // 1. Kozhambu Theme (Terracotta Red Gourmet Accent)
   &--kozhambu {
-    background: #fff6f3;
-    border: 1.5px solid #fca5a5;
+    .cat-shelf__header {
+      background: #fdf6f4;
+      border-bottom: 1.5px solid rgba(139, 38, 18, 0.12);
+    }
 
     .cat-shelf__icon {
-      background: #fee2e2;
+      background: #f7e5e0;
+      color: #8b2612;
     }
 
     .cat-shelf__title {
-      color: #991b1b;
+      color: #5c160b;
+    }
+
+    .cat-shelf__tamil {
+      color: #8b2612;
     }
 
     .cat-shelf__view-all {
-      color: #991b1b;
-      background: #fee2e2;
+      background: #8b2612;
+      color: #ffffff;
 
       &:hover {
-        background: #fca5a5;
+        background: #721f0e;
       }
     }
   }
 
-  // 2. Rasam Theme (Herbal Green)
+  // 2. Rasam Theme (Botanical Forest Green Gourmet Accent)
   &--rasam {
-    background: #f0fdf4;
-    border: 1.5px solid #86efac;
+    .cat-shelf__header {
+      background: #f4f8f3;
+      border-bottom: 1.5px solid rgba(45, 92, 43, 0.12);
+    }
 
     .cat-shelf__icon {
-      background: #dcfce7;
+      background: #e2efe0;
+      color: #2d5c2b;
     }
 
     .cat-shelf__title {
-      color: #166534;
+      color: #1f3f1d;
+    }
+
+    .cat-shelf__tamil {
+      color: #2d5c2b;
     }
 
     .cat-shelf__view-all {
-      color: #166534;
-      background: #dcfce7;
+      background: #2d5c2b;
+      color: #ffffff;
 
       &:hover {
-        background: #86efac;
+        background: #1f3f1d;
       }
     }
   }
 
-  // 3. Sambar Theme (Warm Sambar Gold)
+  // 3. Sambar Theme (Golden Ochre Sambar Gourmet Accent)
   &--sambar {
-    background: #fefce8;
-    border: 1.5px solid #fde047;
+    .cat-shelf__header {
+      background: #faf6ee;
+      border-bottom: 1.5px solid rgba(156, 98, 24, 0.14);
+    }
 
     .cat-shelf__icon {
-      background: #fef9c3;
+      background: #f7eedc;
+      color: #9c6218;
     }
 
     .cat-shelf__title {
-      color: #854d0e;
+      color: #69400d;
+    }
+
+    .cat-shelf__tamil {
+      color: #9c6218;
     }
 
     .cat-shelf__view-all {
-      color: #854d0e;
-      background: #fef9c3;
+      background: #9c6218;
+      color: #ffffff;
 
       &:hover {
-        background: #fde047;
+        background: #78490e;
       }
     }
   }
 
-  // 4. Tiffin Theme (Sunset Amber)
+  // 4. Tiffin Theme (Roasted Sesame Copper Gourmet Accent)
   &--tiffin {
-    background: #fffbeb;
-    border: 1.5px solid #fcd34d;
+    .cat-shelf__header {
+      background: #faf4ef;
+      border-bottom: 1.5px solid rgba(143, 70, 34, 0.14);
+    }
 
     .cat-shelf__icon {
-      background: #fef3c7;
+      background: #f7e8de;
+      color: #8f4622;
     }
 
     .cat-shelf__title {
-      color: #92400e;
+      color: #5e2b12;
+    }
+
+    .cat-shelf__tamil {
+      color: #8f4622;
     }
 
     .cat-shelf__view-all {
-      color: #92400e;
-      background: #fef3c7;
+      background: #8f4622;
+      color: #ffffff;
 
       &:hover {
-        background: #fcd34d;
+        background: #6e3317;
       }
     }
   }
 
-  // 5. Combos Theme (Royal Maroon)
+  // 5. Combos Theme (Royal Burgundy Gourmet Accent)
   &--combos {
-    background: #fff1f2;
-    border: 1.5px solid #fda4af;
+    .cat-shelf__header {
+      background: #faf2f4;
+      border-bottom: 1.5px solid rgba(107, 29, 47, 0.14);
+    }
 
     .cat-shelf__icon {
-      background: #ffe4e6;
+      background: #f7e2e7;
+      color: #6b1d2f;
     }
 
     .cat-shelf__title {
-      color: #9f1239;
+      color: #48111e;
+    }
+
+    .cat-shelf__tamil {
+      color: #6b1d2f;
     }
 
     .cat-shelf__view-all {
-      color: #9f1239;
-      background: #ffe4e6;
+      background: #6b1d2f;
+      color: #ffffff;
 
       &:hover {
-        background: #fda4af;
+        background: #4d1321;
       }
     }
   }
 
-  // Shelf Header
+  // Header Layout
   &__header {
+    padding: 14px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 16px;
+
+    @include m.respond-to('xs') {
+      padding: 11px 13px;
+    }
   }
 
   &__title-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   &__icon {
     width: 38px;
     height: 38px;
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
+
+    @include m.respond-to('xs') {
+      width: 32px;
+      height: 32px;
+      font-size: 1.05rem;
+    }
   }
 
   &__title {
-    font-family: v.$font-display;
-    font-size: 1.35rem;
+    font-family: v.$font-body;
+    font-size: 1.22rem;
     font-weight: 700;
     line-height: 1.1;
     margin: 0;
 
     .count {
-      font-size: 0.95rem;
-      opacity: 0.8;
-      font-weight: 500;
+      font-size: 0.88rem;
+      opacity: 0.75;
+      font-weight: 600;
     }
 
     @include m.respond-to('xs') {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
     }
   }
 
   &__tamil {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #66554d;
     display: block;
     margin-top: 2px;
+
+    @include m.respond-to('xs') {
+      font-size: 0.68rem;
+    }
   }
 
   &__view-all {
+    font-family: v.$font-body;
     font-size: 0.78rem;
     font-weight: 700;
     padding: 6px 14px;
@@ -495,14 +546,23 @@
     transition: all 0.18s ease;
     white-space: nowrap;
     flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 
     @include m.respond-to('xs') {
-      padding: 4px 10px;
-      font-size: 0.72rem;
+      padding: 5px 11px;
+      font-size: 0.7rem;
     }
   }
 
-  // Mini Cards Responsive Grid (2-column on mobile, 4-column on desktop)
+  // Inner Body Wrapper
+  &__body-wrap {
+    padding: 16px 18px 18px;
+
+    @include m.respond-to('xs') {
+      padding: 10px 11px 12px;
+    }
+  }
+
   &__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -535,12 +595,12 @@
   }
 }
 
-// ── MINI PRODUCT CARD (CLEAN VISUAL DESIGN INSIDE CATEGORY SHELVES) ──
+// ── MINI PRODUCT CARD (MATURE CLEAN LUXURY STYLE) ──
 .mini-card {
   background: #ffffff;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(45, 27, 21, 0.09);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -549,7 +609,7 @@
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(45, 27, 21, 0.08);
     border-color: v.$rust-primary;
 
     .mini-card__add-btn {
@@ -571,19 +631,23 @@
     }
 
     &--kozhambu {
-      background: linear-gradient(135deg, #fee2e2 0%, #fef2f2 100%);
+      background: linear-gradient(135deg, #faf2f0 0%, #f5ece8 100%);
+      border-bottom: 1px solid rgba(139, 38, 18, 0.08);
     }
 
     &--rasam {
-      background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+      background: linear-gradient(135deg, #f2f7f2 0%, #ebf2eb 100%);
+      border-bottom: 1px solid rgba(45, 92, 43, 0.08);
     }
 
     &--sambar {
-      background: linear-gradient(135deg, #fef9c3 0%, #fefce8 100%);
+      background: linear-gradient(135deg, #faf6ee 0%, #f4ede0 100%);
+      border-bottom: 1px solid rgba(156, 98, 24, 0.08);
     }
 
     &--tiffin {
-      background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+      background: linear-gradient(135deg, #faf3ed 0%, #f3e8df 100%);
+      border-bottom: 1px solid rgba(143, 70, 34, 0.08);
     }
   }
 
@@ -599,27 +663,29 @@
     position: absolute;
     top: 6px;
     right: 6px;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(45, 27, 21, 0.78);
     color: #ffffff;
     font-size: 9px;
+    font-family: v.$font-body;
     font-weight: 700;
     padding: 2px 6px;
-    border-radius: 6px;
+    border-radius: 4px;
     letter-spacing: 0.04em;
   }
 
   &__body {
-    padding: 10px 12px 12px;
+    padding: 10px 11px 11px;
     display: flex;
     flex-direction: column;
     flex: 1;
 
     @include m.respond-to('xs') {
-      padding: 8px 10px 10px;
+      padding: 8px 9px 9px;
     }
   }
 
   &__name {
+    font-family: v.$font-body;
     font-size: 0.85rem;
     font-weight: 700;
     color: v.$spice-dark;
@@ -639,15 +705,15 @@
     font-size: 0.72rem;
     font-weight: 600;
     color: v.$rust-primary;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
     @include m.respond-to('xs') {
-      font-size: 0.68rem;
-      margin-bottom: 6px;
+      font-size: 0.66rem;
+      margin-bottom: 5px;
     }
   }
 
@@ -656,13 +722,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 6px;
+    gap: 4px;
     padding-top: 6px;
-    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+    border-top: 1px dashed rgba(45, 27, 21, 0.08);
   }
 
   &__price {
-    font-family: v.$font-display;
+    font-family: v.$font-body;
     font-size: 0.95rem;
     font-weight: 800;
     color: v.$spice-dark;
@@ -675,27 +741,29 @@
   &__add-btn {
     background: rgba(139, 38, 18, 0.08);
     color: v.$rust-primary;
-    border: none;
+    border: 1px solid rgba(139, 38, 18, 0.18);
     font-size: 0.72rem;
+    font-family: v.$font-body;
     font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 12px;
+    padding: 4px 9px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.15s ease;
 
     &:hover {
       background: v.$rust-primary;
       color: #ffffff;
+      border-color: v.$rust-primary;
     }
 
     @include m.respond-to('xs') {
-      padding: 3px 8px;
-      font-size: 0.68rem;
+      padding: 3px 7px;
+      font-size: 0.66rem;
     }
   }
 }
 
-// ── COMBOS VIEW SECTION ──────────────────────────────────────
+// ── LUXURIOUS SIGNATURE COMBO CARDS ────────────────────────────
 .combos-page-view {
   margin-bottom: 32px;
 }
@@ -715,8 +783,9 @@
 }
 
 .combos-title {
-  font-family: v.$font-display;
+  font-family: v.$font-body;
   font-size: 1.8rem;
+  font-weight: 700;
   color: v.$spice-dark;
   margin: 0 0 4px;
 }
@@ -738,33 +807,56 @@
 }
 
 .combo-shop-card {
-  background: linear-gradient(135deg, #2d1b15 0%, #1a0f0c 100%);
+  position: relative;
+  background: linear-gradient(145deg, #2a1711 0%, #150a07 100%);
   color: #ffffff;
   border-radius: 16px;
-  padding: 18px;
-  border: 1px solid rgba(200, 138, 46, 0.3);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 18px 20px;
+  border: 1.5px solid rgba(217, 119, 6, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
+  // Gold Top Accent Line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #d97706, #fbbf24, #d97706);
+  }
+
+  @include m.respond-to('xs') {
+    padding: 14px 16px;
+  }
 
   &__badge {
     align-self: flex-start;
     background: v.$amber-gold;
     color: #2d1b15;
     font-size: 9px;
+    font-family: v.$font-body;
     font-weight: 800;
     letter-spacing: 0.08em;
     padding: 2px 8px;
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    margin-top: 4px;
   }
 
   &__title {
-    font-family: v.$font-display;
+    font-family: v.$font-body;
     font-size: 1.35rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #ffffff;
     margin: 0 0 2px;
+
+    @include m.respond-to('xs') {
+      font-size: 1.2rem;
+    }
   }
 
   &__tamil {
@@ -783,10 +875,11 @@
   }
 
   &__list-box {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.07);
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 12px;
     margin-bottom: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     .list-title {
       font-size: 0.68rem;
@@ -826,15 +919,22 @@
     justify-content: space-between;
     gap: 10px;
     padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     flex-wrap: wrap;
 
     .price-box {
       display: flex;
       flex-direction: column;
 
+      .price-label {
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        color: #a89890;
+        letter-spacing: 0.05em;
+      }
+
       .price {
-        font-family: v.$font-display;
+        font-family: v.$font-body;
         font-size: 1.5rem;
         font-weight: 700;
         color: v.$amber-gold;
@@ -853,6 +953,18 @@
       display: flex;
       align-items: center;
       gap: 8px;
+
+      @include m.respond-to('xs') {
+        width: 100%;
+        margin-top: 4px;
+
+        .btn {
+          flex: 1;
+          font-size: 0.78rem;
+          padding: 8px 12px;
+          text-align: center;
+        }
+      }
     }
   }
 }
@@ -918,9 +1030,9 @@
   }
 
   &__title {
-    font-family: v.$font-display;
+    font-family: v.$font-body;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: v.$spice-dark;
     margin-bottom: 4px;
   }

@@ -1,5 +1,5 @@
 <!-- =========================================================
-     ARIDHU — CREATIVE CATEGORY SHELVES SHOP PAGE
+     ARIDHU FOODS — CREATIVE CATEGORY SHELVES SHOP PAGE
      ========================================================= -->
 
 <div class="shop-page page-enter">
@@ -9,7 +9,7 @@
     <div class="container text-center">
       <app-breadcrumb [items]="[{label: 'Shop'}]"></app-breadcrumb>
       <span class="shop-hero__tag">HAND-ROASTED SMALL BATCHES</span>
-      <h1 class="shop-hero__title">The Heritage Spice Collection</h1>
+      <h1 class="shop-hero__title">The Authentic Spice Collection</h1>
       <div class="shop-hero__tamil">பாரம்பரிய பொடி வகைகள்</div>
       <p class="shop-hero__sub">
         Whole spices slow-roasted in heavy iron kadais and stone-pounded. Select your favorite podi below.
@@ -128,7 +128,7 @@
         <ng-container *ngIf="activeCategoryTab === 'all' && !searchQuery && !currentFilter.minPrice && !currentFilter.maxPrice">
           <div class="category-shelves-list">
 
-            <!-- 1. KOZHAMBU POWDERS SHOWCASE (TERRACOTTA THEME) -->
+            <!-- 1. KOZHAMBU POWDERS SHOWCASE (SOLID RED BANNER THEME) -->
             <div class="cat-shelf cat-shelf--kozhambu" id="cat-section-kozhambu">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
@@ -141,28 +141,30 @@
                 <a routerLink="/category/kozhambu" class="cat-shelf__view-all">View Category →</a>
               </div>
 
-              <div class="cat-shelf__grid">
-                <div *ngFor="let p of productsByKozhambu" class="mini-card" (click)="navigateToProduct(p.slug)">
-                  <div class="mini-card__art mini-card__art--kozhambu">
-                    <span class="mini-card__emoji">🍲</span>
-                    <span class="mini-card__badge">100g</span>
-                  </div>
-                  <div class="mini-card__body">
-                    <h3 class="mini-card__name">{{ p.name }}</h3>
-                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
-                    <div class="mini-card__footer">
-                      <span class="mini-card__price">₹{{ p.price }}</span>
-                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                        [disabled]="addingProductId === p.id">
-                        {{ addingProductId === p.id ? '...' : '+ Add' }}
-                      </button>
+              <div class="cat-shelf__body-wrap">
+                <div class="cat-shelf__grid">
+                  <div *ngFor="let p of productsByKozhambu" class="mini-card" (click)="navigateToProduct(p.slug)">
+                    <div class="mini-card__art mini-card__art--kozhambu">
+                      <span class="mini-card__emoji">🍲</span>
+                      <span class="mini-card__badge">100g</span>
+                    </div>
+                    <div class="mini-card__body">
+                      <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                      <div class="mini-card__footer">
+                        <span class="mini-card__price">₹{{ p.price }}</span>
+                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id">
+                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 2. RASAM POWDERS SHOWCASE (HERBAL GREEN THEME) -->
+            <!-- 2. RASAM POWDERS SHOWCASE (SOLID GREEN BANNER THEME) -->
             <div class="cat-shelf cat-shelf--rasam" id="cat-section-rasam">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
@@ -175,28 +177,30 @@
                 <a routerLink="/category/rasam" class="cat-shelf__view-all">View Category →</a>
               </div>
 
-              <div class="cat-shelf__grid">
-                <div *ngFor="let p of productsByRasam" class="mini-card" (click)="navigateToProduct(p.slug)">
-                  <div class="mini-card__art mini-card__art--rasam">
-                    <span class="mini-card__emoji">🥣</span>
-                    <span class="mini-card__badge">100g</span>
-                  </div>
-                  <div class="mini-card__body">
-                    <h3 class="mini-card__name">{{ p.name }}</h3>
-                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
-                    <div class="mini-card__footer">
-                      <span class="mini-card__price">₹{{ p.price }}</span>
-                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                        [disabled]="addingProductId === p.id">
-                        {{ addingProductId === p.id ? '...' : '+ Add' }}
-                      </button>
+              <div class="cat-shelf__body-wrap">
+                <div class="cat-shelf__grid">
+                  <div *ngFor="let p of productsByRasam" class="mini-card" (click)="navigateToProduct(p.slug)">
+                    <div class="mini-card__art mini-card__art--rasam">
+                      <span class="mini-card__emoji">🥣</span>
+                      <span class="mini-card__badge">100g</span>
+                    </div>
+                    <div class="mini-card__body">
+                      <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                      <div class="mini-card__footer">
+                        <span class="mini-card__price">₹{{ p.price }}</span>
+                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id">
+                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 3. SAMBAR POWDERS SHOWCASE (WARM GOLD THEME) -->
+            <!-- 3. SAMBAR POWDERS SHOWCASE (SOLID GOLD BANNER THEME) -->
             <div class="cat-shelf cat-shelf--sambar" id="cat-section-sambar">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
@@ -209,28 +213,30 @@
                 <a routerLink="/category/sambar" class="cat-shelf__view-all">View Category →</a>
               </div>
 
-              <div class="cat-shelf__grid cat-shelf__grid--2col">
-                <div *ngFor="let p of productsBySambar" class="mini-card" (click)="navigateToProduct(p.slug)">
-                  <div class="mini-card__art mini-card__art--sambar">
-                    <span class="mini-card__emoji">🥘</span>
-                    <span class="mini-card__badge">100g</span>
-                  </div>
-                  <div class="mini-card__body">
-                    <h3 class="mini-card__name">{{ p.name }}</h3>
-                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
-                    <div class="mini-card__footer">
-                      <span class="mini-card__price">₹{{ p.price }}</span>
-                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                        [disabled]="addingProductId === p.id">
-                        {{ addingProductId === p.id ? '...' : '+ Add' }}
-                      </button>
+              <div class="cat-shelf__body-wrap">
+                <div class="cat-shelf__grid cat-shelf__grid--2col">
+                  <div *ngFor="let p of productsBySambar" class="mini-card" (click)="navigateToProduct(p.slug)">
+                    <div class="mini-card__art mini-card__art--sambar">
+                      <span class="mini-card__emoji">🥘</span>
+                      <span class="mini-card__badge">100g</span>
+                    </div>
+                    <div class="mini-card__body">
+                      <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                      <div class="mini-card__footer">
+                        <span class="mini-card__price">₹{{ p.price }}</span>
+                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id">
+                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 4. TIFFIN MIXES & PODIS SHOWCASE (SUNSET AMBER THEME) -->
+            <!-- 4. TIFFIN MIXES & PODIS SHOWCASE (SOLID COPPER BANNER THEME) -->
             <div class="cat-shelf cat-shelf--tiffin" id="cat-section-tiffin">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
@@ -243,28 +249,30 @@
                 <a routerLink="/category/tiffinmixed" class="cat-shelf__view-all">View Category →</a>
               </div>
 
-              <div class="cat-shelf__grid">
-                <div *ngFor="let p of productsByTiffin" class="mini-card" (click)="navigateToProduct(p.slug)">
-                  <div class="mini-card__art mini-card__art--tiffin">
-                    <span class="mini-card__emoji">🥞</span>
-                    <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
-                  </div>
-                  <div class="mini-card__body">
-                    <h3 class="mini-card__name">{{ p.name }}</h3>
-                    <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
-                    <div class="mini-card__footer">
-                      <span class="mini-card__price">₹{{ p.price }}</span>
-                      <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                        [disabled]="addingProductId === p.id">
-                        {{ addingProductId === p.id ? '...' : '+ Add' }}
-                      </button>
+              <div class="cat-shelf__body-wrap">
+                <div class="cat-shelf__grid">
+                  <div *ngFor="let p of productsByTiffin" class="mini-card" (click)="navigateToProduct(p.slug)">
+                    <div class="mini-card__art mini-card__art--tiffin">
+                      <span class="mini-card__emoji">🥞</span>
+                      <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
+                    </div>
+                    <div class="mini-card__body">
+                      <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
+                      <div class="mini-card__footer">
+                        <span class="mini-card__price">₹{{ p.price }}</span>
+                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id">
+                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 5. SIGNATURE COMBOS SHOWCASE (HERITAGE MAROON THEME) -->
+            <!-- 5. SIGNATURE COMBOS SHOWCASE (SOLID MAROON BANNER THEME) -->
             <div class="cat-shelf cat-shelf--combos" id="cat-section-combos">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
@@ -277,28 +285,30 @@
                 <button class="cat-shelf__view-all" (click)="selectCategoryTab('combos')" type="button">View Combos →</button>
               </div>
 
-              <div class="combos-grid">
-                <div *ngFor="let combo of combos" class="combo-shop-card">
-                  <div class="combo-shop-card__badge">SIGNATURE 7-PACK SET</div>
-                  <h3 class="combo-shop-card__title">{{ combo.name }}</h3>
-                  <span class="combo-shop-card__tamil">{{ getComboTamilName(combo.name) }}</span>
-                  <p class="combo-shop-card__desc">{{ combo.shortDescription }}</p>
+              <div class="cat-shelf__body-wrap">
+                <div class="combos-grid">
+                  <div *ngFor="let combo of combos" class="combo-shop-card">
+                    <div class="combo-shop-card__badge">SIGNATURE 7-PACK SET</div>
+                    <h3 class="combo-shop-card__title">{{ combo.name }}</h3>
+                    <span class="combo-shop-card__tamil">{{ getComboTamilName(combo.name) }}</span>
+                    <p class="combo-shop-card__desc">{{ combo.shortDescription }}</p>
 
-                  <div class="combo-shop-card__footer">
-                    <div class="price-box">
-                      <span class="price">₹{{ combo.price }}</span>
-                      <span class="savings-tag">Save ₹350 vs Individual</span>
-                    </div>
+                    <div class="combo-shop-card__footer">
+                      <div class="price-box">
+                        <span class="price">₹{{ combo.price }}</span>
+                        <span class="savings-tag">Save ₹350 vs Individual</span>
+                      </div>
 
-                    <div class="combo-actions">
-                      <button class="btn btn-primary" type="button" (click)="addComboToCart(combo)"
-                        [disabled]="addingComboId === combo.id">
-                        <span *ngIf="addingComboId !== combo.id">Add Combo — ₹{{ combo.price }}</span>
-                        <span *ngIf="addingComboId === combo.id">Adding...</span>
-                      </button>
-                      <a [routerLink]="['/combo', combo.slug]" class="btn btn-outline">
-                        View Details
-                      </a>
+                      <div class="combo-actions">
+                        <button class="btn btn-primary" type="button" (click)="addComboToCart(combo)"
+                          [disabled]="addingComboId === combo.id">
+                          <span *ngIf="addingComboId !== combo.id">Add Combo — ₹{{ combo.price }}</span>
+                          <span *ngIf="addingComboId === combo.id">Adding...</span>
+                        </button>
+                        <a [routerLink]="['/combo', combo.slug]" class="btn btn-outline">
+                          View Details
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -194,7 +194,8 @@ a {
 .price-large {
   @extend .price;
   font-size: v.$text-2xl;
-  font-family: v.$font-display;
+  font-family: v.$font-body;
+  font-weight: 700;
 }
 
 .price-compare {
