@@ -50,9 +50,11 @@
     </div>
   </div>
 
-  <!-- ── Orders Table ───────────────────────────────────────── -->
+  <!-- ── Orders Table (Desktop) & Cards (Mobile) ───────────── -->
   <div class="adm-card">
-    <div class="adm-table-wrap" *ngIf="!loading">
+
+    <!-- Desktop Table View -->
+    <div class="adm-table-wrap adm-table-wrap--desktop" *ngIf="!loading">
       <table class="adm-table">
         <thead>
           <tr>
@@ -89,7 +91,6 @@
             </td>
             <td class="ao-date">{{ formatDate(o.createdAt) }}</td>
             <td (click)="$event.stopPropagation()">
-              <!-- Urgent: Pending verification quick action -->
               <button *ngIf="o.payment?.status === 'PENDING_VERIFICATION'"
                 class="ao-quick-verify-btn" (click)="promptVerifyPayment(o)" title="Verify Payment">
                 ✅ Verify
@@ -99,6 +100,47 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Mobile Cards List View (< 768px) -->
+    <div class="ao-mobile-cards-list" *ngIf="!loading">
+      <div class="ao-mobile-card" *ngFor="let o of filtered" (click)="openOrder(o)">
+        <div class="ao-mobile-card__header">
+          <span class="ao-order-num">{{ o.orderNumber }}</span>
+          <span class="adm-badge" [class]="getStatusClass(o.status)">
+            {{ STATUS_LABEL[o.status] }}
+          </span>
+        </div>
+
+        <div class="ao-mobile-card__body">
+          <div class="ao-mobile-card__customer">
+            <div class="ao-cust-name">{{ o.customer.name }}</div>
+            <div class="ao-cust-phone">📞 {{ o.customer.phone }}</div>
+          </div>
+          <div class="ao-mobile-card__meta">
+            <span class="ao-date">{{ formatDate(o.createdAt) }}</span>
+            <span class="ao-item-count">{{ o.items.length }} {{ o.items.length === 1 ? 'item' : 'items' }}</span>
+          </div>
+        </div>
+
+        <div class="ao-mobile-card__footer">
+          <div class="ao-mobile-card__pricing">
+            <span class="ao-amount">₹{{ o.total }}</span>
+            <span class="adm-badge" [class]="getPaymentClass(o.payment?.status ?? '')">
+              {{ o.payment?.status === 'PENDING_VERIFICATION' ? '⏳ Pending' :
+                 o.payment?.status === 'PAID' ? '✅ Paid' :
+                 o.payment?.status === 'FAILED' ? '❌ Failed' : (o.payment?.status ?? '') }}
+            </span>
+          </div>
+          <div class="ao-mobile-card__actions" (click)="$event.stopPropagation()">
+            <button *ngIf="o.payment?.status === 'PENDING_VERIFICATION'"
+              class="ao-quick-verify-btn" (click)="promptVerifyPayment(o)">
+              ✅ Verify
+            </button>
+            <button class="ao-view-btn" (click)="openOrder(o)">Details &rarr;</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="ao-loading" *ngIf="loading">
