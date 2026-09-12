@@ -191,9 +191,14 @@ $sidebar-w-collapsed: 64px;
   flex-direction: column;
   transition: margin-left v.$duration-base v.$ease-out;
   min-height: 100vh;
+  width: calc(100% - #{$sidebar-w});
+  max-width: 100%;
 
   @include m.respond-to('lg') {
     margin-left: 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
@@ -210,10 +215,13 @@ $sidebar-w-collapsed: 64px;
   gap: v.$space-4;
   padding: 0 v.$space-6;
   height: 60px;
+  width: 100%;
+  max-width: 100%;
 
   @include m.respond-to('md') {
     padding: 0 v.$space-3;
     gap: v.$space-2;
+    height: 54px;
   }
 
   &__toggle {
@@ -293,8 +301,12 @@ $sidebar-w-collapsed: 64px;
 .admin-content {
   flex: 1;
   padding: v.$space-6;
+  width: 100%;
+  max-width: 100%;
 
   @include m.respond-to('md') {
-    padding: v.$space-4;
+    padding: 12px;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }

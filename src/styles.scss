@@ -78,6 +78,10 @@ button {
 input, select, textarea {
   font-family: inherit;
   font-size: inherit;
+
+  @media (max-width: 768px) {
+    font-size: 16px !important; /* Prevents iOS Safari & Android mobile browser auto-zooming on input focus */
+  }
 }
 
 ul, ol {
