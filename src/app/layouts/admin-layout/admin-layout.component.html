@@ -1,5 +1,8 @@
 <div class="admin-shell" [class.admin-shell--collapsed]="!sidebarOpen">
 
+  <!-- Mobile Backdrop -->
+  <div class="admin-sidebar-backdrop" *ngIf="sidebarOpen" (click)="toggleSidebar()"></div>
+
   <!-- Sidebar -->
   <aside class="admin-sidebar" [class.admin-sidebar--open]="sidebarOpen">
     <!-- Logo -->
@@ -16,6 +19,7 @@
             [routerLink]="item.route"
             routerLinkActive="active"
             class="admin-sidebar__nav-link"
+            (click)="onNavClick()"
             [attr.title]="!sidebarOpen ? item.label : null"
           >
             <!-- Icons -->

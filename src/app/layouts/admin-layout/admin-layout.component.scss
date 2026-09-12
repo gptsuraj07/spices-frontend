@@ -24,6 +24,20 @@ $sidebar-w-collapsed: 64px;
   }
 }
 
+// ── Mobile Backdrop ─────────────────────────────────────────
+.admin-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: v.$z-sticky - 1;
+
+  @include m.respond-to('lg') {
+    display: block;
+  }
+}
+
 // ── Sidebar ─────────────────────────────────────────────────
 .admin-sidebar {
   position: fixed;
@@ -35,7 +49,7 @@ $sidebar-w-collapsed: 64px;
   display: flex;
   flex-direction: column;
   transition: width v.$duration-base v.$ease-out;
-  z-index: v.$z-sticky;
+  z-index: v.$z-sticky + 10;
   overflow-x: hidden;
   overflow-y: auto;
   @include m.scrollbar-thin;
@@ -44,6 +58,7 @@ $sidebar-w-collapsed: 64px;
   @include m.respond-to('lg') {
     transform: translateX(-100%);
     transition: transform v.$duration-base v.$ease-out;
+    width: $sidebar-w !important;
     
     &--open { transform: translateX(0); }
   }
@@ -195,6 +210,11 @@ $sidebar-w-collapsed: 64px;
   gap: v.$space-4;
   padding: 0 v.$space-6;
   height: 60px;
+
+  @include m.respond-to('md') {
+    padding: 0 v.$space-3;
+    gap: v.$space-2;
+  }
 
   &__toggle {
     @include m.flex-center;

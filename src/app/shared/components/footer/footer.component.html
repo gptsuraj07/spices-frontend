@@ -1,44 +1,4 @@
 <footer class="footer" role="contentinfo">
-  <!-- Newsletter Section -->
-  <div class="footer__newsletter">
-    <div class="container">
-      <div class="footer__nl-inner">
-        <div class="footer__nl-text">
-          <p class="footer__nl-label label">Stay Connected</p>
-          <h2 class="footer__nl-heading">Bring tradition back to your kitchen.</h2>
-          <p class="footer__nl-desc">Get recipes, new product launches, and seasonal collections delivered to your inbox.</p>
-        </div>
-        <div class="footer__nl-form-wrap">
-          <ng-container *ngIf="!submitted; else thankYou">
-            <form [formGroup]="newsletterForm" (ngSubmit)="onNewsletterSubmit()" class="footer__nl-form">
-              <div class="footer__nl-input-wrap">
-                <input
-                  type="email"
-                  formControlName="email"
-                  class="footer__nl-input"
-                  placeholder="Your email address"
-                  aria-label="Email address for newsletter"
-                />
-                <button type="submit" class="btn btn-primary" [disabled]="newsletterForm.invalid">
-                  Subscribe
-                </button>
-              </div>
-              <p class="footer__nl-note">No spam. Unsubscribe anytime.</p>
-            </form>
-          </ng-container>
-          <ng-template #thankYou>
-            <div class="footer__nl-thanks">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20,6 9,17 4,12"/>
-              </svg>
-              <p>Thank you! You're on the list.</p>
-            </div>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Main Footer -->
   <div class="footer__main">
     <div class="container">
@@ -116,7 +76,7 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
-              <a href="mailto:hello@aridhu.in" class="footer__col-link">hello@aridhu.in</a>
+              <a href="mailto:aridhu2026@gmail.com" class="footer__col-link">aridhu2026@gmail.com</a>
             </li>
             <li class="footer__contact-item">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

@@ -10,9 +10,8 @@
       <app-breadcrumb [items]="[{label: 'Shop'}]"></app-breadcrumb>
       <span class="shop-hero__tag">HAND-ROASTED SMALL BATCHES</span>
       <h1 class="shop-hero__title">The Authentic Spice Collection</h1>
-      <div class="shop-hero__tamil">பாரம்பரிய பொடி வகைகள்</div>
       <p class="shop-hero__sub">
-        Whole spices slow-roasted in heavy iron kadais and stone-pounded. Select your favorite podi below.
+        Whole spices slow-roasted in heavy kadais. Select your favorite podi below.
       </p>
     </div>
   </div>
@@ -135,7 +134,6 @@
                   <span class="cat-shelf__icon">🍲</span>
                   <div>
                     <h2 class="cat-shelf__title">Kuzhambu Powders <span class="count">(7)</span></h2>
-                    <span class="cat-shelf__tamil">பாரம்பரிய குழம்பு பொடிகள்</span>
                   </div>
                 </div>
                 <a routerLink="/category/kozhambu" class="cat-shelf__view-all">View Category →</a>
@@ -150,7 +148,6 @@
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
-                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
                       <div class="mini-card__footer">
                         <span class="mini-card__price">₹{{ p.price }}</span>
                         <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
@@ -171,7 +168,6 @@
                   <span class="cat-shelf__icon">🥣</span>
                   <div>
                     <h2 class="cat-shelf__title">Rasam Powders <span class="count">(7)</span></h2>
-                    <span class="cat-shelf__tamil">பாரம்பரிய ரசம் பொடிகள்</span>
                   </div>
                 </div>
                 <a routerLink="/category/rasam" class="cat-shelf__view-all">View Category →</a>
@@ -186,7 +182,6 @@
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
-                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
                       <div class="mini-card__footer">
                         <span class="mini-card__price">₹{{ p.price }}</span>
                         <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
@@ -207,7 +202,6 @@
                   <span class="cat-shelf__icon">🥘</span>
                   <div>
                     <h2 class="cat-shelf__title">Sambar Powders <span class="count">(2)</span></h2>
-                    <span class="cat-shelf__tamil">பாரம்பரிய சாம்பார் பொடிகள்</span>
                   </div>
                 </div>
                 <a routerLink="/category/sambar" class="cat-shelf__view-all">View Category →</a>
@@ -222,7 +216,6 @@
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
-                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
                       <div class="mini-card__footer">
                         <span class="mini-card__price">₹{{ p.price }}</span>
                         <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
@@ -243,7 +236,6 @@
                   <span class="cat-shelf__icon">🥞</span>
                   <div>
                     <h2 class="cat-shelf__title">Tiffin Mixes &amp; Podis <span class="count">(7)</span></h2>
-                    <span class="cat-shelf__tamil">டிபன் மற்றும் பொடி வகைகள்</span>
                   </div>
                 </div>
                 <a routerLink="/category/tiffinmixed" class="cat-shelf__view-all">View Category →</a>
@@ -258,7 +250,6 @@
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
-                      <span class="mini-card__tamil">{{ getTamilName(p.name) }}</span>
                       <div class="mini-card__footer">
                         <span class="mini-card__price">₹{{ p.price }}</span>
                         <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
@@ -279,7 +270,6 @@
                   <span class="cat-shelf__icon">🎁</span>
                   <div>
                     <h2 class="cat-shelf__title">Signature 7-Day Combos <span class="count">(2)</span></h2>
-                    <span class="cat-shelf__tamil">வாராந்திர சடங்கு பெட்டிகள்</span>
                   </div>
                 </div>
                 <button class="cat-shelf__view-all" (click)="selectCategoryTab('combos')" type="button">View Combos →</button>
@@ -290,7 +280,6 @@
                   <div *ngFor="let combo of combos" class="combo-shop-card">
                     <div class="combo-shop-card__badge">SIGNATURE 7-PACK SET</div>
                     <h3 class="combo-shop-card__title">{{ combo.name }}</h3>
-                    <span class="combo-shop-card__tamil">{{ getComboTamilName(combo.name) }}</span>
                     <p class="combo-shop-card__desc">{{ combo.shortDescription }}</p>
 
                     <div class="combo-shop-card__footer">
@@ -332,7 +321,6 @@
             <div *ngFor="let combo of combos" class="combo-shop-card">
               <div class="combo-shop-card__badge">SIGNATURE 7-PACK SET</div>
               <h3 class="combo-shop-card__title">{{ combo.name }}</h3>
-              <span class="combo-shop-card__tamil">{{ getComboTamilName(combo.name) }}</span>
               <p class="combo-shop-card__desc">{{ combo.shortDescription }}</p>
 
               <div class="combo-shop-card__list-box">

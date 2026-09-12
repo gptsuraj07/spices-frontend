@@ -48,7 +48,7 @@ import { ToastService } from '../../core/services/toast.service';
               </div>
               <div class="info-card__content">
                 <h3>Email Support</h3>
-                <p><a href="mailto:support&#64;aridhu.com">support&#64;aridhu.com</a></p>
+                <p><a href="mailto:aridhu2026&#64;gmail.com">aridhu2026&#64;gmail.com</a></p>
                 <span class="info-card__hint">Responses within 24 hours</span>
               </div>
             </div>
@@ -75,7 +75,7 @@ import { ToastService } from '../../core/services/toast.service';
               <div class="info-card__content">
                 <h3>Bulk & Custom Orders</h3>
                 <p>Looking for wedding return gifts, festival gift boxes, or restaurant supply?</p>
-                <a href="mailto:bulk&#64;aridhu.com" class="info-card__link">Contact Bulk Sales &rarr;</a>
+                <a href="mailto:aridhu2026&#64;gmail.com" class="info-card__link">Contact Bulk Sales &rarr;</a>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ import { ComboService } from '../../core/services/combo.service';
   template: `
     <div class="admin-combos">
       <h1 style="font-size: 1.875rem; font-weight: 700; color: #111827; margin-bottom: 1.5rem;">Combos & Gift Boxes</h1>
-      <div style="background: white; border-radius: 0.75rem; border: 1px solid #E5E7EB; overflow: hidden;">
+      <div style="background: white; border-radius: 0.75rem; border: 1px solid #E5E7EB; overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left;">
           <thead style="background: #F9FAFB; border-bottom: 1px solid #E5E7EB;">
             <tr>

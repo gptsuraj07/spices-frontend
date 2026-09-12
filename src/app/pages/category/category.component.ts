@@ -55,30 +55,30 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  getComboItems(combo: any): { name: string; tamilName?: string }[] {
+  getComboItems(combo: any): { name: string }[] {
     if (combo.items && combo.items.length) {
       return combo.items;
     }
     const isRasam = (combo.slug && combo.slug.includes('rasam')) || (combo.name && combo.name.includes('Rasam'));
     if (isRasam) {
       return [
-        { name: 'Kalyana Rasam Powder', tamilName: 'கல்யாண ரசம்' },
-        { name: 'Ginger Lemon Rasam Powder', tamilName: 'இஞ்சி எலுமிச்சை ரசம்' },
-        { name: 'Mor Rasam Powder', tamilName: 'மோர் ரசம்' },
-        { name: 'Kandathippili Rasam Powder', tamilName: 'கண்டத்திப்பிலி ரசம்' },
-        { name: 'Cinnamon Rasam Powder', tamilName: 'இலவங்கப்பட்டை ரசம்' },
-        { name: 'Kollu Rasam Powder', tamilName: 'கொள்ளு ரசம்' },
-        { name: 'Poricha Rasam Powder', tamilName: 'பொரிச்ச ரசம்' },
+        { name: 'Kalyana Rasam Powder' },
+        { name: 'Ginger Lemon Rasam Powder' },
+        { name: 'Mor Rasam Powder' },
+        { name: 'Kandathippili Rasam Powder' },
+        { name: 'Cinnamon Rasam Powder' },
+        { name: 'Kollu Rasam Powder' },
+        { name: 'Poricha Rasam Powder' },
       ];
     }
     return [
-      { name: 'Vatha Kozhambu Powder', tamilName: 'வத்த குழம்பு' },
-      { name: 'Ennai Kathirikai Kozhambu Powder', tamilName: 'எண்ணெய் கத்திரிக்காய்' },
-      { name: 'Mor Kozhambu Powder', tamilName: 'மோர் குழம்பு' },
-      { name: 'Talaga Kozhambu Powder', tamilName: 'தாளக குழம்பு' },
-      { name: 'Vendaya Vendaikai Kozhambu Powder', tamilName: 'வெந்தய வெண்டைக்காய்' },
-      { name: 'Kootu Kozhambu Powder', tamilName: 'கூட்டு குழம்பு' },
-      { name: 'Narthangai Kuzhambu Powder', tamilName: 'நார்த்தங்காய் குழம்பு' },
+      { name: 'Vatha Kozhambu Powder' },
+      { name: 'Ennai Kathirikai Kozhambu Powder' },
+      { name: 'Mor Kozhambu Powder' },
+      { name: 'Talaga Kozhambu Powder' },
+      { name: 'Vendaya Vendaikai Kozhambu Powder' },
+      { name: 'Kootu Kozhambu Powder' },
+      { name: 'Narthangai Kuzhambu Powder' },
     ];
   }
 }

@@ -24,7 +24,6 @@ export interface RasamDayRitual {
 export interface CraftStep {
   number: string;
   title: string;
-  tamilTitle: string;
   desc: string;
   icon: string;
 }
@@ -57,7 +56,7 @@ export class HomeComponent implements OnInit {
       code: 'MON',
       day: 'Monday',
       name: 'Kalyana Rasam Powder',
-      tamilName: 'கல்யாண ரசம்',
+      tamilName: '',
       tagline: 'Grand Wedding Feast Aroma',
       slug: 'kalyana-rasam-powder',
       productId: 'rasam-001',
@@ -76,7 +75,7 @@ export class HomeComponent implements OnInit {
       code: 'TUE',
       day: 'Tuesday',
       name: 'Poricha Rasam Powder',
-      tamilName: 'பொரிச்ச ரசம்',
+      tamilName: '',
       tagline: 'Wholesome Lentil & Pepper Comfort',
       slug: 'poricha-rasam-powder',
       productId: 'rasam-007',
@@ -95,7 +94,7 @@ export class HomeComponent implements OnInit {
       code: 'WED',
       day: 'Wednesday',
       name: 'Cinnamon Rasam Powder',
-      tamilName: 'இலவங்கப்பட்டை ரசம்',
+      tamilName: '',
       tagline: 'Digestive Cinnamon & Cumin Infusion',
       slug: 'cinnamon-rasam-powder',
       productId: 'rasam-005',
@@ -114,7 +113,7 @@ export class HomeComponent implements OnInit {
       code: 'THU',
       day: 'Thursday',
       name: 'Mor Rasam Powder',
-      tamilName: 'மோர் ரசம்',
+      tamilName: '',
       tagline: 'Cooling Cumin & Curd Comfort',
       slug: 'mor-rasam-powder',
       productId: 'rasam-003',
@@ -133,7 +132,7 @@ export class HomeComponent implements OnInit {
       code: 'FRI',
       day: 'Friday',
       name: 'Ginger Lemon Rasam Powder',
-      tamilName: 'இஞ்சி எலுமிச்சை ரசம்',
+      tamilName: '',
       tagline: 'Zesty Citrus & Ginger Refreshment',
       slug: 'ginger-lemon-rasam-powder',
       productId: 'rasam-002',
@@ -152,7 +151,7 @@ export class HomeComponent implements OnInit {
       code: 'SAT',
       day: 'Saturday',
       name: 'Kandathippili Rasam Powder',
-      tamilName: 'கண்டதிப்பிலி ரசம்',
+      tamilName: '',
       tagline: 'Rare Long Pepper Siddha Herbal Spice',
       slug: 'kandathippili-rasam-powder',
       productId: 'rasam-004',
@@ -171,7 +170,7 @@ export class HomeComponent implements OnInit {
       code: 'SUN',
       day: 'Sunday',
       name: 'Kollu Rasam Powder',
-      tamilName: 'கொள்ளு ரசம்',
+      tamilName: '',
       tagline: 'Protein-Rich Nutty Horsegram Comfort',
       slug: 'kollu-rasam-powder',
       productId: 'rasam-006',
@@ -193,28 +192,24 @@ export class HomeComponent implements OnInit {
     {
       number: '01',
       title: 'Hand-Selected Whole Spices',
-      tamilTitle: 'உயர்தர நறுமண பொருட்கள்',
       desc: 'Sourced directly from heritage spice gardens in Guntur, Salem, and Alleppey to ensure peak oil content.',
       icon: '🌿',
     },
     {
       number: '02',
-      title: 'Iron-Kadai Slow Roasting',
-      tamilTitle: 'இரும்பு கடாய் வறுவல்',
-      desc: 'Slow roasted on low flame in heavy cast-iron kadais to gently release volatile aromatic oils.',
+      title: 'Slow-Flame Kadai Roasting',
+      desc: 'Slow roasted on low flame in heavy kadais to gently release volatile aromatic oils.',
       icon: '🔥',
     },
     {
       number: '03',
-      title: 'Coarse Stone Pounding',
-      tamilTitle: 'பாரம்பரிய கல் இடித்தல்',
-      desc: 'Coarsely crushed in traditional stone mortars—preserving texture without high-heat machine burning.',
+      title: 'Coarse Hand-Pounding',
+      desc: 'Coarsely crushed in traditional mortars—preserving texture without high-heat machine burning.',
       icon: '🪨',
     },
     {
       number: '04',
       title: 'Aroma-Sealed Small Batches',
-      tamilTitle: 'நறுமணம் மாறாத பேக்கிங்',
       desc: 'Packed within 24 hours of pounding in multi-layer foil pouches for maximum kitchen freshness.',
       icon: '📦',
     },

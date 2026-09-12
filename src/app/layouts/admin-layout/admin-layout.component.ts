@@ -15,7 +15,7 @@ interface NavItem {
   styleUrls: ['./admin-layout.component.scss'],
 })
 export class AdminLayoutComponent {
-  sidebarOpen = true;
+  sidebarOpen = window.innerWidth >= 1024;
 
   navItems: NavItem[] = [
     { label: 'Dashboard', icon: 'grid',         route: '/admin/dashboard' },
@@ -32,11 +32,19 @@ export class AdminLayoutComponent {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
+  onNavClick(): void {
+    if (window.innerWidth < 1024) {
+      this.sidebarOpen = false;
+    }
+  }
+
   goToStore(): void {
+    this.onNavClick();
     this.router.navigate(['/']);
   }
 
   logout(): void {
+    this.onNavClick();
     // TODO: Clear JWT token and redirect
     // localStorage.removeItem('aridhu_admin_token');
     this.router.navigate(['/admin/login']);

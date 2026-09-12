@@ -27,7 +27,7 @@ import { environment } from '../../../../environments/environment';
               <div class="pcard__art-bg"></div>
               <div class="pcard__art-content">
                 <span class="pcard__art-icon">{{ getCategoryIcon() }}</span>
-                <span class="pcard__art-tamil">{{ getTamilName(product.name) }}</span>
+                <span class="pcard__art-subtitle">{{ getAromaProfile() }}</span>
                 <span class="pcard__art-brand">ARIDHU FOODS</span>
               </div>
             </div>
@@ -47,9 +47,8 @@ import { environment } from '../../../../environments/environment';
 
       <!-- Content Area -->
       <div class="pcard__content">
-        <!-- Tag Row: Tamil Badge & Category Tag -->
+        <!-- Tag Row: Category Tag -->
         <div class="pcard__tag-row">
-          <span class="pcard__tamil-title">{{ getTamilName(product.name) }}</span>
           <span class="pcard__cat-tag">{{ getCategoryTag() }}</span>
         </div>
 
@@ -69,7 +68,7 @@ import { environment } from '../../../../environments/environment';
         <!-- Weight & Batch Meta -->
         <div class="pcard__meta-row">
           <span class="pcard__weight-pill">{{ product.weight }}{{ product.weightUnit }}</span>
-          <span class="pcard__batch-tag">Iron-Roasted</span>
+          <span class="pcard__batch-tag">Slow-Roasted</span>
         </div>
 
         <!-- Price & Add to Cart Footer -->
@@ -113,32 +112,6 @@ export class ProductCardComponent {
 
   adding = false;
 
-  private tamilNames: Record<string, string> = {
-    'Kalyana Rasam Powder': 'கல்யாண ரசம் பொடி',
-    'Ginger Lemon Rasam Powder': 'இஞ்சி எலுமிச்சை ரசம் பொடி',
-    'Mor Rasam Powder': 'மோர் ரசம் பொடி',
-    'Kandathippili Rasam Powder': 'கண்டதிப்பிலி ரசம் பொடி',
-    'Cinnamon Rasam Powder': 'இலவங்கப்பட்டை ரசம் பொடி',
-    'Kollu Rasam Powder': 'கொள்ளு ரசம் பொடி',
-    'Poricha Rasam Powder': 'பொரிச்ச ரசம் பொடி',
-    'Vatha Kuzhambu Powder': 'வத்த குழம்பு பொடி',
-    'Ennai Kathirikai Kuzhambu Powder': 'எண்ணெய் கத்திரிக்காய் குழம்பு பொடி',
-    'Mor Kuzhambu Powder': 'மோர் குழம்பு பொடி',
-    'Talaga Kuzhambu Powder': 'தஞ்சாவூர் தாளக குழம்பு பொடி',
-    'Vendaya Vendaikai Kuzhambu Powder': 'வெந்தய வெண்டைக்காய் குழம்பு பொடி',
-    'Kootu Kuzhambu Powder': 'கூட்டு குழம்பு பொடி',
-    'Narthangai Kuzhambu Powder': 'நார்த்தங்காய் குழம்பு பொடி',
-    'Chennai Sambar Powder': 'சென்னை சாம்பார் பொடி',
-    'Sambar with Coconut Milk Powder': 'தேங்காய் பால் சாம்பார் பொடி',
-    'Idli Dosa Milagai Podi': 'இட்லி தோசை மிளகாய் பொடி',
-    'Dal / Paruppu Podi': 'பருப்பு பொடி',
-    'Kothamalli Thugayal Podi': 'கொத்தமல்லி துவையல் பொடி',
-    'Pudina Thugayal Podi': 'புதினா துவையல் பொடி',
-    'Vegetable / Rice Mix Podi': 'காய்கறி / சாத பொடி',
-    'Arisi Upma (Tiffin Mix)': 'அரிசி உப்மா (டிபன் மிக்ஸ்)',
-    'Arisi Paruppu Sadam (Tiffin Mix)': 'அரிசி பருப்பு சாதம்',
-  };
-
   private aromaProfiles: Record<string, { heat: string; aroma: string }> = {
     'Kalyana Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Tangy & Peppery' },
     'Ginger Lemon Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Zesty Ginger Citrus' },
@@ -177,10 +150,6 @@ export class ProductCardComponent {
       return `${base}${url}`;
     }
     return url;
-  }
-
-  getTamilName(name: string): string {
-    return this.tamilNames[name] || 'அரிதுபாரம்பரிய பொடி';
   }
 
   getSpiceHeat(): string {

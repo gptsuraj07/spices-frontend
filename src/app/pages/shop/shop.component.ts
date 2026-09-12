@@ -257,36 +257,6 @@ export class ShopComponent implements OnInit {
     return this.allCatalogProducts.filter(p => p.categoryId === 'cat-tiffin');
   }
 
-  private tamilNamesMap: Record<string, string> = {
-    'Kalyana Rasam Powder': 'கல்யாண ரசம் பொடி',
-    'Ginger Lemon Rasam Powder': 'இஞ்சி எலுமிச்சை ரசம்',
-    'Mor Rasam Powder': 'மோர் ரசம் பொடி',
-    'Kandathippili Rasam Powder': 'கண்டதிப்பிலி ரசம்',
-    'Cinnamon Rasam Powder': 'இலவங்கப்பட்டை ரசம்',
-    'Kollu Rasam Powder': 'கொள்ளு ரசம் பொடி',
-    'Poricha Rasam Powder': 'பொரிச்ச ரசம் பொடி',
-    'Vatha Kuzhambu Powder': 'வத்த குழம்பு பொடி',
-    'Ennai Kathirikai Kuzhambu Powder': 'எண்ணெய் கத்திரிக்காய்',
-    'Mor Kuzhambu Powder': 'மோர் குழம்பு பொடி',
-    'Talaga Kuzhambu Powder': 'தாளக குழம்பு பொடி',
-    'Vendaya Vendaikai Kuzhambu Powder': 'வெந்தய வெண்டைக்காய்',
-    'Kootu Kuzhambu Powder': 'கூட்டு குழம்பு பொடி',
-    'Narthangai Kuzhambu Powder': 'நார்த்தங்காய் குழம்பு',
-    'Chennai Sambar Powder': 'சென்னை சாம்பார் பொடி',
-    'Sambar with Coconut Milk Powder': 'தேங்காய் பால் சாம்பார்',
-    'Idli Dosa Milagai Podi': 'இட்லி தோசை மிளகாய் பொடி',
-    'Dal / Paruppu Podi': 'பருப்பு பொடி',
-    'Kothamalli Thugayal Podi': 'கொத்தமல்லி துவையல்',
-    'Pudina Thugayal Podi': 'புதினா துவையல் பொடி',
-    'Vegetable / Rice Mix Podi': 'காய்கறி / சாத பொடி',
-    'Arisi Upma (Tiffin Mix)': 'அரிசி உப்மா (டிபன் மிக்ஸ்)',
-    'Arisi Paruppu Sadam (Tiffin Mix)': 'அரிசி பருப்பு சாதம்',
-  };
-
-  getTamilName(name: string): string {
-    return this.tamilNamesMap[name] || 'பாரம்பரிய பொடி';
-  }
-
   navigateToProduct(slug: string): void {
     window.location.href = `/product/${slug}`;
   }
@@ -298,36 +268,30 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  getComboTamilName(name: string): string {
-    if (name.includes('Rasam')) return 'ஏழு நாள் ரசம் சடங்கு பெட்டி';
-    if (name.includes('Kozhambu')) return 'ஏழு நாள் குழம்பு சடங்கு பெட்டி';
-    return 'பாரம்பரிய காம்போ பெட்டி';
-  }
-
-  getComboItems(combo: any): { name: string; tamilName?: string }[] {
+  getComboItems(combo: any): { name: string }[] {
     if (combo.items && combo.items.length) {
       return combo.items;
     }
     const isRasam = (combo.slug && combo.slug.includes('rasam')) || (combo.name && combo.name.includes('Rasam'));
     if (isRasam) {
       return [
-        { name: 'Kalyana Rasam Powder', tamilName: 'கல்யாண ரசம்' },
-        { name: 'Ginger Lemon Rasam Powder', tamilName: 'இஞ்சி எலுமிச்சை ரசம்' },
-        { name: 'Mor Rasam Powder', tamilName: 'மோர் ரசம்' },
-        { name: 'Kandathippili Rasam Powder', tamilName: 'கண்டத்திப்பிலி ரசம்' },
-        { name: 'Cinnamon Rasam Powder', tamilName: 'இலவங்கப்பட்டை ரசம்' },
-        { name: 'Kollu Rasam Powder', tamilName: 'கொள்ளு ரசம்' },
-        { name: 'Poricha Rasam Powder', tamilName: 'பொரிச்ச ரசம்' },
+        { name: 'Kalyana Rasam Powder' },
+        { name: 'Ginger Lemon Rasam Powder' },
+        { name: 'Mor Rasam Powder' },
+        { name: 'Kandathippili Rasam Powder' },
+        { name: 'Cinnamon Rasam Powder' },
+        { name: 'Kollu Rasam Powder' },
+        { name: 'Poricha Rasam Powder' },
       ];
     }
     return [
-      { name: 'Vatha Kozhambu Powder', tamilName: 'வத்த குழம்பு' },
-      { name: 'Ennai Kathirikai Kozhambu Powder', tamilName: 'எண்ணெய் கத்திரிக்காய்' },
-      { name: 'Mor Kozhambu Powder', tamilName: 'மோர் குழம்பு' },
-      { name: 'Talaga Kozhambu Powder', tamilName: 'தாளக குழம்பு' },
-      { name: 'Vendaya Vendaikai Kozhambu Powder', tamilName: 'வெந்தய வெண்டைக்காய்' },
-      { name: 'Kootu Kozhambu Powder', tamilName: 'கூட்டு குழம்பு' },
-      { name: 'Narthangai Kozhambu Powder', tamilName: 'நார்த்தங்காய் குழம்பு' },
+      { name: 'Vatha Kozhambu Powder' },
+      { name: 'Ennai Kathirikai Kozhambu Powder' },
+      { name: 'Mor Kozhambu Powder' },
+      { name: 'Talaga Kozhambu Powder' },
+      { name: 'Vendaya Vendaikai Kozhambu Powder' },
+      { name: 'Kootu Kozhambu Powder' },
+      { name: 'Narthangai Kozhambu Powder' },
     ];
   }
 }

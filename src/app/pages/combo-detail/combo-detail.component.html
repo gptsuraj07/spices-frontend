@@ -112,6 +112,50 @@
       <h2 class="combo-detail__desc-title">About This Collection</h2>
       <div class="combo-detail__desc-body" [innerHTML]="combo.description | nl2br"></div>
     </div>
+
+    <!-- Interactive 7-Day Rasam Ritual Breakdown (English Only) -->
+    <div class="ritual-section-combo" *ngIf="isRasamCombo">
+      <div class="section-header text-center" style="margin-top: 3rem; margin-bottom: 1.5rem;">
+        <span class="section-tag" style="font-size: 0.75rem; letter-spacing: 0.1em; color: #315C2B; text-transform: uppercase; font-weight: 700;">DAILY HERITAGE RITUAL</span>
+        <h2 class="section-headline" style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #2A160C; margin: 0.25rem 0;">The 7-Day South Indian Rasam Ritual</h2>
+        <p class="section-sub" style="color: #786A5E; font-size: 0.9375rem; max-width: 600px; margin: 0.5rem auto 0;">
+          In traditional South Indian homes, rasam is cooked fresh every single day of the week—each with its own distinct spice balance, warming character, and restorative health benefits.
+        </p>
+      </div>
+
+      <!-- Day Navigator Strip -->
+      <div class="ritual-nav" style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; justify-content: center;">
+        <button *ngFor="let item of rasamDays; let i = index" class="ritual-nav__item"
+          [class.ritual-nav__item--active]="i === activeDayIndex" (click)="selectDay(i)"
+          style="padding: 0.5rem 1rem; border-radius: 8px; border: 1.5px solid #EDE4D3; background: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 70px;">
+          <span style="font-size: 0.65rem; font-weight: 800; color: #786A5E;">{{ item.code }}</span>
+          <span style="font-size: 0.8125rem; font-weight: 700; color: #2A160C;">{{ item.day }}</span>
+        </button>
+      </div>
+
+      <!-- Active Day Detail Card -->
+      <div class="ritual-card-combo" style="background: #FDFBF8; border: 1px solid #EDE4D3; border-radius: 16px; padding: 1.5rem; margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+          <span style="background: #E2EFE0; color: #315C2B; padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700;">{{ activeRitual.day }} Ritual</span>
+          <span style="background: #FEF3C7; color: #B45309; padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700;">{{ activeRitual.heat }}</span>
+        </div>
+
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #2A160C; margin: 0;">{{ activeRitual.name }}</h3>
+        <p style="font-style: italic; color: #8F5338; margin: 0; font-size: 0.9375rem;">"{{ activeRitual.tagline }}"</p>
+        <p style="color: #786A5E; font-size: 0.875rem; line-height: 1.6; margin: 0;">{{ activeRitual.description }}</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 0.75rem; border-top: 1px dashed #EDE4D3;">
+          <div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: #786A5E; text-transform: uppercase;">Aroma Profile</span>
+            <p style="font-size: 0.875rem; font-weight: 600; color: #2A160C; margin: 2px 0 0;">{{ activeRitual.aroma }}</p>
+          </div>
+          <div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: #786A5E; text-transform: uppercase;">Best Served With</span>
+            <p style="font-size: 0.875rem; font-weight: 600; color: #2A160C; margin: 2px 0 0;">{{ activeRitual.pairing }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
