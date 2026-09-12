@@ -24,6 +24,21 @@
   <!-- Products or Combos Grid -->
   <div class="container category-page__body">
 
+    <!-- Section Header Bar -->
+    <div class="category-page__shelf-bar" *ngIf="category">
+      <div class="category-page__shelf-info">
+        <h2 class="category-page__shelf-title">
+          {{ isCombosCategory ? 'Curated Combo Sets' : 'All ' + category.name }}
+        </h2>
+        <p class="category-page__shelf-subtitle" *ngIf="!isCombosCategory">
+          Authentic small-batch blends slow-roasted with traditional South Indian whole spices.
+        </p>
+      </div>
+      <div class="category-page__shelf-count" *ngIf="!loading">
+        {{ isCombosCategory ? combos.length : products.length }} Varieties
+      </div>
+    </div>
+
     <!-- Products View -->
     <ng-container *ngIf="!isCombosCategory">
       <div class="product-grid" *ngIf="!loading && products.length > 0">
