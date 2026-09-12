@@ -7,6 +7,7 @@ import { ComboService } from '../../core/services/combo.service';
 import { CartService } from '../../core/services/cart.service';
 import { ToastService } from '../../core/services/toast.service';
 import { ALL_PRODUCTS } from '../../core/data/products.mock';
+import { environment } from '../../../environments/environment';
 
 export type ShopTab = 'all' | 'cat-kozhambu' | 'cat-rasam' | 'cat-sambar' | 'cat-tiffin' | 'combos';
 
