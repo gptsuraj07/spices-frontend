@@ -28,14 +28,17 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.loading = true;
-      const slug = params['slug'];
+      const rawSlug = params['slug'] || '';
+      const slug = (rawSlug === 'kozambu' || rawSlug === 'kuzhambu') ? 'kozhambu' : rawSlug;
       this.isCombosCategory = (slug === 'combos' || slug === 'cat-combos');
 
       this.categoryService.getBySlug(slug).subscribe(cat => {
         this.category = cat;
-        if (this.category && !this.category.imageUrl) {
-          if (slug === 'kozhambu') this.category.imageUrl = '/assets/aridhu-kuzhambu-hero.jpg';
-          if (slug === 'rasam') this.category.imageUrl = '/assets/aridhu-rasam-hero.jpg';
+        if (this.category) {
+          if (!this.category.imageUrl || !this.category.imageUrl.trim()) {
+            if (slug === 'kozhambu') this.category.imageUrl = '/assets/aridhu-kuzhambu-hero.jpg';
+            if (slug === 'rasam') this.category.imageUrl = '/assets/aridhu-rasam-hero.jpg';
+          }
         }
 
         if (this.isCombosCategory) {
