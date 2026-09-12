@@ -33,6 +33,10 @@ export class CategoryComponent implements OnInit {
 
       this.categoryService.getBySlug(slug).subscribe(cat => {
         this.category = cat;
+        if (this.category && !this.category.imageUrl) {
+          if (slug === 'kozhambu') this.category.imageUrl = '/assets/aridhu-kuzhambu-hero.jpg';
+          if (slug === 'rasam') this.category.imageUrl = '/assets/aridhu-rasam-hero.jpg';
+        }
 
         if (this.isCombosCategory) {
           this.comboService.getActive().subscribe(combos => {
