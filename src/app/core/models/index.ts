@@ -26,16 +26,19 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
+  subtitle?: string;
   categoryId: string;
   category?: Category;
   description: string;
   shortDescription: string;
   price: number;
+  originalPrice?: number;
   compareAtPrice: number | null;
   weight: number;            // in grams
   weightUnit: 'g' | 'kg';
   sku: string;
   stock: number;
+  inStock?: boolean;
   imageUrl: string | null;
   gallery: string[];
   status: ProductStatus;
