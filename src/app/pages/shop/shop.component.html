@@ -126,7 +126,6 @@
              ========================================================= -->
         <ng-container *ngIf="activeCategoryTab === 'all' && !searchQuery && !currentFilter.minPrice && !currentFilter.maxPrice">
           <div class="category-shelves-list">
-
             <!-- 1. KOZHAMBU POWDERS SHOWCASE (SOLID RED BANNER THEME) -->
             <div class="cat-shelf cat-shelf--kozhambu" id="cat-section-kozhambu">
               <div class="cat-shelf__header">
@@ -143,7 +142,8 @@
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsByKozhambu" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--kozhambu">
-                      <span class="mini-card__emoji">🍲</span>
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🍲</span>
                       <span class="mini-card__badge">100g</span>
                     </div>
                     <div class="mini-card__body">
@@ -177,7 +177,8 @@
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsByRasam" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--rasam">
-                      <span class="mini-card__emoji">🥣</span>
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🥣</span>
                       <span class="mini-card__badge">100g</span>
                     </div>
                     <div class="mini-card__body">
@@ -211,7 +212,8 @@
                 <div class="cat-shelf__grid cat-shelf__grid--2col">
                   <div *ngFor="let p of productsBySambar" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--sambar">
-                      <span class="mini-card__emoji">🥘</span>
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🥘</span>
                       <span class="mini-card__badge">100g</span>
                     </div>
                     <div class="mini-card__body">
@@ -238,14 +240,15 @@
                     <h2 class="cat-shelf__title">Tiffin Mixes &amp; Podis <span class="count">(7)</span></h2>
                   </div>
                 </div>
-                <a routerLink="/category/tiffinmixed" class="cat-shelf__view-all">View Category →</a>
+                <a routerLink="/category/tiffin-mixes" class="cat-shelf__view-all">View Category →</a>
               </div>
 
               <div class="cat-shelf__body-wrap">
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsByTiffin" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--tiffin">
-                      <span class="mini-card__emoji">🥞</span>
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🥞</span>
                       <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
                     <div class="mini-card__body">

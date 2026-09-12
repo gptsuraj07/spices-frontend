@@ -241,20 +241,35 @@ export class ShopComponent implements OnInit {
     return 'All Products (23)';
   }
 
+  private get currentProductCatalog(): Product[] {
+    return (this.products && this.products.length > 0) ? this.products : this.allCatalogProducts;
+  }
+
   get productsByKozhambu(): Product[] {
-    return this.allCatalogProducts.filter(p => p.categoryId === 'cat-kozhambu');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-kozhambu');
   }
 
   get productsByRasam(): Product[] {
-    return this.allCatalogProducts.filter(p => p.categoryId === 'cat-rasam');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-rasam');
   }
 
   get productsBySambar(): Product[] {
-    return this.allCatalogProducts.filter(p => p.categoryId === 'cat-sambar');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-sambar');
   }
 
   get productsByTiffin(): Product[] {
-    return this.allCatalogProducts.filter(p => p.categoryId === 'cat-tiffin');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-tiffin');
+  }
+
+  getImageUrl(url: string | null | undefined): string | null {
+    if (!url || !url.trim()) return null;
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    if (url.startsWith('/assets/')) return url;
+    if (url.startsWith('/uploads/')) {
+      const base = environment.apiUrl.replace(/\/api\/?$/, '');
+      return `${base}${url}`;
+    }
+    return url;
   }
 
   navigateToProduct(slug: string): void {

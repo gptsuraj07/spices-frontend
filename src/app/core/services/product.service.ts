@@ -147,4 +147,8 @@ export class ProductService {
   removeProductImage(productId: string): Observable<Product> {
     return this.http.delete<Product>(`${environment.apiUrl}/admin/products/${productId}/image`);
   }
+
+  updateProduct(productId: string, productData: Partial<Product>): Observable<Product> {
+    return this.http.put<Product>(`${environment.apiUrl}/admin/products/${productId}`, productData);
+  }
 }

@@ -168,10 +168,27 @@ export class AdminProductsComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.editingProduct) {
-      this.toastService.success('Product image saved successfully!');
-      this.closeEditModal();
-    }
+    if (!this.editingProduct) return;
+
+    const prodId = this.editingProduct.id || (this.editingProduct as any)._id;
+    this.uploading = true;
+    this.uploadProgressText = 'Saving product details...';
+
+    this.productService.updateProduct(prodId, this.editingProduct).subscribe({
+      next: (updatedProduct: Product) => {
+        this.updateProductInList(updatedProduct);
+        this.uploading = false;
+        this.uploadProgressText = '';
+        this.toastService.success('Product details saved successfully!');
+        this.closeEditModal();
+      },
+      error: (err) => {
+        this.uploading = false;
+        this.uploadProgressText = '';
+        const msg = err.error?.detail || err.message || 'Failed to save product details.';
+        this.toastService.error(msg);
+      }
+    });
   }
 
   private updateProductInList(updatedProduct: Product): void {

@@ -145,7 +145,9 @@ export class ProductCardComponent {
 
   getImageUrl(url: string | null | undefined): string | null {
     if (!url || !url.trim()) return null;
-    if (url.startsWith('/')) {
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    if (url.startsWith('/assets/')) return url;
+    if (url.startsWith('/uploads/')) {
       const base = environment.apiUrl.replace(/\/api\/?$/, '');
       return `${base}${url}`;
     }
