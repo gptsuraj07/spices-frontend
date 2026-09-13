@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
   Order, OrderStatus, PaymentStatus, CartItem, Address, CartSummary,
-  StatusHistoryEntry, PaymentDetails, FulfillmentDetails
+  StatusHistoryEntry, PaymentDetails, FulfillmentDetails, ORDER_STATUS_LABEL
 } from '../models';
 import { environment } from '../../../environments/environment';
 
@@ -236,12 +236,15 @@ export class OrderService {
 
   updateOrderStatus(id: string, status: OrderStatus, note?: string): Observable<Order> {
     const now = new Date().toISOString();
-    const historyEntry: StatusHistoryEntry = { status, timestamp: now, note };
+    const historyEntry: StatusHistoryEntry = {
+      status,
+      timestamp: now,
+      note: note || `Order status updated to ${ORDER_STATUS_LABEL[status] || status}`
+    };
     return this.http.patch<any>(`${this.apiUrl}/${id}`, {
       status,
       updatedAt: now,
-      $push: { statusHistory: historyEntry },  // MongoDB push if supported
-      _historyEntry: historyEntry,              // fallback signal for backend
+      _historyEntry: historyEntry,
     }).pipe(
       map(o => this.normalizeOrder(o)),
       catchError(err => {
@@ -254,19 +257,7 @@ export class OrderService {
   // ── Admin: Verify payment ──────────────────────────────────
 
   verifyPayment(id: string, adminName = 'Admin'): Observable<Order> {
-    const now = new Date().toISOString();
-    const historyEntry: StatusHistoryEntry = {
-      status:    'PAYMENT_CONFIRMED',
-      timestamp: now,
-      note:      'Payment verified by admin',
-    };
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, {
-      status:            'PAYMENT_CONFIRMED',
-      payment:           { status: 'PAID', verifiedAt: now, verifiedBy: adminName, method: 'UPI' },
-      paymentStatus:     'paid',   // legacy compat
-      updatedAt:         now,
-      _historyEntry:     historyEntry,
-    }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/${id}/verify-payment`, { adminName }).pipe(
       map(o => this.normalizeOrder(o)),
       catchError(err => {
         console.error('Error verifying payment:', err);
@@ -277,20 +268,8 @@ export class OrderService {
 
   // ── Admin: Reject payment ──────────────────────────────────
 
-  rejectPayment(id: string): Observable<Order> {
-    const now = new Date().toISOString();
-    const historyEntry: StatusHistoryEntry = {
-      status:    'PAYMENT_FAILED',
-      timestamp: now,
-      note:      'Payment rejected by admin',
-    };
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, {
-      status:        'PAYMENT_FAILED',
-      payment:       { status: 'FAILED', method: 'UPI' },
-      paymentStatus: 'failed',   // legacy compat
-      updatedAt:     now,
-      _historyEntry: historyEntry,
-    }).pipe(
+  rejectPayment(id: string, reason = 'Payment could not be verified'): Observable<Order> {
+    return this.http.post<any>(`${this.apiUrl}/${id}/reject-payment`, { reason }).pipe(
       map(o => this.normalizeOrder(o)),
       catchError(err => {
         console.error('Error rejecting payment:', err);
@@ -302,18 +281,9 @@ export class OrderService {
   // ── Admin: Update shipping details ─────────────────────────
 
   updateShippingDetails(id: string, provider: string, trackingNumber: string): Observable<Order> {
-    const now = new Date().toISOString();
-    const historyEntry: StatusHistoryEntry = {
-      status:    'SHIPPED',
-      timestamp: now,
-      note:      `Shipped via ${provider}. Tracking: ${trackingNumber}`,
-    };
-    const fulfillment: FulfillmentDetails = { provider, trackingNumber, shippedAt: now };
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, {
-      status:        'SHIPPED',
-      fulfillment,
-      updatedAt:     now,
-      _historyEntry: historyEntry,
+    return this.http.patch<any>(`${this.apiUrl}/${id}/shipping`, {
+      provider,
+      trackingNumber,
     }).pipe(
       map(o => this.normalizeOrder(o)),
       catchError(err => {

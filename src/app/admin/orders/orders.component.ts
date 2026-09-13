@@ -214,15 +214,35 @@ export class AdminOrdersComponent implements OnInit {
   // ── Helpers ───────────────────────────────────────────────
 
   private refreshOrder(updated: Order): void {
-    if (!updated?.id) { this.loadOrders(); return; }
+    if (!updated || (!updated.id && !(updated as any)._id)) {
+      this.loadOrders();
+      return;
+    }
 
-    const idx = this.orders.findIndex(o => o.id === updated.id);
-    if (idx !== -1) this.orders[idx] = updated;
+    const updatedId = updated.id || (updated as any)._id;
+    const idx = this.orders.findIndex(o =>
+      (o.id && o.id === updatedId) ||
+      ((o as any)._id && (o as any)._id === updatedId) ||
+      (o.orderNumber && o.orderNumber === updated.orderNumber)
+    );
+
+    if (idx !== -1) {
+      this.orders[idx] = updated;
+    } else {
+      this.loadOrders();
+      return;
+    }
 
     this.applyFilter();
 
-    if (this.selectedOrder?.id === updated.id) {
-      this.selectedOrder = { ...updated };
+    if (this.selectedOrder) {
+      const selectedId = this.selectedOrder.id || (this.selectedOrder as any)._id;
+      if (
+        (selectedId && selectedId === updatedId) ||
+        (this.selectedOrder.orderNumber && this.selectedOrder.orderNumber === updated.orderNumber)
+      ) {
+        this.selectedOrder = { ...updated };
+      }
     }
   }
 
