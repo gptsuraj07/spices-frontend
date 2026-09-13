@@ -22,6 +22,16 @@ export interface Category {
 export type ProductStatus = 'active' | 'inactive' | 'out_of_stock';
 export type ProductBadge = 'popular' | 'new' | 'best_seller' | 'limited' | null;
 
+export interface ProductRecipe {
+  title?: string;
+  prepTime?: string;
+  cookTime?: string;
+  servings?: string;
+  ingredients?: string[];
+  instructions?: string[];
+  tips?: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -47,6 +57,7 @@ export interface Product {
   ingredients: string | null;
   usage: string | null;
   storage: string | null;
+  recipe?: ProductRecipe | null;
   tags: string[];
   rating: number | null;
   reviewCount: number;

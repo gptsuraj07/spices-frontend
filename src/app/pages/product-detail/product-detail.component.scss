@@ -246,3 +246,197 @@
     border: 1px dashed v.$border-mid;
   }
 }
+
+// ── Recipe Styles ──────────────────────────────────────────
+.pdp-recipe {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-6;
+  max-width: 920px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: v.$space-4;
+    padding: v.$space-5 v.$space-6;
+    background: linear-gradient(135deg, v.$green-bg 0%, v.$ivory 100%);
+    border: 1px solid rgba(v.$green-primary, 0.15);
+    border-radius: v.$radius-xl;
+
+    @include m.respond-to('sm') {
+      flex-direction: column;
+    }
+  }
+
+  &__badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: v.$ls-wide;
+    text-transform: uppercase;
+    color: v.$green-deep;
+    background: rgba(v.$green-primary, 0.12);
+    padding: 3px 10px;
+    border-radius: v.$radius-full;
+    margin-bottom: v.$space-2;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: v.$text-xl;
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    margin: 0;
+  }
+
+  &__meta {
+    display: flex;
+    gap: v.$space-4;
+    flex-wrap: wrap;
+  }
+
+  &__meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background: v.$white;
+    padding: 6px 12px;
+    border-radius: v.$radius-md;
+    box-shadow: v.$shadow-xs;
+    border: 1px solid v.$border-light;
+
+    @include m.respond-to('sm') {
+      align-items: flex-start;
+    }
+  }
+
+  &__meta-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: v.$ls-wide;
+    color: v.$text-muted;
+  }
+
+  &__meta-val {
+    font-size: v.$text-sm;
+    font-weight: v.$fw-semibold;
+    color: v.$brown-dark;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: v.$space-8;
+
+    @include m.respond-to('md') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__section-title {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    font-size: v.$text-md;
+    font-weight: v.$fw-semibold;
+    color: v.$brown-deep;
+    margin: 0 0 v.$space-4 0;
+    padding-bottom: v.$space-2;
+    border-bottom: 2px solid v.$amber-gold;
+
+    svg {
+      color: v.$green-primary;
+    }
+  }
+
+  &__ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-3;
+  }
+
+  &__ingredient-item {
+    display: flex;
+    align-items: flex-start;
+    gap: v.$space-3;
+    font-size: v.$text-sm;
+    color: v.$brown-dark;
+    padding: 8px 12px;
+    background: v.$white;
+    border-radius: v.$radius-md;
+    border: 1px solid v.$border-light;
+  }
+
+  &__ing-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: v.$amber-gold;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  &__steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+  }
+
+  &__step-card {
+    display: flex;
+    gap: v.$space-4;
+    padding: v.$space-4;
+    background: v.$white;
+    border-radius: v.$radius-lg;
+    border: 1px solid v.$border-light;
+    box-shadow: v.$shadow-xs;
+  }
+
+  &__step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: v.$green-primary;
+    color: v.$white;
+    font-weight: v.$fw-bold;
+    font-size: v.$text-sm;
+    flex-shrink: 0;
+  }
+
+  &__step-text {
+    font-size: v.$text-sm;
+    line-height: v.$lh-relaxed;
+    color: v.$text-secondary;
+    padding-top: 3px;
+  }
+
+  &__tips-box {
+    display: flex;
+    align-items: flex-start;
+    gap: v.$space-4;
+    padding: v.$space-4 v.$space-5;
+    background: rgba(v.$amber-gold, 0.12);
+    border-left: 4px solid v.$amber-gold;
+    border-radius: 0 v.$radius-lg v.$radius-lg 0;
+  }
+
+  &__tips-icon {
+    font-size: 1.4rem;
+  }
+
+  &__tips-content {
+    font-size: v.$text-sm;
+    color: v.$brown-deep;
+    line-height: v.$lh-relaxed;
+  }
+}

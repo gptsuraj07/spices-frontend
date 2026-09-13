@@ -19,6 +19,7 @@ export class ProductDetailComponent implements OnInit {
   activeTab = 'description';
   tabs = [
     { id: 'description', label: 'Description' },
+    { id: 'recipe', label: 'Recipe & Cooking Guide' },
     { id: 'usage', label: 'How to Use' },
     { id: 'storage', label: 'Storage' },
   ];

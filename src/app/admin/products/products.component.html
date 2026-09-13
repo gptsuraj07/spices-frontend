@@ -309,6 +309,52 @@
           <label class="form-label">Full Description</label>
           <textarea class="form-textarea" rows="3" [(ngModel)]="editingProduct.description" placeholder="Full product description..."></textarea>
         </div>
+
+        <!-- Recipe Management Section -->
+        <div class="ap-recipe-section" style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed rgba(71, 38, 23, 0.2);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom: 1rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#315C2B" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: #2A160C; margin: 0;">Recipe &amp; Preparation Instructions <span style="font-size:0.75rem; font-weight:400; color:#786A5E;">(All Fields Optional)</span></h3>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Recipe Title <span class="form-optional">(Optional)</span></label>
+            <input type="text" class="form-input" [(ngModel)]="recipeTitle" placeholder="e.g. Traditional Paruppu Podi Rice / Kalyana Rasam" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label class="form-label">Prep Time <span class="form-optional">(Optional)</span></label>
+              <input type="text" class="form-input" [(ngModel)]="recipePrepTime" placeholder="e.g. 5 mins" />
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label">Cook Time <span class="form-optional">(Optional)</span></label>
+              <input type="text" class="form-input" [(ngModel)]="recipeCookTime" placeholder="e.g. 10 mins" />
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label">Servings <span class="form-optional">(Optional)</span></label>
+              <input type="text" class="form-input" [(ngModel)]="recipeServings" placeholder="e.g. 3-4 Servings" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Ingredients <span class="form-optional">(Optional — 1 per line)</span></label>
+            <textarea class="form-textarea" rows="4" [(ngModel)]="recipeIngredientsText" placeholder="1.5 tsp Podi powder&#10;1 cup Tamarind juice&#10;1/2 cup cooked Toor dal&#10;1 tsp Ghee"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Step-by-Step Instructions <span class="form-optional">(Optional — 1 per line)</span></label>
+            <textarea class="form-textarea" rows="5" [(ngModel)]="recipeInstructionsText" placeholder="Extract tamarind juice and boil with chopped tomatoes and podi powder for 8 mins.&#10;Add cooked toor dal and simmer on low flame until frothy.&#10;Temper mustard seeds in ghee and pour over rasam."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Chef Tips / Serving Suggestions <span class="form-optional">(Optional)</span></label>
+            <input type="text" class="form-input" [(ngModel)]="recipeTips" placeholder="e.g. Turn off flame as soon as rasam turns frothy on top to retain spice oils." />
+          </div>
+        </div>
       </div>
     </div>
 

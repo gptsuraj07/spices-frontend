@@ -28,6 +28,15 @@ export class AdminProductsComponent implements OnInit {
   uploading = false;
   uploadProgressText = '';
 
+  // Recipe Form State
+  recipeTitle = '';
+  recipePrepTime = '';
+  recipeCookTime = '';
+  recipeServings = '';
+  recipeIngredientsText = '';
+  recipeInstructionsText = '';
+  recipeTips = '';
+
   constructor(
     private productService: ProductService,
     private imageCompressionService: ImageCompressionService,
@@ -66,6 +75,25 @@ export class AdminProductsComponent implements OnInit {
     this.selectedFile = null;
     this.uploading = false;
     this.uploadProgressText = '';
+
+    // Initialize recipe form
+    if (this.editingProduct.recipe) {
+      this.recipeTitle = this.editingProduct.recipe.title || '';
+      this.recipePrepTime = this.editingProduct.recipe.prepTime || '';
+      this.recipeCookTime = this.editingProduct.recipe.cookTime || '';
+      this.recipeServings = this.editingProduct.recipe.servings || '';
+      this.recipeIngredientsText = (this.editingProduct.recipe.ingredients || []).join('\n');
+      this.recipeInstructionsText = (this.editingProduct.recipe.instructions || []).join('\n');
+      this.recipeTips = this.editingProduct.recipe.tips || '';
+    } else {
+      this.recipeTitle = '';
+      this.recipePrepTime = '';
+      this.recipeCookTime = '';
+      this.recipeServings = '';
+      this.recipeIngredientsText = '';
+      this.recipeInstructionsText = '';
+      this.recipeTips = '';
+    }
   }
 
   closeEditModal(): void {
@@ -169,6 +197,40 @@ export class AdminProductsComponent implements OnInit {
 
   onSave(): void {
     if (!this.editingProduct) return;
+
+    // Process recipe inputs (all fields optional)
+    const ingredientsArray = this.recipeIngredientsText
+      .split('\n')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    const instructionsArray = this.recipeInstructionsText
+      .split('\n')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    const hasAnyRecipeField =
+      !!this.recipeTitle.trim() ||
+      !!this.recipePrepTime.trim() ||
+      !!this.recipeCookTime.trim() ||
+      !!this.recipeServings.trim() ||
+      !!this.recipeTips.trim() ||
+      ingredientsArray.length > 0 ||
+      instructionsArray.length > 0;
+
+    if (hasAnyRecipeField) {
+      this.editingProduct.recipe = {
+        title: this.recipeTitle.trim() || undefined,
+        prepTime: this.recipePrepTime.trim() || undefined,
+        cookTime: this.recipeCookTime.trim() || undefined,
+        servings: this.recipeServings.trim() || undefined,
+        ingredients: ingredientsArray,
+        instructions: instructionsArray,
+        tips: this.recipeTips.trim() || undefined,
+      };
+    } else {
+      this.editingProduct.recipe = null;
+    }
 
     const prodId = this.editingProduct.id || (this.editingProduct as any)._id;
     this.uploading = true;

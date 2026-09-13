@@ -130,6 +130,78 @@
           <p class="pdp__tab-body">{{ product.description }}</p>
         </div>
 
+        <div *ngIf="activeTab === 'recipe'" role="tabpanel" id="panel-recipe" aria-labelledby="tab-recipe">
+          <ng-container *ngIf="product.recipe as r; else noRecipe">
+            <div class="pdp-recipe">
+              <!-- Recipe Header Banner -->
+              <div class="pdp-recipe__header">
+                <div class="pdp-recipe__title-wrap">
+                  <span class="pdp-recipe__badge">Authentic Heritage Recipe</span>
+                  <h3 class="pdp-recipe__title">{{ r.title || ('Traditional ' + product.name + ' Preparation') }}</h3>
+                </div>
+                <div class="pdp-recipe__meta">
+                  <div class="pdp-recipe__meta-item" *ngIf="r.prepTime">
+                    <span class="pdp-recipe__meta-label">Prep Time</span>
+                    <span class="pdp-recipe__meta-val">⏱️ {{ r.prepTime }}</span>
+                  </div>
+                  <div class="pdp-recipe__meta-item" *ngIf="r.cookTime">
+                    <span class="pdp-recipe__meta-label">Cook Time</span>
+                    <span class="pdp-recipe__meta-val">🔥 {{ r.cookTime }}</span>
+                  </div>
+                  <div class="pdp-recipe__meta-item" *ngIf="r.servings">
+                    <span class="pdp-recipe__meta-label">Yield</span>
+                    <span class="pdp-recipe__meta-val">🍽️ {{ r.servings }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pdp-recipe__grid">
+                <!-- Left: Ingredients Checklist -->
+                <div class="pdp-recipe__col-ingredients" *ngIf="r.ingredients && r.ingredients.length > 0">
+                  <h4 class="pdp-recipe__section-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Required Ingredients
+                  </h4>
+                  <ul class="pdp-recipe__ingredients-list">
+                    <li *ngFor="let ing of r.ingredients" class="pdp-recipe__ingredient-item">
+                      <span class="pdp-recipe__ing-bullet"></span>
+                      <span>{{ ing }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Right: Step-by-Step Instructions -->
+                <div class="pdp-recipe__col-instructions" *ngIf="r.instructions && r.instructions.length > 0">
+                  <h4 class="pdp-recipe__section-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Step-by-Step Preparation
+                  </h4>
+                  <ol class="pdp-recipe__steps-list">
+                    <li *ngFor="let step of r.instructions; let idx = index" class="pdp-recipe__step-card">
+                      <div class="pdp-recipe__step-num">{{ idx + 1 }}</div>
+                      <div class="pdp-recipe__step-text">{{ step }}</div>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Chef Tips Banner -->
+              <div class="pdp-recipe__tips-box" *ngIf="r.tips">
+                <div class="pdp-recipe__tips-icon">💡</div>
+                <div class="pdp-recipe__tips-content">
+                  <strong>Master Chef Secret:</strong> {{ r.tips }}
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #noRecipe>
+            <p class="pdp__tab-body pdp__placeholder">
+              Heritage recipe guide for this spice mix will be published shortly!
+            </p>
+          </ng-template>
+        </div>
+
         <div *ngIf="activeTab === 'usage'" role="tabpanel" id="panel-usage" aria-labelledby="tab-usage">
           <p class="pdp__tab-body pdp__placeholder" *ngIf="!product.usage">
             Usage instructions will be added soon.
