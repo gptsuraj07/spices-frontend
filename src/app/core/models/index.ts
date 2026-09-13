@@ -360,6 +360,5 @@ export const ORDER_TIMELINE_STEPS: OrderStatus[] = [
   'PAYMENT_CONFIRMED',
   'PROCESSING',
   'SHIPPED',
-  'OUT_FOR_DELIVERY',
   'DELIVERED',
 ];

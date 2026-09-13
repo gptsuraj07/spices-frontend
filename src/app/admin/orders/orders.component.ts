@@ -46,6 +46,11 @@ export class AdminOrdersComponent implements OnInit {
 
   // Expose constants to template
   readonly STATUS_LABEL = ORDER_STATUS_LABEL;
+  readonly mainStatusSteps: OrderStatus[] = ['ORDER_PLACED', 'PAYMENT_CONFIRMED', 'PROCESSING', 'SHIPPED', 'DELIVERED'];
+
+  getStatusLabel(s: string | OrderStatus): string {
+    return (s && this.STATUS_LABEL[s as OrderStatus]) ? this.STATUS_LABEL[s as OrderStatus] : s;
+  }
 
   constructor(
     private orderService: OrderService,
@@ -246,17 +251,26 @@ export class AdminOrdersComponent implements OnInit {
     return map[s] ?? 'badge--gray';
   }
 
+  changeStatus(order: Order, newStatus: OrderStatus | string): void {
+    if (!order || !newStatus || order.status === newStatus) return;
+    const target = newStatus as OrderStatus;
+    if (target === 'SHIPPED') {
+      this.openShippingModal(order);
+    } else {
+      this.promptUpdateStatus(order, target);
+    }
+  }
+
   nextStatus(current: OrderStatus): OrderStatus | null {
     const flow: OrderStatus[] = [
-      'PAYMENT_CONFIRMED', 'PROCESSING', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED'
+      'PAYMENT_CONFIRMED', 'PROCESSING', 'SHIPPED', 'DELIVERED'
     ];
     const idx = flow.indexOf(current);
     return idx !== -1 && idx < flow.length - 1 ? flow[idx + 1] : null;
   }
 
   canAdvanceStatus(order: Order): boolean {
-    return order.payment?.status === 'PAID' &&
-           this.nextStatus(order.status) !== null &&
+    return this.nextStatus(order.status) !== null &&
            order.status !== 'DELIVERED' &&
            order.status !== 'CANCELLED';
   }

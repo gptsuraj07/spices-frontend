@@ -79,7 +79,7 @@
             <td class="ao-amount">₹{{ o.total }}</td>
             <td>
               <span class="adm-badge" [class]="getStatusClass(o.status)">
-                {{ STATUS_LABEL[o.status] }}
+                {{ getStatusLabel(o.status) }}
               </span>
             </td>
             <td>
@@ -108,7 +108,7 @@
         <div class="ao-mobile-card__header">
           <span class="ao-order-num">{{ o.orderNumber }}</span>
           <span class="adm-badge" [class]="getStatusClass(o.status)">
-            {{ STATUS_LABEL[o.status] }}
+            {{ getStatusLabel(o.status) }}
           </span>
         </div>
 
@@ -175,7 +175,7 @@
 
     <!-- Status Badges -->
     <div class="ao-modal__badges">
-      <span class="adm-badge" [class]="getStatusClass(order.status)">{{ STATUS_LABEL[order.status] }}</span>
+      <span class="adm-badge" [class]="getStatusClass(order.status)">{{ getStatusLabel(order.status) }}</span>
       <span class="adm-badge" [class]="getPaymentClass(order.payment?.status ?? '')">
         {{ order.payment?.status === 'PENDING_VERIFICATION' ? '⏳ Payment Pending' :
            order.payment?.status === 'PAID' ? '✅ Payment Verified' :
@@ -255,7 +255,7 @@
             <div class="ao-history__entry" *ngFor="let entry of order.statusHistory">
               <div class="ao-history__dot"></div>
               <div class="ao-history__body">
-                <span class="ao-history__status">{{ STATUS_LABEL[entry.status] || entry.status }}</span>
+                <span class="ao-history__status">{{ getStatusLabel(entry.status) }}</span>
                 <span class="ao-history__time">{{ formatDateTime(entry.timestamp) }}</span>
                 <span class="ao-history__note" *ngIf="entry.note">{{ entry.note }}</span>
               </div>
@@ -264,6 +264,47 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- ── Status Control Panel ───────────────────────────── -->
+    <div class="ao-modal__status-control">
+      <div class="ao-status-control-header">
+        <span class="ao-status-control-title">⚙️ Admin Order Status Control</span>
+      </div>
+
+      <!-- Quick Stepper Pills (Order Placed -> Payment Confirmed -> Processing -> Shipped -> Delivered) -->
+      <div class="ao-status-stepper">
+        <button
+          *ngFor="let st of mainStatusSteps"
+          type="button"
+          class="ao-step-pill"
+          [class.ao-step-pill--active]="order.status === st"
+          (click)="changeStatus(order, st)"
+          [title]="'Set status to ' + getStatusLabel(st)"
+        >
+          <span class="ao-step-pill__check" *ngIf="order.status === st">✓</span>
+          {{ getStatusLabel(st) }}
+        </button>
+      </div>
+
+      <!-- Full Status Selector Dropdown -->
+      <div class="ao-status-dropdown-wrap">
+        <label for="admin-order-status-select" class="ao-status-select-label">Set Exact Status:</label>
+        <select
+          id="admin-order-status-select"
+          class="ao-status-select"
+          [ngModel]="order.status"
+          (ngModelChange)="changeStatus(order, $event)"
+        >
+          <option value="ORDER_PLACED">Order Placed</option>
+          <option value="PAYMENT_CONFIRMED">Payment Confirmed</option>
+          <option value="PROCESSING">Processing</option>
+          <option value="SHIPPED">Shipped</option>
+          <option value="DELIVERED">Delivered</option>
+          <option value="PAYMENT_FAILED">Payment Failed</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+      </div>
     </div>
 
     <!-- ── Action Buttons ─────────────────────────────────── -->
@@ -280,22 +321,7 @@
         </button>
       </div>
 
-      <!-- Status Progression -->
-      <div class="ao-status-row" *ngIf="canAdvanceStatus(order)">
-        <span class="ao-status-label">Advance Status:</span>
-        <ng-container *ngIf="nextStatus(order.status) as next">
-          <button *ngIf="next !== 'SHIPPED'" class="ao-status-btn badge--blue"
-            (click)="promptUpdateStatus(order, next)">
-            → {{ STATUS_LABEL[next] }}
-          </button>
-          <button *ngIf="next === 'SHIPPED'" class="ao-status-btn badge--purple"
-            (click)="openShippingModal(order)">
-            🚚 Mark as Shipped
-          </button>
-        </ng-container>
-      </div>
-
-      <!-- Cancel -->
+      <!-- Cancel Action -->
       <button *ngIf="order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && order.status !== 'PAYMENT_FAILED'"
         class="ao-status-btn badge--red" (click)="promptUpdateStatus(order, 'CANCELLED')">
         ✕ Cancel Order

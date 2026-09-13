@@ -101,7 +101,12 @@ export class TrackOrderComponent implements OnInit {
     const currentIdx  = this.TIMELINE_STEPS.indexOf(status);
 
     if (currentIdx < 0) {
-      // Current status not in main timeline (e.g. PAYMENT_VERIFICATION)
+      // Current status not in main timeline (e.g. PAYMENT_VERIFICATION or legacy OUT_FOR_DELIVERY)
+      if (status === 'PAYMENT_VERIFICATION') return step === 'ORDER_PLACED' ? 'current' : 'upcoming';
+      if (status === 'OUT_FOR_DELIVERY') {
+        if (step === 'SHIPPED') return 'current';
+        return timelineIdx < this.TIMELINE_STEPS.indexOf('SHIPPED') ? 'done' : 'upcoming';
+      }
       return step === 'ORDER_PLACED' ? 'current' : 'upcoming';
     }
 
