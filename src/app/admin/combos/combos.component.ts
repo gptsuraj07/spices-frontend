@@ -6,28 +6,56 @@ import { ComboService } from '../../core/services/combo.service';
   selector: 'app-admin-combos',
   standalone: false,
   template: `
-    <div class="admin-combos">
-      <h1 style="font-size: 1.875rem; font-weight: 700; color: #111827; margin-bottom: 1.5rem;">Combos & Gift Boxes</h1>
-      <div style="background: white; border-radius: 0.75rem; border: 1px solid #E5E7EB; overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-          <thead style="background: #F9FAFB; border-bottom: 1px solid #E5E7EB;">
-            <tr>
-              <th style="padding: 0.75rem 1rem; font-size: 0.875rem; color: #4B5563;">Combo Name</th>
-              <th style="padding: 0.75rem 1rem; font-size: 0.875rem; color: #4B5563;">Price</th>
-              <th style="padding: 0.75rem 1rem; font-size: 0.875rem; color: #4B5563;">Savings</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let c of combos" style="border-bottom: 1px solid #F3F4F6;">
-              <td style="padding: 1rem; font-weight: 600;">{{ c.name }}</td>
-              <td style="padding: 1rem; font-weight: 600;">₹{{ c.price }}</td>
-              <td style="padding: 1rem; color: #047857; font-weight: 600;">Save ₹{{ c.savings }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="ap-page">
+      <div class="ap-header">
+        <div>
+          <h1 class="adash__title">Combos & Gift Sets</h1>
+          <p class="adash__subtitle">Manage curated South Indian spice combo boxes.</p>
+        </div>
+      </div>
+
+      <div class="adm-card">
+        <!-- Desktop Table View -->
+        <div class="adm-table-wrap adm-table-wrap--desktop">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Combo Name</th>
+                <th>Price</th>
+                <th>Savings</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of combos">
+                <td style="font-weight: 600; color: #2A160C;">{{ c.name }}</td>
+                <td style="font-weight: 700;">₹{{ c.price }}</td>
+                <td style="color: #315C2B; font-weight: 600;">Save ₹{{ c.savings }}</td>
+                <td><span class="adm-badge badge--green">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards List View (< 768px) -->
+        <div class="ap-mobile-cards-list">
+          <div class="ap-mobile-card" *ngFor="let c of combos">
+            <div class="ap-mobile-card__header">
+              <div>
+                <div class="ap-name">{{ c.name }}</div>
+                <div class="ap-meta" style="color: #315C2B; font-weight: 600;">Save ₹{{ c.savings }}</div>
+              </div>
+              <span class="adm-badge badge--green">Active</span>
+            </div>
+            <div class="ap-mobile-card__footer">
+              <span class="ap-price">₹{{ c.price }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  `
+  `,
+  styleUrls: ['../products/products.component.scss']
 })
 export class AdminCombosComponent implements OnInit {
   combos: Combo[] = [];

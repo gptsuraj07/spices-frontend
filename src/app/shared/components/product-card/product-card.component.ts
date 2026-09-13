@@ -133,7 +133,7 @@ export class ProductCardComponent {
     'Chennai Sambar Powder': { heat: 'Medium Spicy', aroma: 'Madras Home Roasted' },
     'Sambar with Coconut Milk Powder': { heat: 'Medium Spicy', aroma: 'Velvet Coconut Cream' },
     'Idli Dosa Milagai Podi': { heat: 'Medium Spicy', aroma: 'Roasted Sesame & Chilli' },
-    'Dal / Paruppu Podi': { heat: 'Medium Spicy', aroma: 'Golden Roasted Dal' },
+    'Dal / Paruppu Podi': { heat: 'Spicy', aroma: 'Golden Roasted Dal' },
     'Kothamalli Thugayal Podi': { heat: 'Medium Spicy', aroma: 'Fresh Coriander Herb' },
     'Pudina Thugayal Podi': { heat: 'Medium Spicy', aroma: 'Zesty Mint Leaf' },
     'Vegetable / Rice Mix Podi': { heat: 'Medium Spicy', aroma: 'Aromatic Stir-Fry Blend' },

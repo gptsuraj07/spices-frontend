@@ -6,28 +6,58 @@ import { CategoryService } from '../../core/services/category.service';
   selector: 'app-admin-categories',
   standalone: false,
   template: `
-    <div class="admin-categories">
-      <h1 style="font-size: 1.875rem; font-weight: 700; color: #111827; margin-bottom: 1.5rem;">Categories</h1>
-      <div style="background: white; border-radius: 0.75rem; border: 1px solid #E5E7EB; overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-          <thead style="background: #F9FAFB; border-bottom: 1px solid #E5E7EB;">
-            <tr>
-              <th style="padding: 0.75rem 1rem; font-size: 0.875rem; color: #4B5563;">Category Name</th>
-              <th style="padding: 0.75rem 1rem; font-size: 0.875rem; color: #4B5563;">Slug</th>
-              <th style="padding: 0.75rem 1rem; font-size: 0.875rem; color: #4B5563;">Product Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let c of categories" style="border-bottom: 1px solid #F3F4F6;">
-              <td style="padding: 1rem; font-weight: 600;">{{ c.name }}</td>
-              <td style="padding: 1rem; color: #6B7280;">{{ c.slug }}</td>
-              <td style="padding: 1rem; font-weight: 600;">{{ c.productCount }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="ap-page">
+      <div class="ap-header">
+        <div>
+          <h1 class="adash__title">Categories</h1>
+          <p class="adash__subtitle">Manage your product categories.</p>
+        </div>
+      </div>
+
+      <div class="adm-card">
+        <!-- Desktop Table View -->
+        <div class="adm-table-wrap adm-table-wrap--desktop">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Category Name</th>
+                <th>Slug</th>
+                <th>Product Count</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of categories">
+                <td style="font-weight: 600; color: #2A160C;">{{ c.name }}</td>
+                <td style="color: #786A5E;">{{ c.slug }}</td>
+                <td style="font-weight: 600;">{{ c.productCount || 0 }} products</td>
+                <td><span class="adm-badge badge--green">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards List View (< 768px) -->
+        <div class="ap-mobile-cards-list">
+          <div class="ap-mobile-card" *ngFor="let c of categories">
+            <div class="ap-mobile-card__header">
+              <div>
+                <div class="ap-name">{{ c.name }}</div>
+                <div class="ap-meta">slug: {{ c.slug }}</div>
+              </div>
+              <span class="adm-badge badge--green">Active</span>
+            </div>
+            <div class="ap-mobile-card__footer">
+              <span class="ap-meta" style="font-weight: 600; font-size: 0.85rem; color: #2A160C;">
+                📦 {{ c.productCount || 0 }} Products
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  `
+  `,
+  styleUrls: ['../products/products.component.scss']
 })
 export class AdminCategoriesComponent implements OnInit {
   categories: Category[] = [];
