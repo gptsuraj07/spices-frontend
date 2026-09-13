@@ -660,4 +660,108 @@ $adm-green: #315C2B;
   to { transform: rotate(360deg); }
 }
 
+// ── Image Framing & Focus Controls ─────────────────────────
+.ap-framing-box {
+  margin-top: 1rem;
+  padding: 0.88rem;
+  background: #FDFBF7;
+  border: 1px solid rgba(139, 38, 18, 0.15);
+  border-radius: 12px;
+
+  .ap-framing-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+
+    h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #2D1B15;
+      margin: 0;
+    }
+
+    .ap-framing-badge {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: #8B2612;
+      background: rgba(139, 38, 18, 0.08);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+  }
+
+  .ap-framing-row {
+    margin-bottom: 0.75rem;
+
+    .ap-framing-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #5C4338;
+      margin-bottom: 4px;
+    }
+
+    .ap-preset-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ap-preset-btn {
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #FFFFFF;
+      border: 1px solid #E2D9CA;
+      color: #4A3B32;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: #F5EFE6;
+        border-color: #8B2612;
+      }
+
+      &.active {
+        background: #8B2612;
+        color: #FFFFFF;
+        border-color: #8B2612;
+      }
+    }
+  }
+
+  .ap-framing-sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(139, 38, 18, 0.12);
+  }
+
+  .ap-slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .ap-slider-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: #5C4338;
+
+      strong {
+        color: #8B2612;
+      }
+    }
+
+    .ap-range-slider {
+      width: 100%;
+      accent-color: #8B2612;
+      cursor: pointer;
+    }
+  }
+}
+
 

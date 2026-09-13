@@ -198,6 +198,9 @@
               [src]="previewUrl || getImageUrl(editingProduct.imageUrl)!"
               [alt]="editingProduct.name"
               class="ap-img-preview"
+              [style.object-fit]="imageFit"
+              [style.object-position]="imagePositionX + '% ' + imagePositionY + '%'"
+              [style.transform]="imageScale !== 1 ? 'scale(' + imageScale + ')' : null"
             />
           </ng-container>
           <ng-template #placeholder>
@@ -230,6 +233,62 @@
           >
             Remove Image
           </button>
+        </div>
+
+        <!-- Image Framing & Focus Position Adjuster -->
+        <div class="ap-framing-box" *ngIf="editingProduct.imageUrl || previewUrl">
+          <div class="ap-framing-header">
+            <h4>📐 Adjust Image Focus &amp; Crop</h4>
+            <span class="ap-framing-badge">Live Preview</span>
+          </div>
+
+          <!-- Focus Position Presets -->
+          <div class="ap-framing-row">
+            <label class="ap-framing-label">Focus Preset:</label>
+            <div class="ap-preset-group">
+              <button type="button" class="ap-preset-btn" [class.active]="imagePositionX === 50 && imagePositionY === 0" (click)="setImagePreset('top')">⬆ Top</button>
+              <button type="button" class="ap-preset-btn" [class.active]="imagePositionX === 50 && imagePositionY === 50" (click)="setImagePreset('center')">🎯 Center</button>
+              <button type="button" class="ap-preset-btn" [class.active]="imagePositionX === 50 && imagePositionY === 100" (click)="setImagePreset('bottom')">⬇ Bottom</button>
+              <button type="button" class="ap-preset-btn" [class.active]="imagePositionX === 0 && imagePositionY === 50" (click)="setImagePreset('left')">⬅ Left</button>
+              <button type="button" class="ap-preset-btn" [class.active]="imagePositionX === 100 && imagePositionY === 50" (click)="setImagePreset('right')">➡️ Right</button>
+            </div>
+          </div>
+
+          <!-- Display Fit -->
+          <div class="ap-framing-row">
+            <label class="ap-framing-label">Display Fit Mode:</label>
+            <div class="ap-preset-group">
+              <button type="button" class="ap-preset-btn" [class.active]="imageFit === 'contain'" (click)="imageFit = 'contain'; updateImageFraming()">📦 Contain (Full Image)</button>
+              <button type="button" class="ap-preset-btn" [class.active]="imageFit === 'cover'" (click)="imageFit = 'cover'; updateImageFraming()">✂️ Cover (Fill &amp; Crop)</button>
+            </div>
+          </div>
+
+          <!-- Sliders for Fine-Tuning Vertical & Horizontal Position -->
+          <div class="ap-framing-sliders">
+            <div class="ap-slider-group">
+              <div class="ap-slider-head">
+                <span>Vertical Position (Y):</span>
+                <strong>{{ imagePositionY }}%</strong>
+              </div>
+              <input type="range" min="0" max="100" [(ngModel)]="imagePositionY" (ngModelChange)="updateImageFraming()" class="ap-range-slider" />
+            </div>
+
+            <div class="ap-slider-group">
+              <div class="ap-slider-head">
+                <span>Horizontal Position (X):</span>
+                <strong>{{ imagePositionX }}%</strong>
+              </div>
+              <input type="range" min="0" max="100" [(ngModel)]="imagePositionX" (ngModelChange)="updateImageFraming()" class="ap-range-slider" />
+            </div>
+
+            <div class="ap-slider-group">
+              <div class="ap-slider-head">
+                <span>Zoom Scale:</span>
+                <strong>{{ (imageScale * 100).toFixed(0) }}%</strong>
+              </div>
+              <input type="range" min="0.8" max="1.8" step="0.05" [(ngModel)]="imageScale" (ngModelChange)="updateImageFraming()" class="ap-range-slider" />
+            </div>
+          </div>
         </div>
       </div>
 

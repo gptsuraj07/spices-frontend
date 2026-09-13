@@ -13,7 +13,15 @@
       <div class="pdp__gallery">
         <div class="pdp__main-image">
           <ng-container *ngIf="getImageUrl(product.imageUrl) as formattedUrl; else imgPlaceholder">
-            <img [src]="formattedUrl" [alt]="product.name" class="pdp__img" loading="eager"/>
+            <img
+              [src]="formattedUrl"
+              [alt]="product.name"
+              class="pdp__img"
+              [style.object-fit]="product.imageFit || 'contain'"
+              [style.object-position]="product.imagePosition || 'center center'"
+              [style.transform]="product.imageScale && product.imageScale !== 1 ? 'scale(' + product.imageScale + ')' : null"
+              loading="eager"
+            />
           </ng-container>
           <ng-template #imgPlaceholder>
             <app-image-placeholder variant="product" aspect="1/1"></app-image-placeholder>

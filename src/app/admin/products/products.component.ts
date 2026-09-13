@@ -67,6 +67,51 @@ export class AdminProductsComponent implements OnInit {
     this.filtered = result;
   }
 
+  // Image framing & focus state
+  imagePositionX = 50;
+  imagePositionY = 50;
+  imageFit: 'contain' | 'cover' = 'contain';
+  imageScale = 1.0;
+
+  parseImageFraming(product: Product): void {
+    this.imageFit = product.imageFit === 'cover' ? 'cover' : 'contain';
+    this.imageScale = product.imageScale || 1.0;
+
+    const pos = product.imagePosition || '50% 50%';
+    if (pos.includes('%')) {
+      const parts = pos.split(' ').map(p => parseFloat(p.replace('%', '')));
+      if (parts.length >= 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        this.imagePositionX = parts[0];
+        this.imagePositionY = parts[1];
+        return;
+      }
+    }
+
+    if (pos.includes('top')) this.imagePositionY = 0;
+    else if (pos.includes('bottom')) this.imagePositionY = 100;
+    else this.imagePositionY = 50;
+
+    if (pos.includes('left')) this.imagePositionX = 0;
+    else if (pos.includes('right')) this.imagePositionX = 100;
+    else this.imagePositionX = 50;
+  }
+
+  updateImageFraming(): void {
+    if (!this.editingProduct) return;
+    this.editingProduct.imagePosition = `${this.imagePositionX}% ${this.imagePositionY}%`;
+    this.editingProduct.imageFit = this.imageFit;
+    this.editingProduct.imageScale = this.imageScale;
+  }
+
+  setImagePreset(preset: 'top' | 'center' | 'bottom' | 'left' | 'right'): void {
+    if (preset === 'top') { this.imagePositionX = 50; this.imagePositionY = 0; }
+    else if (preset === 'bottom') { this.imagePositionX = 50; this.imagePositionY = 100; }
+    else if (preset === 'left') { this.imagePositionX = 0; this.imagePositionY = 50; }
+    else if (preset === 'right') { this.imagePositionX = 100; this.imagePositionY = 50; }
+    else { this.imagePositionX = 50; this.imagePositionY = 50; }
+    this.updateImageFraming();
+  }
+
   openAddModal(): void {
     this.isCreatingNew = true;
     this.editingProduct = {
@@ -87,6 +132,9 @@ export class AdminProductsComponent implements OnInit {
       stock: 50,
       inStock: true,
       imageUrl: null,
+      imagePosition: '50% 50%',
+      imageFit: 'contain',
+      imageScale: 1.0,
       gallery: [],
       status: 'active',
       featured: false,
@@ -105,6 +153,7 @@ export class AdminProductsComponent implements OnInit {
     this.selectedFile = null;
     this.uploading = false;
     this.uploadProgressText = '';
+    this.parseImageFraming(this.editingProduct);
 
     this.recipeTitle = '';
     this.recipePrepTime = '';
@@ -125,6 +174,7 @@ export class AdminProductsComponent implements OnInit {
     this.selectedFile = null;
     this.uploading = false;
     this.uploadProgressText = '';
+    this.parseImageFraming(this.editingProduct);
 
     // Initialize recipe form
     if (this.editingProduct.recipe) {

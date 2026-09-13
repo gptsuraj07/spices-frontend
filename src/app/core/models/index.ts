@@ -51,6 +51,9 @@ export interface Product {
   stock: number;
   inStock?: boolean;
   imageUrl: string | null;
+  imagePosition?: string | null;
+  imageFit?: 'contain' | 'cover' | 'fill' | null;
+  imageScale?: number | null;
   gallery: string[];
   status: ProductStatus;
   featured: boolean;

@@ -17,6 +17,9 @@ import { environment } from '../../../../environments/environment';
               [src]="formattedUrl"
               [alt]="product.name"
               class="pcard__image"
+              [style.object-fit]="product.imageFit || 'contain'"
+              [style.object-position]="product.imagePosition || 'center center'"
+              [style.transform]="product.imageScale && product.imageScale !== 1 ? 'scale(' + product.imageScale + ')' : null"
               loading="lazy"
             />
           </ng-container>

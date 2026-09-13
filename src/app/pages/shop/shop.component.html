@@ -168,7 +168,7 @@
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsByKozhambu" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--kozhambu">
-                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" [style.object-fit]="p.imageFit || 'contain'" [style.object-position]="p.imagePosition || 'center center'" [style.transform]="p.imageScale && p.imageScale !== 1 ? 'scale(' + p.imageScale + ')' : null" />
                       <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
                       <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
@@ -211,7 +211,7 @@
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsByRasam" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--rasam">
-                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" [style.object-fit]="p.imageFit || 'contain'" [style.object-position]="p.imagePosition || 'center center'" [style.transform]="p.imageScale && p.imageScale !== 1 ? 'scale(' + p.imageScale + ')' : null" />
                       <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
                       <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
@@ -254,7 +254,7 @@
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsBySambar" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--sambar">
-                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" [style.object-fit]="p.imageFit || 'contain'" [style.object-position]="p.imagePosition || 'center center'" [style.transform]="p.imageScale && p.imageScale !== 1 ? 'scale(' + p.imageScale + ')' : null" />
                       <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
                       <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
@@ -297,7 +297,7 @@
                 <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsByTiffin" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--tiffin">
-                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
+                      <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" [style.object-fit]="p.imageFit || 'contain'" [style.object-position]="p.imagePosition || 'center center'" [style.transform]="p.imageScale && p.imageScale !== 1 ? 'scale(' + p.imageScale + ')' : null" />
                       <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
                       <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
