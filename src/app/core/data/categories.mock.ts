@@ -39,7 +39,7 @@ export const CATEGORIES: Category[] = [
     slug: 'sambar',
     description: 'Authentic Chennai & South Indian Sambar spice blends slow-roasted for rich lentil and vegetable stews.',
     shortDescription: 'Authentic South Indian Sambar spice blends.',
-    imageUrl: null,
+    imageUrl: '/assets/aridhu-sambar-hero.jpg',
     status: 'active',
     displayOrder: 3,
     productCount: 2,

@@ -300,7 +300,6 @@
   &__mobile-link {
     display: flex;
     align-items: center;
-    gap: v.$space-3;
     padding: v.$space-4 v.$space-6;
     font-family: v.$font-body;
     font-size: v.$text-base;
@@ -312,22 +311,9 @@
     border-bottom: 1px solid v.$border-light;
     transition: background v.$duration-fast, color v.$duration-fast;
 
-    .header__mobile-icon {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      color: v.$amber-gold;
-      transition: color v.$duration-fast, transform v.$duration-fast;
-    }
-
     &:hover, &.active {
       background: v.$green-bg;
       color: v.$green-primary;
-
-      .header__mobile-icon {
-        color: v.$green-primary;
-        transform: translateX(3px);
-      }
     }
 
     // Track Order — accent styling on mobile
@@ -337,16 +323,8 @@
       background: v.$green-bg;
       border-bottom-color: rgba(v.$green-primary, 0.15);
 
-      .header__mobile-icon {
-        color: v.$green-primary;
-      }
-
       &:hover, &.active {
         background: v.$green-pale;
-
-        .header__mobile-icon {
-          color: v.$green-deep;
-        }
       }
     }
   }

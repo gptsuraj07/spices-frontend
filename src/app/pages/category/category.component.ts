@@ -38,6 +38,7 @@ export class CategoryComponent implements OnInit {
           if (!this.category.imageUrl || !this.category.imageUrl.trim()) {
             if (slug === 'kozhambu') this.category.imageUrl = '/assets/aridhu-kuzhambu-hero.jpg';
             if (slug === 'rasam') this.category.imageUrl = '/assets/aridhu-rasam-hero.jpg';
+            if (slug === 'sambar') this.category.imageUrl = '/assets/aridhu-sambar-hero.jpg';
           }
         }
 
