@@ -22,64 +22,90 @@
     <!-- TOP CONTROL BAR (SEARCH + CATEGORY QUICK JUMP + SORT) -->
     <div class="shop-controls">
 
-      <!-- Search Input Box -->
-      <div class="shop-search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shop-search__icon">
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-        <input type="text" class="shop-search__input" placeholder="Search Rasam, Kozhambu, Sambar, Podi..."
-          [ngModel]="searchQuery" (ngModelChange)="onSearchChange($event)" />
-        <button *ngIf="searchQuery" class="shop-search__clear" (click)="clearSearch()" type="button" aria-label="Clear search">
-          ✕
+      <!-- Top Category Navigation Strip (Circle Dish Icons + Labels) -->
+      <div class="shop-nav-bar">
+        <button class="shop-nav-item" [class.shop-nav-item--active]="activeCategoryTab === 'all' && !searchQuery"
+          (click)="selectCategoryTab('all')" type="button">
+          <div class="shop-nav-icon shop-nav-icon--all">
+            <img src="/assets/aridhu-hero-spices.png" alt="All Spices" class="shop-nav-img" />
+          </div>
+          <span class="shop-nav-label">All</span>
+        </button>
+
+        <button class="shop-nav-item" [class.shop-nav-item--active]="activeCategoryTab === 'cat-kozhambu'"
+          (click)="selectCategoryTab('cat-kozhambu')" type="button">
+          <div class="shop-nav-icon shop-nav-icon--kozhambu">
+            <img src="/assets/aridhu-kuzhambu-hero.jpg" alt="Kuzhambu" class="shop-nav-img" />
+          </div>
+          <span class="shop-nav-label">Kuzhambu</span>
+        </button>
+
+        <button class="shop-nav-item" [class.shop-nav-item--active]="activeCategoryTab === 'cat-rasam'"
+          (click)="selectCategoryTab('cat-rasam')" type="button">
+          <div class="shop-nav-icon shop-nav-icon--rasam">
+            <img src="/assets/aridhu-rasam-hero.jpg" alt="Rasam" class="shop-nav-img" />
+          </div>
+          <span class="shop-nav-label">Rasam</span>
+        </button>
+
+        <button class="shop-nav-item" [class.shop-nav-item--active]="activeCategoryTab === 'cat-sambar'"
+          (click)="selectCategoryTab('cat-sambar')" type="button">
+          <div class="shop-nav-icon shop-nav-icon--sambar">
+            <img src="https://pub-2b375625e76c45179588cdf8d4558807.r2.dev/products/product-sam-001-b24f2085.webp" alt="Sambar" class="shop-nav-img" />
+          </div>
+          <span class="shop-nav-label">Sambar</span>
+        </button>
+
+        <button class="shop-nav-item" [class.shop-nav-item--active]="activeCategoryTab === 'cat-tiffin'"
+          (click)="selectCategoryTab('cat-tiffin')" type="button">
+          <div class="shop-nav-icon shop-nav-icon--tiffin">
+            <img src="https://pub-2b375625e76c45179588cdf8d4558807.r2.dev/products/product-tif-001-04463d7a.webp" alt="Tiffin Mixes" class="shop-nav-img" />
+          </div>
+          <span class="shop-nav-label">Tiffin Mixes</span>
+        </button>
+
+        <button class="shop-nav-item" [class.shop-nav-item--active]="activeCategoryTab === 'combos'"
+          (click)="selectCategoryTab('combos')" type="button">
+          <div class="shop-nav-icon shop-nav-icon--combos">
+            <img src="https://pub-2b375625e76c45179588cdf8d4558807.r2.dev/products/product-rasam-001-acda64c2.webp" alt="Combos" class="shop-nav-img" />
+          </div>
+          <span class="shop-nav-label">Combos</span>
         </button>
       </div>
 
-      <!-- Category Navigation Tabs -->
-      <div class="shop-tabs">
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'all' && !searchQuery"
-          (click)="selectCategoryTab('all')">
-          ✨ All Category Shelves (23)
-        </button>
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-kozhambu'"
-          (click)="selectCategoryTab('cat-kozhambu')">
-          🍲 Kuzhambu (7)
-        </button>
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-rasam'"
-          (click)="selectCategoryTab('cat-rasam')">
-          🥣 Rasam (7)
-        </button>
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-sambar'"
-          (click)="selectCategoryTab('cat-sambar')">
-          🥘 Sambar (2)
-        </button>
-        <button class="shop-tab" [class.shop-tab--active]="activeCategoryTab === 'cat-tiffin'"
-          (click)="selectCategoryTab('cat-tiffin')">
-          🥞 Tiffin &amp; Podis (7)
-        </button>
-        <button class="shop-tab shop-tab--combo" [class.shop-tab--active]="activeCategoryTab === 'combos'"
-          (click)="selectCategoryTab('combos')">
-          🎁 Combos (2)
-        </button>
-      </div>
-
-      <!-- Right Actions (Filters + Sort) -->
-      <div class="shop-actions">
-        <button class="btn btn-outline btn-filter-toggle" type="button" (click)="toggleFilter()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="4" y1="6" x2="20" y2="6" />
-            <line x1="8" y1="12" x2="16" y2="12" />
-            <line x1="11" y1="18" x2="13" y2="18" />
+      <!-- Search & Sort Subbar -->
+      <div class="shop-controls-sub">
+        <!-- Search Input Box -->
+        <div class="shop-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shop-search__icon">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          Filters
-        </button>
+          <input type="text" class="shop-search__input" placeholder="Search Rasam, Kozhambu, Sambar, Podi..."
+            [ngModel]="searchQuery" (ngModelChange)="onSearchChange($event)" />
+          <button *ngIf="searchQuery" class="shop-search__clear" (click)="clearSearch()" type="button" aria-label="Clear search">
+            ✕
+          </button>
+        </div>
 
-        <div class="shop-sort">
-          <label for="sort-select" class="shop-sort__label">Sort:</label>
-          <select id="sort-select" class="form-select shop-sort__select" [ngModel]="currentSort"
-            (ngModelChange)="onSortChange($event)">
-            <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
-          </select>
+        <!-- Right Actions (Filters + Sort) -->
+        <div class="shop-actions">
+          <button class="btn btn-outline btn-filter-toggle" type="button" (click)="toggleFilter()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+              <line x1="11" y1="18" x2="13" y2="18" />
+            </svg>
+            Filters
+          </button>
+
+          <div class="shop-sort">
+            <label for="sort-select" class="shop-sort__label">Sort:</label>
+            <select id="sort-select" class="form-select shop-sort__select" [ngModel]="currentSort"
+              (ngModelChange)="onSortChange($event)">
+              <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -130,12 +156,12 @@
             <div class="cat-shelf cat-shelf--kozhambu" id="cat-section-kozhambu">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
-                  <span class="cat-shelf__icon">🍲</span>
+                  <img src="/assets/aridhu-kuzhambu-hero.jpg" alt="Kuzhambu" class="cat-shelf__img-icon" />
                   <div>
                     <h2 class="cat-shelf__title">Kuzhambu Powders <span class="count">(7)</span></h2>
                   </div>
                 </div>
-                <a routerLink="/category/kozhambu" class="cat-shelf__view-all">View Category →</a>
+                <a routerLink="/category/kozhambu" class="cat-shelf__view-all">View All →</a>
               </div>
 
               <div class="cat-shelf__body-wrap">
@@ -143,16 +169,24 @@
                   <div *ngFor="let p of productsByKozhambu" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--kozhambu">
                       <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
-                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🍲</span>
-                      <span class="mini-card__badge">100g</span>
+                      <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
+                      <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <div class="mini-card__price">₹{{ p.price }}</div>
                       <div class="mini-card__footer">
-                        <span class="mini-card__price">₹{{ p.price }}</span>
-                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                          [disabled]="addingProductId === p.id">
-                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        <div class="qty-stepper" (click)="$event.stopPropagation()">
+                          <button class="qty-btn" type="button" (click)="decrementQuantity(p.id, $event)">-</button>
+                          <span class="qty-val">{{ getQuantity(p.id) }}</span>
+                          <button class="qty-btn" type="button" (click)="incrementQuantity(p.id, $event)">+</button>
+                        </div>
+                        <button class="mini-card__cart-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id" [title]="'Add ' + p.name + ' to cart'">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -165,12 +199,12 @@
             <div class="cat-shelf cat-shelf--rasam" id="cat-section-rasam">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
-                  <span class="cat-shelf__icon">🥣</span>
+                  <img src="/assets/aridhu-rasam-hero.jpg" alt="Rasam" class="cat-shelf__img-icon" />
                   <div>
                     <h2 class="cat-shelf__title">Rasam Powders <span class="count">(7)</span></h2>
                   </div>
                 </div>
-                <a routerLink="/category/rasam" class="cat-shelf__view-all">View Category →</a>
+                <a routerLink="/category/rasam" class="cat-shelf__view-all">View All →</a>
               </div>
 
               <div class="cat-shelf__body-wrap">
@@ -178,16 +212,24 @@
                   <div *ngFor="let p of productsByRasam" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--rasam">
                       <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
-                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🥣</span>
-                      <span class="mini-card__badge">100g</span>
+                      <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
+                      <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <div class="mini-card__price">₹{{ p.price }}</div>
                       <div class="mini-card__footer">
-                        <span class="mini-card__price">₹{{ p.price }}</span>
-                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                          [disabled]="addingProductId === p.id">
-                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        <div class="qty-stepper" (click)="$event.stopPropagation()">
+                          <button class="qty-btn" type="button" (click)="decrementQuantity(p.id, $event)">-</button>
+                          <span class="qty-val">{{ getQuantity(p.id) }}</span>
+                          <button class="qty-btn" type="button" (click)="incrementQuantity(p.id, $event)">+</button>
+                        </div>
+                        <button class="mini-card__cart-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id" [title]="'Add ' + p.name + ' to cart'">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -200,29 +242,37 @@
             <div class="cat-shelf cat-shelf--sambar" id="cat-section-sambar">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
-                  <span class="cat-shelf__icon">🥘</span>
+                  <img src="https://pub-2b375625e76c45179588cdf8d4558807.r2.dev/products/product-sam-001-b24f2085.webp" alt="Sambar" class="cat-shelf__img-icon" />
                   <div>
                     <h2 class="cat-shelf__title">Sambar Powders <span class="count">(2)</span></h2>
                   </div>
                 </div>
-                <a routerLink="/category/sambar" class="cat-shelf__view-all">View Category →</a>
+                <a routerLink="/category/sambar" class="cat-shelf__view-all">View All →</a>
               </div>
 
               <div class="cat-shelf__body-wrap">
-                <div class="cat-shelf__grid cat-shelf__grid--2col">
+                <div class="cat-shelf__grid">
                   <div *ngFor="let p of productsBySambar" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--sambar">
                       <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
-                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🥘</span>
-                      <span class="mini-card__badge">100g</span>
+                      <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
+                      <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <div class="mini-card__price">₹{{ p.price }}</div>
                       <div class="mini-card__footer">
-                        <span class="mini-card__price">₹{{ p.price }}</span>
-                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                          [disabled]="addingProductId === p.id">
-                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        <div class="qty-stepper" (click)="$event.stopPropagation()">
+                          <button class="qty-btn" type="button" (click)="decrementQuantity(p.id, $event)">-</button>
+                          <span class="qty-val">{{ getQuantity(p.id) }}</span>
+                          <button class="qty-btn" type="button" (click)="incrementQuantity(p.id, $event)">+</button>
+                        </div>
+                        <button class="mini-card__cart-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id" [title]="'Add ' + p.name + ' to cart'">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -235,12 +285,12 @@
             <div class="cat-shelf cat-shelf--tiffin" id="cat-section-tiffin">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
-                  <span class="cat-shelf__icon">🥞</span>
+                  <img src="https://pub-2b375625e76c45179588cdf8d4558807.r2.dev/products/product-tif-001-04463d7a.webp" alt="Tiffin Mixes" class="cat-shelf__img-icon" />
                   <div>
                     <h2 class="cat-shelf__title">Tiffin Mixes &amp; Podis <span class="count">(7)</span></h2>
                   </div>
                 </div>
-                <a routerLink="/category/tiffin-mixes" class="cat-shelf__view-all">View Category →</a>
+                <a routerLink="/category/tiffin-mixes" class="cat-shelf__view-all">View All →</a>
               </div>
 
               <div class="cat-shelf__body-wrap">
@@ -248,16 +298,24 @@
                   <div *ngFor="let p of productsByTiffin" class="mini-card" (click)="navigateToProduct(p.slug)">
                     <div class="mini-card__art mini-card__art--tiffin">
                       <img *ngIf="getImageUrl(p.imageUrl) as pUrl" [src]="pUrl" [alt]="p.name" class="mini-card__img" />
-                      <span *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__emoji">🥞</span>
+                      <div *ngIf="!getImageUrl(p.imageUrl)" class="mini-card__brand-ph"><span>ARIDHU</span></div>
                       <span class="mini-card__badge">{{ p.weight }}{{ p.weightUnit }}</span>
                     </div>
                     <div class="mini-card__body">
                       <h3 class="mini-card__name">{{ p.name }}</h3>
+                      <div class="mini-card__price">₹{{ p.price }}</div>
                       <div class="mini-card__footer">
-                        <span class="mini-card__price">₹{{ p.price }}</span>
-                        <button class="mini-card__add-btn" type="button" (click)="quickAddProduct(p, $event)"
-                          [disabled]="addingProductId === p.id">
-                          {{ addingProductId === p.id ? '...' : '+ Add' }}
+                        <div class="qty-stepper" (click)="$event.stopPropagation()">
+                          <button class="qty-btn" type="button" (click)="decrementQuantity(p.id, $event)">-</button>
+                          <span class="qty-val">{{ getQuantity(p.id) }}</span>
+                          <button class="qty-btn" type="button" (click)="incrementQuantity(p.id, $event)">+</button>
+                        </div>
+                        <button class="mini-card__cart-btn" type="button" (click)="quickAddProduct(p, $event)"
+                          [disabled]="addingProductId === p.id" [title]="'Add ' + p.name + ' to cart'">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -270,7 +328,7 @@
             <div class="cat-shelf cat-shelf--combos" id="cat-section-combos">
               <div class="cat-shelf__header">
                 <div class="cat-shelf__title-group">
-                  <span class="cat-shelf__icon">🎁</span>
+                  <img src="https://pub-2b375625e76c45179588cdf8d4558807.r2.dev/products/product-rasam-001-acda64c2.webp" alt="Combos" class="cat-shelf__img-icon" />
                   <div>
                     <h2 class="cat-shelf__title">Signature 7-Day Combos <span class="count">(2)</span></h2>
                   </div>
@@ -374,7 +432,12 @@
 
             <ng-template #emptyState>
               <div class="empty-state">
-                <div class="empty-state__icon">🌶️</div>
+                <div class="empty-state__icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8b2612" stroke-width="1.8">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </div>
                 <h3 class="empty-state__title">No Spice Blends Found</h3>
                 <p class="empty-state__description">
                   We couldn't find any products matching your current search or filter criteria.

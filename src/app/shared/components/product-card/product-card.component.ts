@@ -61,7 +61,7 @@ import { environment } from '../../../../environments/environment';
 
         <!-- Short Description / Aroma & Heat -->
         <div class="pcard__aroma-row">
-          <span class="pcard__aroma-tag">🌿 {{ getAromaProfile() }}</span>
+          <span class="pcard__aroma-tag">✦ {{ getAromaProfile() }}</span>
           <span class="pcard__heat-tag">{{ getSpiceHeat() }}</span>
         </div>
 
@@ -113,29 +113,29 @@ export class ProductCardComponent {
   adding = false;
 
   private aromaProfiles: Record<string, { heat: string; aroma: string }> = {
-    'Kalyana Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Tangy & Peppery' },
-    'Ginger Lemon Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Zesty Ginger Citrus' },
-    'Mor Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Cooling Cumin & Curd' },
-    'Kandathippili Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Herbal Long Pepper' },
-    'Cinnamon Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Sweet Cinnamon Spice' },
-    'Kollu Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Wholesome Horsegram' },
-    'Poricha Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Gentle Roasted Lentil' },
-    'Vatha Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Tangy Sundakkai Spice' },
-    'Ennai Kathirikai Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Rich Roasted Sesame' },
-    'Mor Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Creamy Coconut & Cumin' },
-    'Talaga Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'South Indian Festival Blend' },
-    'Vendaya Vendaikai Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Bittersweet Fenugreek' },
-    'Kootu Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Subtle Cumin & Coconut' },
-    'Narthangai Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Sun-Dried Citron Tang' },
-    'Chennai Sambar Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Madras Home Roasted' },
-    'Sambar with Coconut Milk Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Velvet Coconut Cream' },
-    'Idli Dosa Milagai Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Roasted Sesame & Chilli' },
-    'Dal / Paruppu Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Golden Roasted Dal' },
-    'Kothamalli Thugayal Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Fresh Coriander Herb' },
-    'Pudina Thugayal Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Zesty Mint Leaf' },
-    'Vegetable / Rice Mix Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Aromatic Stir-Fry Blend' },
-    'Arisi Upma (Tiffin Mix)': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Pepper Broken Rice' },
-    'Arisi Paruppu Sadam (Tiffin Mix)': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Kongu Rice & Lentil' },
+    'Kalyana Rasam Powder': { heat: 'Medium Spicy', aroma: 'Tangy & Peppery' },
+    'Ginger Lemon Rasam Powder': { heat: 'Medium Spicy', aroma: 'Zesty Ginger Citrus' },
+    'Mor Rasam Powder': { heat: 'Medium Spicy', aroma: 'Cooling Cumin & Curd' },
+    'Kandathippili Rasam Powder': { heat: 'Medium Spicy', aroma: 'Herbal Long Pepper' },
+    'Cinnamon Rasam Powder': { heat: 'Medium Spicy', aroma: 'Sweet Cinnamon Spice' },
+    'Kollu Rasam Powder': { heat: 'Medium Spicy', aroma: 'Wholesome Horsegram' },
+    'Poricha Rasam Powder': { heat: 'Medium Spicy', aroma: 'Gentle Roasted Lentil' },
+    'Vatha Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'Tangy Sundakkai Spice' },
+    'Ennai Kathirikai Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'Rich Roasted Sesame' },
+    'Mor Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'Creamy Coconut & Cumin' },
+    'Talaga Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'South Indian Festival Blend' },
+    'Vendaya Vendaikai Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'Bittersweet Fenugreek' },
+    'Kootu Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'Subtle Cumin & Coconut' },
+    'Narthangai Kuzhambu Powder': { heat: 'Medium Spicy', aroma: 'Sun-Dried Citron Tang' },
+    'Chennai Sambar Powder': { heat: 'Medium Spicy', aroma: 'Madras Home Roasted' },
+    'Sambar with Coconut Milk Powder': { heat: 'Medium Spicy', aroma: 'Velvet Coconut Cream' },
+    'Idli Dosa Milagai Podi': { heat: 'Medium Spicy', aroma: 'Roasted Sesame & Chilli' },
+    'Dal / Paruppu Podi': { heat: 'Medium Spicy', aroma: 'Golden Roasted Dal' },
+    'Kothamalli Thugayal Podi': { heat: 'Medium Spicy', aroma: 'Fresh Coriander Herb' },
+    'Pudina Thugayal Podi': { heat: 'Medium Spicy', aroma: 'Zesty Mint Leaf' },
+    'Vegetable / Rice Mix Podi': { heat: 'Medium Spicy', aroma: 'Aromatic Stir-Fry Blend' },
+    'Arisi Upma (Tiffin Mix)': { heat: 'Medium Spicy', aroma: 'Pepper Broken Rice' },
+    'Arisi Paruppu Sadam (Tiffin Mix)': { heat: 'Medium Spicy', aroma: 'Kongu Rice & Lentil' },
   };
 
   constructor(
@@ -155,7 +155,7 @@ export class ProductCardComponent {
   }
 
   getSpiceHeat(): string {
-    return this.aromaProfiles[this.product?.name]?.heat || '🌶️🌶️ Medium Spicy';
+    return this.aromaProfiles[this.product?.name]?.heat || 'Medium Spicy';
   }
 
   getAromaProfile(): string {
@@ -181,12 +181,7 @@ export class ProductCardComponent {
   }
 
   getCategoryIcon(): string {
-    if (!this.product) return '🌶️';
-    if (this.product.categoryId === 'cat-rasam') return '🥣';
-    if (this.product.categoryId === 'cat-kozhambu') return '🍲';
-    if (this.product.categoryId === 'cat-sambar') return '🥘';
-    if (this.product.categoryId === 'cat-tiffin') return '🥞';
-    return '🌶️';
+    return '✦';
   }
 
   addToCart(): void {

@@ -188,10 +188,35 @@ export class ShopComponent implements OnInit {
     }, 150);
   }
 
+  // Quantity State per Product
+  productQuantities: Record<string, number> = {};
+
+  getQuantity(productId: string): number {
+    return this.productQuantities[productId] || 1;
+  }
+
+  incrementQuantity(productId: string, event: Event): void {
+    event.stopPropagation();
+    const qty = this.getQuantity(productId);
+    if (qty < 99) {
+      this.productQuantities[productId] = qty + 1;
+    }
+  }
+
+  decrementQuantity(productId: string, event: Event): void {
+    event.stopPropagation();
+    const qty = this.getQuantity(productId);
+    if (qty > 1) {
+      this.productQuantities[productId] = qty - 1;
+    }
+  }
+
   quickAddProduct(product: Product, event: Event): void {
     event.stopPropagation();
     if (this.addingProductId) return;
     this.addingProductId = product.id;
+
+    const qty = this.getQuantity(product.id);
 
     this.cartService.addItem({
       itemId: product.id,
@@ -200,12 +225,12 @@ export class ShopComponent implements OnInit {
       slug: product.slug,
       imageUrl: product.imageUrl,
       price: product.price,
-      quantity: 1,
+      quantity: qty,
       weight: product.weight,
       categoryId: product.categoryId,
     });
 
-    this.toastService.success(`${product.name} added to cart!`);
+    this.toastService.success(`${product.name} (x${qty}) added to cart!`);
     setTimeout(() => {
       this.addingProductId = null;
     }, 600);
