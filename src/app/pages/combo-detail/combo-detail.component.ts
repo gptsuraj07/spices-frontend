@@ -100,6 +100,79 @@ export class ComboDetailComponent implements OnInit {
     },
   ];
 
+  kozhambuDays: RasamDayRitual[] = [
+    {
+      code: 'MON',
+      day: 'Monday',
+      name: 'Vatha Kozhambu Powder',
+      tagline: 'Tangy Tamarind & Sundried Berry Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Deep Roasted Sesame & Tamarind',
+      pairing: 'Hot Ponni rice, gingelly oil & roasted papad / appalam',
+      description: 'The iconic Tamil kitchen gravies. Sautéed with turkey berries or nightshade berries for rich tangy depth.',
+    },
+    {
+      code: 'TUE',
+      day: 'Tuesday',
+      name: 'Ennai Kathirikai Kozhambu Powder',
+      tagline: 'Stuffed Baby Brinjal Sesame Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Roasted White Sesame & Spiced Oil',
+      pairing: 'Steamed rice with A2 ghee & potato curry',
+      description: 'Tender baby eggplants stuffed with sesame spice blend and simmered until velvety.',
+    },
+    {
+      code: 'WED',
+      day: 'Wednesday',
+      name: 'Mor Kozhambu Powder',
+      tagline: 'Cooling Spiced Buttermilk Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Fresh Cumin & Curd Wholesomeness',
+      pairing: 'Hot rice, ash gourd / pumpkin, and paruppu usili',
+      description: 'Light, cooling buttermilk gravy spiced with roasted cumin and coriander for midweek balance.',
+    },
+    {
+      code: 'THU',
+      day: 'Thursday',
+      name: 'Talaga Kozhambu Powder',
+      tagline: 'Mixed Garden Vegetable Festival Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Black Pepper & Sesame Festival Heat',
+      pairing: 'Traditional feast rice and raw banana roasted fry',
+      description: 'A festive combination of mixed garden vegetables simmered in black pepper and sesame gravy.',
+    },
+    {
+      code: 'FRI',
+      day: 'Friday',
+      name: 'Vendaya Vendaikai Kozhambu Powder',
+      tagline: 'Digestive Fenugreek & Okra Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Aromatic Fenugreek & Tamarind',
+      pairing: 'Crispy fried ladies finger over warm rice',
+      description: 'Crisp lady finger simmered with slow-roasted fenugreek seeds for digestive wellness.',
+    },
+    {
+      code: 'SAT',
+      day: 'Saturday',
+      name: 'Kootu Kozhambu Powder',
+      tagline: 'Wholesome Lentil & Vegetable Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Lentil & Coconut Warmth',
+      pairing: 'Warm rice, ghee & spicy vada',
+      description: 'Nourishing lentil and yellow pumpkin gravy crafted for wholesome weekend comfort.',
+    },
+    {
+      code: 'SUN',
+      day: 'Sunday',
+      name: 'Narthangai Kozhambu Powder',
+      tagline: 'Sun-Dried Citron Citrus Gravy',
+      heat: '🌶️🌶️ Medium Spicy',
+      aroma: 'Zesty Wild Citron & Spiced Tamarind',
+      pairing: 'Sunday family lunch with curds & fried papad',
+      description: 'Sun-dried citron rind cooked into a medicinal, digestively soothing Sunday gravy.',
+    },
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private comboService: ComboService,
@@ -121,12 +194,17 @@ export class ComboDetailComponent implements OnInit {
   }
 
   get activeRitual(): RasamDayRitual {
-    return this.rasamDays[this.activeDayIndex];
+    return this.isKozhambuCombo ? this.kozhambuDays[this.activeDayIndex] : this.rasamDays[this.activeDayIndex];
   }
 
   get isRasamCombo(): boolean {
     if (!this.combo) return false;
     return this.combo.slug.includes('rasam') || this.combo.name.toLowerCase().includes('rasam');
+  }
+
+  get isKozhambuCombo(): boolean {
+    if (!this.combo) return false;
+    return this.combo.slug.includes('kozhambu') || this.combo.slug.includes('kuzhambu') || this.combo.name.toLowerCase().includes('kozhambu');
   }
 
   addToCart(): void {

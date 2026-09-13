@@ -23,8 +23,8 @@
 
         <!-- Variety count -->
         <div class="combo-detail__count-badge">
-          <span class="combo-detail__count-num">{{ combo.comboProducts.length }}</span>
-          <span class="combo-detail__count-label">Varieties</span>
+          <span class="combo-detail__count-num">{{ combo.resolvedProducts?.length || 7 }}</span>
+          <span class="combo-detail__count-label">Varieties (50g each)</span>
         </div>
       </div>
 
@@ -54,7 +54,7 @@
           </div>
           <div class="combo-detail__combo-price-row">
             <div>
-              <p class="combo-detail__price-label">Combo Price</p>
+              <p class="combo-detail__price-label">Combo Price (All 7 Packs)</p>
               <p class="combo-detail__combo-price">₹{{ combo.price }}</p>
             </div>
           </div>
@@ -62,7 +62,7 @@
 
         <!-- Included products -->
         <div class="combo-detail__products">
-          <h2 class="combo-detail__products-title">What's Included</h2>
+          <h2 class="combo-detail__products-title">What's Included (50g Packet Each)</h2>
           <div class="combo-detail__products-grid">
             <div
               *ngFor="let cp of combo.resolvedProducts; let i = index"
@@ -81,8 +81,7 @@
                 <a [routerLink]="['/product', cp.product.slug]" class="combo-detail__product-name">
                   {{ cp.product.name }}
                 </a>
-                <p class="combo-detail__product-weight">{{ cp.product.weight }}{{ cp.product.weightUnit }}</p>
-                <p class="combo-detail__product-price">₹{{ cp.product.price }}</p>
+                <p class="combo-detail__product-weight">50g packet</p>
               </div>
             </div>
           </div>
@@ -113,19 +112,19 @@
       <div class="combo-detail__desc-body" [innerHTML]="combo.description | nl2br"></div>
     </div>
 
-    <!-- Interactive 7-Day Rasam Ritual Breakdown (English Only) -->
-    <div class="ritual-section-combo" *ngIf="isRasamCombo">
+    <!-- Interactive 7-Day Heritage Ritual Breakdown -->
+    <div class="ritual-section-combo" *ngIf="isRasamCombo || isKozhambuCombo">
       <div class="section-header text-center" style="margin-top: 3rem; margin-bottom: 1.5rem;">
         <span class="section-tag" style="font-size: 0.75rem; letter-spacing: 0.1em; color: #315C2B; text-transform: uppercase; font-weight: 700;">DAILY HERITAGE RITUAL</span>
-        <h2 class="section-headline" style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #2A160C; margin: 0.25rem 0;">The 7-Day South Indian Rasam Ritual</h2>
+        <h2 class="section-headline" style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #2A160C; margin: 0.25rem 0;">The 7-Day South Indian {{ isRasamCombo ? 'Rasam' : 'Kozhambu' }} Ritual</h2>
         <p class="section-sub" style="color: #786A5E; font-size: 0.9375rem; max-width: 600px; margin: 0.5rem auto 0;">
-          In traditional South Indian homes, rasam is cooked fresh every single day of the week—each with its own distinct spice balance, warming character, and restorative health benefits.
+          In traditional South Indian homes, {{ isRasamCombo ? 'rasam' : 'kozhambu' }} is cooked fresh every day of the week—each with its own distinct spice balance, warming character, and authentic culinary heritage.
         </p>
       </div>
 
       <!-- Day Navigator Strip -->
       <div class="ritual-nav" style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; justify-content: center;">
-        <button *ngFor="let item of rasamDays; let i = index" class="ritual-nav__item"
+        <button *ngFor="let item of (isKozhambuCombo ? kozhambuDays : rasamDays); let i = index" class="ritual-nav__item"
           [class.ritual-nav__item--active]="i === activeDayIndex" (click)="selectDay(i)"
           style="padding: 0.5rem 1rem; border-radius: 8px; border: 1.5px solid #EDE4D3; background: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 70px;">
           <span style="font-size: 0.65rem; font-weight: 800; color: #786A5E;">{{ item.code }}</span>

@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Combo, ComboProduct, Product } from '../models';
 import { COMBOS } from '../data/combos.mock';
+import { KOZHAMBU_PRODUCTS, RASAM_PRODUCTS, ALL_PRODUCTS } from '../data/products.mock';
 import { ProductService } from './product.service';
 import { environment } from '../../../environments/environment';
 
@@ -26,9 +27,27 @@ export class ComboService {
     private productService: ProductService
   ) {}
 
+  private normalizeCombo(combo: Combo): Combo {
+    const isRasam = combo.slug.includes('rasam') || combo.name.toLowerCase().includes('rasam');
+    const isKozhambu = combo.slug.includes('kozhambu') || combo.slug.includes('kuzhambu') || combo.name.toLowerCase().includes('kozhambu');
+
+    const heroImage: string = isRasam
+      ? '/assets/aridhu-rasam-hero.jpg'
+      : (isKozhambu ? '/assets/aridhu-kuzhambu-hero.jpg' : (combo.imageUrl || '/assets/aridhu-rasam-hero.jpg'));
+
+    return {
+      ...combo,
+      price: 350,
+      compareAtPrice: 700,
+      imageUrl: heroImage,
+      gallery: [heroImage],
+    };
+  }
+
   getAll(): Observable<Combo[]> {
     return this.http.get<Combo[]>(this.apiUrl).pipe(
-      catchError(() => of([...COMBOS]))
+      map(combos => combos.map(c => this.normalizeCombo(c))),
+      catchError(() => of(COMBOS.map(c => this.normalizeCombo(c))))
     );
   }
 
@@ -42,7 +61,11 @@ export class ComboService {
 
   getBySlug(slug: string): Observable<Combo | null> {
     return this.http.get<Combo>(`${this.apiUrl}/${slug}`).pipe(
-      catchError(() => of(COMBOS.find(c => c.slug === slug) ?? null))
+      map(c => c ? this.normalizeCombo(c) : null),
+      catchError(() => {
+        const found = COMBOS.find(c => c.slug === slug);
+        return of(found ? this.normalizeCombo(found) : null);
+      })
     );
   }
 
@@ -54,45 +77,52 @@ export class ComboService {
 
   getBySlugWithProducts(slug: string): Observable<ComboWithProducts | null> {
     return this.getBySlug(slug).pipe(
-      map(combo => {
+      map((combo: Combo | null) => {
         if (!combo) return null;
-        const comboItems = (combo as any).items || (combo as any).comboProducts || [];
-        const resolvedProducts = comboItems.map((item: any, idx: number) => ({
+
+        const isRasam = combo.slug.includes('rasam') || combo.name.toLowerCase().includes('rasam');
+        const isKozhambu = combo.slug.includes('kozhambu') || combo.slug.includes('kuzhambu') || combo.name.toLowerCase().includes('kozhambu');
+
+        let targetProducts: Product[] = [];
+        if (isRasam) {
+          targetProducts = RASAM_PRODUCTS;
+        } else if (isKozhambu) {
+          targetProducts = KOZHAMBU_PRODUCTS;
+        } else {
+          targetProducts = ALL_PRODUCTS.slice(0, 7);
+        }
+
+        const resolvedProducts: Array<ComboProduct & { product: Product }> = targetProducts.map((p, idx) => ({
           comboId: combo.id,
-          productId: item.productId,
+          productId: p.id,
           quantity: 1,
           displayOrder: idx + 1,
           product: {
-            id: item.productId,
-            name: item.name,
-            slug: item.productSlug || 'kalyana-rasam-powder',
-            price: 100,
-            weight: item.weight || 100,
-            unit: item.unit || 'g',
-            categoryId: 'cat-rasam',
-            categorySlug: 'rasam',
-            tags: [],
-            featured: false,
-            status: 'active',
-            imageUrl: item.imageUrl || 'assets/images/kalyana-rasam.png',
-            shortDescription: '',
-            description: '',
-            usage: '',
-            storage: '',
-            createdAt: '',
-            updatedAt: '',
-          } as any,
+            ...p,
+            price: p.price || 100,
+            weight: 50,
+            weightUnit: 'g',
+          }
         }));
 
-        const individualTotal = resolvedProducts.length * 100;
-        const savings = individualTotal - combo.price;
+        const individualTotal = 700;
+        const savings = individualTotal - 350;
 
-        return {
+        const heroImage: string = isRasam
+          ? '/assets/aridhu-rasam-hero.jpg'
+          : (isKozhambu ? '/assets/aridhu-kuzhambu-hero.jpg' : (combo.imageUrl || '/assets/aridhu-rasam-hero.jpg'));
+
+        const comboWithProducts: ComboWithProducts = {
           ...combo,
+          price: 350,
+          compareAtPrice: 700,
+          imageUrl: heroImage,
+          gallery: [heroImage],
           resolvedProducts,
           individualTotal,
           savings,
         };
+        return comboWithProducts;
       })
     );
   }
