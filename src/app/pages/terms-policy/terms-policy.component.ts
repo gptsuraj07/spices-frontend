@@ -44,7 +44,7 @@ import { Component } from '@angular/core';
               </p>
               <ul>
                 <li><strong>Storage Recommendation:</strong> Store all spice packets in a cool, dry, ceramic or stainless steel container away from direct sunlight and humidity.</li>
-                <li><strong>Shelf Life:</strong> Best consumed within 9 months from the date of small batch pounding.</li>
+                <li><strong>Shelf Life:</strong> Best consumed within 6 months from the date of small batch pounding.</li>
               </ul>
             </div>
           </div>
@@ -223,4 +223,4 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class TermsPolicyComponent {}
+export class TermsPolicyComponent { }
