@@ -38,47 +38,21 @@ import { Component } from '@angular/core';
           <div class="policy-section">
             <div class="section-icon">⚠️</div>
             <div class="section-text">
-              <h2>2. Damaged, Leaking or Incorrect Shipments</h2>
+              <h2>2. Damaged Packets in Transit</h2>
               <p>
-                If your order arrives damaged during transit, has a broken seal, or if you received an incorrect product, we will immediately send a fresh replacement or issue a full refund at zero additional cost to you.
+                If packet is damaged in transit, please contact us to discuss a possible return or refund.
               </p>
-              <div class="steps-box">
-                <h3>Steps to claim a replacement or refund:</h3>
-                <ol>
-                  <li>Contact our customer support team within <strong>48 hours of delivery</strong>.</li>
-                  <li>Share your <strong>Order ID</strong> along with clear <strong>photos or a quick video</strong> showing the outer parcel packaging and the damaged / incorrect item.</li>
-                  <li>Reach us via WhatsApp/Phone at <a href="tel:+919840218588" class="policy-link">+91 9840218588</a> or Email at <a href="mailto:aridhu2026&#64;gmail.com" class="policy-link">aridhu2026&#64;gmail.com</a>.</li>
-                </ol>
-              </div>
             </div>
           </div>
 
           <!-- Section 3 -->
           <div class="policy-section">
-            <div class="section-icon">🔄</div>
+            <div class="section-icon">📍</div>
             <div class="section-text">
-              <h2>3. Order Cancellations</h2>
+              <h2>3. Payment Verification &amp; Order Updates</h2>
               <p>
-                You may request an order cancellation within <strong>2 hours of placing your order</strong>, provided the order has not already been dispatched by our logistics team.
+                Your payment will be verified and you can check in the order tracking for updates.
               </p>
-              <p>
-                Once an order has been packed and handed over to our courier partner, it cannot be cancelled.
-              </p>
-            </div>
-          </div>
-
-          <!-- Section 4 -->
-          <div class="policy-section">
-            <div class="section-icon">💳</div>
-            <div class="section-text">
-              <h2>4. Refund Method &amp; Timelines</h2>
-              <p>
-                Upon verification of a damaged or incorrect shipment claim, your refund will be initiated immediately.
-              </p>
-              <ul>
-                <li><strong>Prepaid Orders (UPI / Net Banking / Cards):</strong> Refund will be credited back to your original payment account within <strong>3 to 5 business days</strong>.</li>
-                <li><strong>Cash on Delivery (COD) / Bank Transfer:</strong> Refund will be transferred directly to your bank account / UPI ID supplied during customer support resolution within <strong>2 to 4 business days</strong>.</li>
-              </ul>
             </div>
           </div>
 

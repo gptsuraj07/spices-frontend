@@ -37,19 +37,7 @@ import { Component } from '@angular/core';
             </div>
           </div>
 
-          <!-- Section 2 -->
-          <div class="policy-section">
-            <div class="section-icon">💳</div>
-            <div class="section-text">
-              <h2>2. Payment Information Security</h2>
-              <p>
-                <strong>We NEVER store your confidential financial data.</strong> All payment transactions (Credit Card, Debit Card, Net Banking, UPI, Razorpay) are processed directly through certified, PCI-DSS compliant payment gateways with 256-bit SSL encryption.
-              </p>
-              <p>
-                Aridhu staff members do not have access to your credit card numbers, UPI PINs, or bank account passwords.
-              </p>
-            </div>
-          </div>
+
 
           <!-- Section 3 -->
           <div class="policy-section">

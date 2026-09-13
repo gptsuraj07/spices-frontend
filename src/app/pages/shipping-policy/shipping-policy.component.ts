@@ -43,32 +43,24 @@ import { Component } from '@angular/core';
             <div class="section-icon">🚚</div>
             <div class="section-text">
               <h2>2. Shipping Rates &amp; Delivery Timelines</h2>
-              <p>We partner with premier courier services (BlueDart, DTDC, Delhivery, and India Post) to ensure safe and prompt delivery across India.</p>
+              <p>We deliver across India via reliable courier partners.</p>
               
               <div class="policy-table-wrapper">
                 <table class="policy-table">
                   <thead>
                     <tr>
-                      <th>Region</th>
-                      <th>Estimated Delivery Time</th>
+                      <th>Location</th>
                       <th>Shipping Charges</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><strong>Tamil Nadu &amp; South India</strong></td>
-                      <td>2 – 4 Business Days</td>
-                      <td>Flat ₹49 (FREE on orders above ₹499)</td>
+                      <td><strong>Inside Chennai</strong></td>
+                      <td><strong>₹60</strong></td>
                     </tr>
                     <tr>
-                      <td><strong>Rest of India</strong></td>
-                      <td>4 – 7 Business Days</td>
-                      <td>Flat ₹79 (FREE on orders above ₹699)</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Remote / Hill Stations</strong></td>
-                      <td>5 – 9 Business Days</td>
-                      <td>Flat ₹99</td>
+                      <td><strong>Outside Chennai</strong></td>
+                      <td><strong>Additional charges may occur</strong></td>
                     </tr>
                   </tbody>
                 </table>

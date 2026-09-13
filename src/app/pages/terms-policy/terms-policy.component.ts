@@ -60,16 +60,7 @@ import { Component } from '@angular/core';
             </div>
           </div>
 
-          <!-- Section 4 -->
-          <div class="policy-section">
-            <div class="section-icon">⚖️</div>
-            <div class="section-text">
-              <h2>4. Governing Law &amp; Jurisdiction</h2>
-              <p>
-                These Terms of Service and any separate agreements whereby we provide you products shall be governed by and construed in accordance with the laws of India, under the jurisdiction of courts in Chennai, Tamil Nadu.
-              </p>
-            </div>
-          </div>
+
 
           <!-- Section 5 -->
           <div class="policy-section">
