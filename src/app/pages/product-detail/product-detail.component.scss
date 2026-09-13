@@ -78,23 +78,19 @@
     word-break: break-word;
   }
 
-  // ── Rating placeholder ───────────────────────────────────
-  &__rating {
+  &__price-wrap {
     display: flex;
-    align-items: center;
-    gap: v.$space-2;
+    align-items: baseline;
+    margin: v.$space-2 0;
   }
 
-  &__stars {
-    display: flex;
-    gap: 2px;
-    color: v.$border-mid;
-  }
-
-  &__rating-text {
-    font-size: v.$text-sm;
-    color: v.$text-muted;
-    font-style: italic;
+  &__price-amount {
+    font-family: v.$font-display;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: v.$fw-bold;
+    color: v.$brown-deep;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   &__short-desc {

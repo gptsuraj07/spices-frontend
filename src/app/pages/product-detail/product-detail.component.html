@@ -33,27 +33,13 @@
         <!-- Name -->
         <h1 class="pdp__name">{{ product.name }}</h1>
 
-        <!-- Rating placeholder -->
-        <div class="pdp__rating" aria-label="Rating not yet available">
-          <div class="pdp__stars">
-            <svg *ngFor="let s of [1,2,3,4,5]" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="currentColor">
-              <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/>
-            </svg>
-          </div>
-          <span class="pdp__rating-text">No reviews yet — be the first!</span>
+        <!-- Clean Main Price Only -->
+        <div class="pdp__price-wrap">
+          <span class="pdp__price-amount">₹{{ product.price }}</span>
         </div>
 
-        <!-- Price -->
-        <app-price
-          [price]="product.price"
-          [compareAtPrice]="product.compareAtPrice"
-          [weight]="product.weight"
-          [weightUnit]="product.weightUnit"
-          size="large"
-        ></app-price>
-
-        <!-- Short description -->
-        <p class="pdp__short-desc">{{ product.shortDescription }}</p>
+        <!-- Short description tagline -->
+        <p class="pdp__short-desc" *ngIf="product.shortDescription">{{ product.shortDescription }}</p>
 
         <div class="pdp__divider"></div>
 
@@ -63,13 +49,7 @@
           <span class="pdp__detail-value">{{ product.weight }}{{ product.weightUnit }}</span>
         </div>
 
-        <!-- SKU -->
-        <div class="pdp__detail-row">
-          <span class="pdp__detail-label">SKU</span>
-          <span class="pdp__detail-value">{{ product.sku }}</span>
-        </div>
-
-        <!-- Stock -->
+        <!-- Availability -->
         <div class="pdp__detail-row">
           <span class="pdp__detail-label">Availability</span>
           <span class="pdp__detail-value" [class.text-green]="product.stock > 0" [class.text-chili]="product.stock === 0">
@@ -177,7 +157,7 @@
 
         <!-- Master Chef Pro Tip -->
         <div class="pdp-dedicated-recipe__tip" *ngIf="r.tips">
-          <div class="pdp-tip__icon">💡</div>
+          <div class="pdp-tip__icon">✦</div>
           <div class="pdp-tip__body">
             <strong>Master Chef Secret:</strong> {{ r.tips }}
           </div>
@@ -186,62 +166,6 @@
       </div>
     </section>
 
-    <!-- Tabbed Information -->
-    <div class="pdp__tabs">
-      <div class="pdp__tab-nav" role="tablist">
-        <button
-          *ngFor="let tab of tabs"
-          class="pdp__tab-btn"
-          [class.active]="activeTab === tab.id"
-          (click)="activeTab = tab.id"
-          role="tab"
-          [attr.aria-selected]="activeTab === tab.id"
-          [id]="'tab-' + tab.id"
-          [attr.aria-controls]="'panel-' + tab.id"
-        >{{ tab.label }}</button>
-      </div>
-
-      <div class="pdp__tab-content">
-        <div *ngIf="activeTab === 'description'" role="tabpanel" id="panel-description" aria-labelledby="tab-description">
-          <p class="pdp__tab-body">{{ product.description }}</p>
-        </div>
-
-        <div *ngIf="activeTab === 'recipe'" role="tabpanel" id="panel-recipe" aria-labelledby="tab-recipe">
-          <ng-container *ngIf="product.recipe as r; else noRecipe">
-            <div class="pdp-recipe">
-              <p class="pdp__tab-body" style="margin-bottom:1.5rem;">
-                Detailed recipe guide is displayed above. Below is a quick overview:
-              </p>
-              <div class="pdp-recipe__tips-box" *ngIf="r.tips">
-                <div class="pdp-recipe__tips-icon">💡</div>
-                <div class="pdp-recipe__tips-content">
-                  <strong>Master Chef Secret:</strong> {{ r.tips }}
-                </div>
-              </div>
-            </div>
-          </ng-container>
-
-          <ng-template #noRecipe>
-            <p class="pdp__tab-body pdp__placeholder">
-              Heritage recipe guide for this spice mix will be published shortly!
-            </p>
-          </ng-template>
-        </div>
-
-        <div *ngIf="activeTab === 'usage'" role="tabpanel" id="panel-usage" aria-labelledby="tab-usage">
-          <p class="pdp__tab-body pdp__placeholder" *ngIf="!product.usage">
-            Usage instructions will be added soon.
-          </p>
-          <p class="pdp__tab-body" *ngIf="product.usage">{{ product.usage }}</p>
-        </div>
-        <div *ngIf="activeTab === 'storage'" role="tabpanel" id="panel-storage" aria-labelledby="tab-storage">
-          <p class="pdp__tab-body pdp__placeholder" *ngIf="!product.storage">
-            Storage information will be added soon.
-          </p>
-          <p class="pdp__tab-body" *ngIf="product.storage">{{ product.storage }}</p>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -259,7 +183,12 @@
     </div>
   </div>
   <div class="empty-state" *ngIf="!loading && !product">
-    <div class="empty-state__icon">🌿</div>
+    <div class="empty-state__icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8b2612" stroke-width="1.8">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </div>
     <p class="empty-state__title">Product not found</p>
     <p class="empty-state__description">This product may have been removed or renamed.</p>
     <a routerLink="/shop" class="btn btn-primary">Back to Shop</a>
