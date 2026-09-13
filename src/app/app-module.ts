@@ -22,6 +22,10 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { SearchComponent } from './pages/search/search.component';
 import { TrackOrderComponent } from './pages/track-order/track-order.component';
+import { ShippingPolicyComponent } from './pages/shipping-policy/shipping-policy.component';
+import { ReturnsPolicyComponent } from './pages/returns-policy/returns-policy.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { TermsPolicyComponent } from './pages/terms-policy/terms-policy.component';
 
 import { AdminLoginComponent } from './admin/login/login.component';
 import { AdminDashboardComponent } from './admin/dashboard/dashboard.component';
@@ -47,6 +51,10 @@ import { AdminOrdersComponent } from './admin/orders/orders.component';
     ContactComponent,
     SearchComponent,
     TrackOrderComponent,
+    ShippingPolicyComponent,
+    ReturnsPolicyComponent,
+    PrivacyPolicyComponent,
+    TermsPolicyComponent,
     AdminLoginComponent,
     AdminDashboardComponent,
     AdminProductsComponent,
