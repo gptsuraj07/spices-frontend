@@ -113,29 +113,29 @@ export class ProductCardComponent {
   adding = false;
 
   private aromaProfiles: Record<string, { heat: string; aroma: string }> = {
-    'Kalyana Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Tangy & Peppery' },
-    'Ginger Lemon Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Zesty Ginger Citrus' },
-    'Mor Rasam Powder': { heat: '🌶️ Mild', aroma: 'Cooling Cumin & Curd' },
-    'Kandathippili Rasam Powder': { heat: '🌶️🌶️ Medium', aroma: 'Herbal Long Pepper' },
-    'Cinnamon Rasam Powder': { heat: '🌶️ Mild', aroma: 'Sweet Cinnamon Spice' },
-    'Kollu Rasam Powder': { heat: '🌶️ Mild', aroma: 'Wholesome Horsegram' },
-    'Poricha Rasam Powder': { heat: '🌶️ Mild', aroma: 'Gentle Roasted Lentil' },
-    'Vatha Kuzhambu Powder': { heat: '🌶️🌶️🌶️ Fiery', aroma: 'Tangy Sundakkai Spice' },
-    'Ennai Kathirikai Kuzhambu Powder': { heat: '🌶️🌶️ Medium', aroma: 'Rich Roasted Sesame' },
-    'Mor Kuzhambu Powder': { heat: '🌶️ Mild', aroma: 'Creamy Coconut & Cumin' },
-    'Talaga Kuzhambu Powder': { heat: '🌶️🌶️ Medium', aroma: 'Tanjore Festival Blend' },
-    'Vendaya Vendaikai Kuzhambu Powder': { heat: '🌶️ Mild', aroma: 'Bittersweet Fenugreek' },
-    'Kootu Kuzhambu Powder': { heat: '🌶️ Mild', aroma: 'Subtle Cumin & Coconut' },
-    'Narthangai Kuzhambu Powder': { heat: '🌶️🌶️ Medium', aroma: 'Sun-Dried Citron Tang' },
-    'Chennai Sambar Powder': { heat: '🌶️🌶️ Medium', aroma: 'Madras Home Roasted' },
-    'Sambar with Coconut Milk Powder': { heat: '🌶️ Mild', aroma: 'Velvet Coconut Cream' },
-    'Idli Dosa Milagai Podi': { heat: '🌶️🌶️🌶️ Fiery', aroma: 'Roasted Sesame & Chilli' },
-    'Dal / Paruppu Podi': { heat: '🌶️ Mild', aroma: 'Golden Roasted Dal' },
-    'Kothamalli Thugayal Podi': { heat: '🌶️🌶️ Medium', aroma: 'Fresh Coriander Herb' },
-    'Pudina Thugayal Podi': { heat: '🌶️🌶️ Medium', aroma: 'Zesty Mint Leaf' },
-    'Vegetable / Rice Mix Podi': { heat: '🌶️ Mild', aroma: 'Aromatic Stir-Fry Blend' },
-    'Arisi Upma (Tiffin Mix)': { heat: '🌶️ Mild', aroma: 'Pepper Broken Rice' },
-    'Arisi Paruppu Sadam (Tiffin Mix)': { heat: '🌶️ Mild', aroma: 'Kongu Rice & Lentil' },
+    'Kalyana Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Tangy & Peppery' },
+    'Ginger Lemon Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Zesty Ginger Citrus' },
+    'Mor Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Cooling Cumin & Curd' },
+    'Kandathippili Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Herbal Long Pepper' },
+    'Cinnamon Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Sweet Cinnamon Spice' },
+    'Kollu Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Wholesome Horsegram' },
+    'Poricha Rasam Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Gentle Roasted Lentil' },
+    'Vatha Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Tangy Sundakkai Spice' },
+    'Ennai Kathirikai Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Rich Roasted Sesame' },
+    'Mor Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Creamy Coconut & Cumin' },
+    'Talaga Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'South Indian Festival Blend' },
+    'Vendaya Vendaikai Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Bittersweet Fenugreek' },
+    'Kootu Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Subtle Cumin & Coconut' },
+    'Narthangai Kuzhambu Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Sun-Dried Citron Tang' },
+    'Chennai Sambar Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Madras Home Roasted' },
+    'Sambar with Coconut Milk Powder': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Velvet Coconut Cream' },
+    'Idli Dosa Milagai Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Roasted Sesame & Chilli' },
+    'Dal / Paruppu Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Golden Roasted Dal' },
+    'Kothamalli Thugayal Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Fresh Coriander Herb' },
+    'Pudina Thugayal Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Zesty Mint Leaf' },
+    'Vegetable / Rice Mix Podi': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Aromatic Stir-Fry Blend' },
+    'Arisi Upma (Tiffin Mix)': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Pepper Broken Rice' },
+    'Arisi Paruppu Sadam (Tiffin Mix)': { heat: '🌶️🌶️ Medium Spicy', aroma: 'Kongu Rice & Lentil' },
   };
 
   constructor(
@@ -155,7 +155,7 @@ export class ProductCardComponent {
   }
 
   getSpiceHeat(): string {
-    return this.aromaProfiles[this.product?.name]?.heat || '🌶️🌶️ Medium';
+    return this.aromaProfiles[this.product?.name]?.heat || '🌶️🌶️ Medium Spicy';
   }
 
   getAromaProfile(): string {

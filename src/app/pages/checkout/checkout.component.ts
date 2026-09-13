@@ -67,7 +67,7 @@ export class CheckoutComponent implements OnInit {
 
   /** Copy UPI ID to clipboard */
   copyUpiId(): void {
-    navigator.clipboard.writeText('9840218588@upi').then(() => {
+    navigator.clipboard.writeText('boim-801085880616@boi').then(() => {
       this.upiCopied = true;
       setTimeout(() => (this.upiCopied = false), 2500);
     });

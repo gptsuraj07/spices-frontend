@@ -11,7 +11,7 @@ export const CATEGORIES: Category[] = [
     id: 'cat-kozhambu',
     name: 'Kozhambu Powders',
     slug: 'kozhambu',
-    description: 'Kuzhambu is the heart of Tanjore lunch — rich, spiced tamarind and coconut gravies. Our Kozhambu collection features 7 authentic traditional varieties.',
+    description: 'Kuzhambu is the heart of South Indian lunch — rich, spiced tamarind and coconut gravies. Our Kozhambu collection features 7 authentic traditional varieties.',
     shortDescription: 'Rich South Indian gravies — 7 authentic varieties.',
     imageUrl: '/assets/aridhu-kuzhambu-hero.jpg',
     status: 'active',

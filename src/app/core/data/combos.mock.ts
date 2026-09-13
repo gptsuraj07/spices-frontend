@@ -39,7 +39,7 @@ export const COMBOS: Combo[] = [
     id: 'combo-002',
     name: '7 Kozhambu Collection',
     slug: '7-kozhambu-collection',
-    description: 'Seven distinct Kozhambu blends exploring the rich landscape of South Indian gravy traditions. From Vatha Kuzhambu and Ennai Kathirikai to cooling Mor Kuzhambu, Tanjore Talaga Kuzhambu, Vendaya Vendaikai, Kootu Kuzhambu, and unique Narthangai — this collection brings the full depth of Kozhambu cooking to your kitchen.',
+    description: 'Seven distinct Kozhambu blends exploring the rich landscape of South Indian gravy traditions. From Vatha Kuzhambu and Ennai Kathirikai to cooling Mor Kuzhambu, Talaga Kuzhambu, Vendaya Vendaikai, Kootu Kuzhambu, and unique Narthangai — this collection brings the full depth of Kozhambu cooking to your kitchen.',
     shortDescription: 'Seven traditional Kozhambu blends — the complete South Indian gravy collection.',
     price: 350,
     compareAtPrice: null,
