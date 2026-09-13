@@ -3,7 +3,7 @@
   <div class="container">
     <app-breadcrumb [items]="[
       {label: 'Shop', routerLink: '/shop'},
-      {label: 'Rasam', routerLink: ['/category', product.categoryId]},
+      {label: categoryName, routerLink: ['/category', categorySlug || product.categoryId]},
       {label: product.name}
     ]"></app-breadcrumb>
 
@@ -36,7 +36,7 @@
       <!-- Right: Product Info -->
       <div class="pdp__info">
         <!-- Category tag -->
-        <a [routerLink]="['/category', product.categoryId]" class="pdp__category-tag">Rasam</a>
+        <a [routerLink]="['/category', categorySlug || product.categoryId]" class="pdp__category-tag">{{ categoryName }}</a>
 
         <!-- Name -->
         <h1 class="pdp__name">{{ product.name }}</h1>

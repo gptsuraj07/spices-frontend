@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models';
 import { ProductService } from '../../core/services/product.service';
+import { CategoryService } from '../../core/services/category.service';
 import { CartService } from '../../core/services/cart.service';
 import { ToastService } from '../../core/services/toast.service';
 import { environment } from '../../../environments/environment';
@@ -14,6 +15,8 @@ import { environment } from '../../../environments/environment';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product | null = null;
+  categoryName = 'Category';
+  categorySlug = '';
   loading = true;
   quantity = 1;
   activeTab = 'description';
@@ -24,9 +27,23 @@ export class ProductDetailComponent implements OnInit {
     { id: 'storage', label: 'Storage' },
   ];
 
+  private categoryMap: Record<string, { name: string; slug: string }> = {
+    'cat-kozhambu': { name: 'Kozhambu', slug: 'kozhambu' },
+    'kozhambu': { name: 'Kozhambu', slug: 'kozhambu' },
+    'kuzhambu': { name: 'Kozhambu', slug: 'kozhambu' },
+    'cat-rasam': { name: 'Rasam', slug: 'rasam' },
+    'rasam': { name: 'Rasam', slug: 'rasam' },
+    'cat-sambar': { name: 'Sambar', slug: 'sambar' },
+    'sambar': { name: 'Sambar', slug: 'sambar' },
+    'cat-tiffin': { name: 'Tiffin & Podi', slug: 'tiffin-mixes' },
+    'tiffin': { name: 'Tiffin & Podi', slug: 'tiffin-mixes' },
+    'tiffin-mixes': { name: 'Tiffin & Podi', slug: 'tiffin-mixes' },
+  };
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
+    private categoryService: CategoryService,
     private cartService: CartService,
     private toastService: ToastService,
   ) {}
@@ -35,9 +52,30 @@ export class ProductDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.productService.getBySlug(params['slug']).subscribe(p => {
         this.product = p;
+        if (p) {
+          this.resolveCategory(p);
+        }
         this.loading = false;
       });
     });
+  }
+
+  private resolveCategory(product: Product): void {
+    const key = product.categorySlug || product.categoryId;
+    const mapped = this.categoryMap[product.categoryId] || this.categoryMap[product.categorySlug || ''] || this.categoryMap[key];
+    if (mapped) {
+      this.categoryName = mapped.name;
+      this.categorySlug = mapped.slug;
+    }
+
+    if (key) {
+      this.categoryService.getBySlug(key).subscribe(cat => {
+        if (cat) {
+          this.categoryName = cat.name.replace(' Powders', '').replace(' Blends', '');
+          this.categorySlug = cat.slug;
+        }
+      });
+    }
   }
 
   getImageUrl(url: string | null | undefined): string | null {

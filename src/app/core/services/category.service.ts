@@ -27,9 +27,13 @@ export class CategoryService {
   }
 
   getBySlug(slug: string): Observable<Category | null> {
+    const norm = (slug === 'kozambu' || slug === 'kuzhambu' || slug === 'cat-kozhambu') ? 'kozhambu' :
+                 (slug === 'cat-rasam') ? 'rasam' :
+                 (slug === 'cat-sambar') ? 'sambar' :
+                 (slug === 'cat-tiffin' || slug === 'tiffin') ? 'tiffin-mixes' : slug;
     return this.getAll().pipe(
-      map(cats => cats.find(c => c.slug === slug) ?? null),
-      catchError(() => of(CATEGORIES.find(c => c.slug === slug) ?? null))
+      map(cats => cats.find(c => c.slug === norm || c.id === slug || c.slug === slug) ?? null),
+      catchError(() => of(CATEGORIES.find(c => c.slug === norm || c.id === slug || c.slug === slug) ?? null))
     );
   }
 }
