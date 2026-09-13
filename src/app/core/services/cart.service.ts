@@ -124,12 +124,15 @@ export class CartService {
   private _computeSummary(cart: Cart): CartSummary {
     const subtotal = cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
     const discount = cart.discountAmount ?? 0;
-    const isFreeShipping = (subtotal - discount) >= FREE_SHIPPING_THRESHOLD;
-    const shipping = cart.items.length === 0 ? 0 : (isFreeShipping ? 0 : SHIPPING_FLAT);
-    const total = Math.max(0, subtotal - discount + shipping);
+    const netTotal = subtotal - discount;
+    const isFreeShipping = true;
+    const shipping = 0; // Free delivery everywhere!
+    const minOrderValue = 500;
+    const minOrderMet = netTotal >= minOrderValue;
+    const total = Math.max(0, netTotal);
     const itemCount = cart.items.reduce((sum, i) => sum + i.quantity, 0);
 
-    return { subtotal, discount, shipping, total, itemCount, isFreeShipping };
+    return { subtotal, discount, shipping, total, itemCount, isFreeShipping, minOrderValue, minOrderMet };
   }
 
   private _updateCart(cart: Cart): void {

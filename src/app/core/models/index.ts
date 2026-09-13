@@ -131,6 +131,8 @@ export interface CartSummary {
   total: number;
   itemCount: number;
   isFreeShipping: boolean;
+  minOrderValue: number;
+  minOrderMet: boolean;
 }
 
 // ── Address ──────────────────────────────────────────────────

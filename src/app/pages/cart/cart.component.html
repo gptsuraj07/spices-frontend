@@ -56,26 +56,34 @@
         <!-- LEFT COLUMN: SHIPPING METER & ITEM CARDS -->
         <div class="cart-main-col">
 
-          <!-- Free Shipping Progress Meter -->
+          <!-- Minimum Order Value & Free Shipping Card (Chennai Only) -->
           <div class="shipping-meter-card" *ngIf="summary$ | async as summary">
-            <div class="shipping-meter-card__header">
+            <div class="shipping-meter-card__header" style="flex-wrap: wrap;">
               <span class="shipping-meter-card__icon">🚚</span>
               <div class="shipping-meter-card__info">
-                <div class="shipping-meter-card__text" *ngIf="!summary.isFreeShipping">
-                  Add <strong>₹{{ 500 - summary.subtotal + summary.discount }}</strong> more to unlock <strong>FREE Express Shipping</strong>!
+                <div class="shipping-meter-card__text" *ngIf="!summary.minOrderMet">
+                  Minimum Order Value for Online Checkout inside Chennai is <strong>₹500 (FREE Delivery Across Chennai)</strong>. Add <strong>₹{{ 500 - (summary.subtotal - summary.discount) }}</strong> more to proceed.
                 </div>
-                <div class="shipping-meter-card__text shipping-meter-card__text--unlocked" *ngIf="summary.isFreeShipping">
-                  🎉 <strong>Awesome! You've unlocked FREE Express Delivery across India!</strong>
+                <div class="shipping-meter-card__text shipping-meter-card__text--unlocked" *ngIf="summary.minOrderMet">
+                  🎉 <strong>Awesome! You've unlocked FREE Delivery across Chennai (Min ₹500 met)!</strong>
                 </div>
               </div>
             </div>
 
+            <!-- WhatsApp enquiry option for Outside Chennai or smaller orders -->
+            <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed #EDE4D3; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+              <span style="font-size: 0.85rem; color: #786A5E;">Outside Chennai or orders under ₹500?</span>
+              <a href="https://wa.me/919840218588?text=Hi%20Aridhu%20Foods%2C%20I%20would%20like%20to%20place%20an%20order" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.35rem; color: #128C7E; background: #E8F8EE; border: 1px solid #25D366; padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+                💬 Enquire / Order via WhatsApp
+              </a>
+            </div>
+
             <!-- Progress Bar -->
-            <div class="shipping-meter-bar">
+            <div class="shipping-meter-bar" style="margin-top: 0.75rem;">
               <div
                 class="shipping-meter-bar__fill"
                 [style.width.%]="getShippingProgress(summary.subtotal - summary.discount)"
-                [class.shipping-meter-bar__fill--complete]="summary.isFreeShipping"
+                [class.shipping-meter-bar__fill--complete]="summary.minOrderMet"
               ></div>
             </div>
           </div>
@@ -185,8 +193,7 @@
 
               <div class="summary-row">
                 <span class="summary-row__label">Shipping Charges</span>
-                <span class="summary-row__val text-green" *ngIf="summary.shipping === 0">FREE</span>
-                <span class="summary-row__val" *ngIf="summary.shipping > 0">₹{{ summary.shipping }}</span>
+                <span class="summary-row__val text-green" style="font-weight: 700;">FREE Across Chennai</span>
               </div>
 
               <div class="summary-row summary-row--tax">
@@ -205,14 +212,26 @@
               <span class="summary-total-row__amount">₹{{ summary.total }}</span>
             </div>
 
-            <!-- Checkout Button -->
-            <a routerLink="/checkout" class="btn btn-primary btn-lg btn-block cart-checkout-btn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-              <span>Proceed to Secure Checkout</span>
-            </a>
+            <!-- Checkout Button (Only enabled if minOrderMet = true) -->
+            <ng-container *ngIf="summary.minOrderMet; else minOrderMsg">
+              <a routerLink="/checkout" class="btn btn-primary btn-lg btn-block cart-checkout-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <span>Proceed to Secure Checkout</span>
+              </a>
+            </ng-container>
+
+            <!-- Min Order Notice & WhatsApp Option -->
+            <ng-template #minOrderMsg>
+              <button class="btn btn-primary btn-lg btn-block cart-checkout-btn" disabled style="opacity: 0.6; cursor: not-allowed; background: #8F5338;">
+                <span>Min Order Value ₹500 Required</span>
+              </button>
+              <a href="https://wa.me/919840218588?text=Hi%20Aridhu%20Foods%2C%20I%20would%20like%20to%20place%20an%20order%20for%20a%20smaller%20quantity" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 0.75rem; background: #25D366; color: white; padding: 0.85rem 1rem; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.95rem;">
+                💬 Order Smaller Quantities via WhatsApp
+              </a>
+            </ng-template>
 
             <!-- Trust Badges Bar -->
             <div class="summary-trust-badges">

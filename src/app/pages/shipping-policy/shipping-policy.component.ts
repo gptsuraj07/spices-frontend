@@ -42,28 +42,35 @@ import { Component } from '@angular/core';
           <div class="policy-section">
             <div class="section-icon">🚚</div>
             <div class="section-text">
-              <h2>2. Shipping Rates &amp; Delivery Timelines</h2>
-              <p>We deliver across India via reliable courier partners.</p>
+              <h2>2. Shipping Rates &amp; Coverage (Chennai Only)</h2>
+              <p>Online website checkout and <strong>FREE Delivery is available for orders inside Chennai</strong> (Minimum Order Value: ₹500).</p>
               
               <div class="policy-table-wrapper">
                 <table class="policy-table">
                   <thead>
                     <tr>
-                      <th>Location</th>
-                      <th>Shipping Charges</th>
+                      <th>Online Order Requirement</th>
+                      <th>Delivery Fee</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><strong>Inside Chennai</strong></td>
-                      <td><strong>₹60</strong></td>
+                      <td><strong>Minimum Order Value (Inside Chennai)</strong></td>
+                      <td><strong>₹500</strong></td>
                     </tr>
                     <tr>
-                      <td><strong>Outside Chennai</strong></td>
-                      <td><strong>Additional charges may occur</strong></td>
+                      <td><strong>Shipping Charges (Inside Chennai)</strong></td>
+                      <td><strong>FREE (₹0)</strong></td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
+
+              <div class="contact-box" style="margin-top: 1rem;">
+                <p><strong>💬 Orders Outside Chennai or Orders Under ₹500:</strong></p>
+                <p>
+                  For all orders <strong>outside Chennai</strong>, or if you wish to purchase smaller quantities under ₹500, please contact us through WhatsApp at <a href="https://wa.me/919840218588?text=Hi%20Aridhu%20Foods%2C%20I%20would%20like%20to%20place%20an%20order%20for%20delivery%20outside%20Chennai" target="_blank" rel="noopener">+91 9840218588</a> for further enquiries and order assistance.
+                </p>
               </div>
             </div>
           </div>

@@ -35,8 +35,8 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.summary = this.cartService.getSummary();
 
-    // Redirect to cart if empty
-    if (this.cartService.isEmpty()) {
+    // Redirect to cart if empty or min order value not met
+    if (this.cartService.isEmpty() || !this.summary.minOrderMet) {
       this.router.navigate(['/cart']);
       return;
     }
