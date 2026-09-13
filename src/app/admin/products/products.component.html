@@ -7,12 +7,12 @@
   <div class="ap-header">
     <div>
       <h1 class="adash__title">Products</h1>
-      <p class="adash__subtitle">Manage your 14 artisanal South Indian spice blends.</p>
+      <p class="adash__subtitle">Manage your artisanal South Indian spice blends.</p>
     </div>
-    <a routerLink="/" target="_blank" class="adm-btn adm-btn--primary">
+    <button type="button" class="adm-btn adm-btn--primary" (click)="openAddModal()">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Add Product
-    </a>
+    </button>
   </div>
 
   <!-- Filter Bar -->
@@ -168,8 +168,8 @@
     <!-- Modal Header -->
     <div class="ap-modal__header">
       <div class="ap-modal__title-wrap">
-        <h2 class="ap-modal__title">Edit Product Details</h2>
-        <span class="ap-modal__subtitle">{{ editingProduct.name }}</span>
+        <h2 class="ap-modal__title">{{ isCreatingNew ? 'Add New Product' : 'Edit Product Details' }}</h2>
+        <span class="ap-modal__subtitle">{{ isCreatingNew ? 'Fill in product specifications' : editingProduct.name }}</span>
       </div>
       <button class="ap-modal__close-btn" type="button" (click)="closeEditModal()" aria-label="Close modal">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -369,7 +369,7 @@
         [disabled]="uploading"
         (click)="onSave()"
       >
-        Save All Changes
+        {{ isCreatingNew ? 'Create Product' : 'Save All Changes' }}
       </button>
     </div>
 

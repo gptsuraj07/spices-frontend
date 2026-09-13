@@ -148,6 +148,10 @@ export class ProductService {
     return this.http.delete<Product>(`${environment.apiUrl}/admin/products/${productId}/image`);
   }
 
+  createProduct(productData: Partial<Product>): Observable<Product> {
+    return this.http.post<Product>(`${environment.apiUrl}/admin/products`, productData);
+  }
+
   updateProduct(productId: string, productData: Partial<Product>): Observable<Product> {
     return this.http.put<Product>(`${environment.apiUrl}/admin/products/${productId}`, productData);
   }

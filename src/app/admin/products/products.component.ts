@@ -21,7 +21,8 @@ export class AdminProductsComponent implements OnInit {
 
   deleteConfirmId: string | null = null;
 
-  // Image Management Modal State
+  // Modal State (Edit or Create New)
+  isCreatingNew = false;
   editingProduct: Product | null = null;
   previewUrl: string | null = null;
   selectedFile: File | null = null;
@@ -66,7 +67,55 @@ export class AdminProductsComponent implements OnInit {
     this.filtered = result;
   }
 
+  openAddModal(): void {
+    this.isCreatingNew = true;
+    this.editingProduct = {
+      id: '',
+      name: '',
+      slug: '',
+      subtitle: '',
+      categoryId: 'cat-rasam',
+      description: '',
+      shortDescription: '',
+      price: 100,
+      originalPrice: 120,
+      compareAtPrice: 120,
+      weight: 100,
+      weightUnit: 'g',
+      sku: '',
+      stock: 50,
+      inStock: true,
+      imageUrl: null,
+      gallery: [],
+      status: 'active',
+      featured: false,
+      badge: null,
+      ingredients: null,
+      usage: null,
+      storage: null,
+      recipe: null,
+      tags: [],
+      rating: 5,
+      reviewCount: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    this.previewUrl = null;
+    this.selectedFile = null;
+    this.uploading = false;
+    this.uploadProgressText = '';
+
+    this.recipeTitle = '';
+    this.recipePrepTime = '';
+    this.recipeCookTime = '';
+    this.recipeServings = '';
+    this.recipeIngredientsText = '';
+    this.recipeInstructionsText = '';
+    this.recipeTips = '';
+  }
+
   openEditModal(product: Product): void {
+    this.isCreatingNew = false;
     this.editingProduct = { ...product };
     if (this.editingProduct.imageUrl && !this.editingProduct.imageUrl.trim()) {
       this.editingProduct.imageUrl = null;
@@ -97,6 +146,7 @@ export class AdminProductsComponent implements OnInit {
   }
 
   closeEditModal(): void {
+    this.isCreatingNew = false;
     this.editingProduct = null;
     this.previewUrl = null;
     this.selectedFile = null;
@@ -232,25 +282,76 @@ export class AdminProductsComponent implements OnInit {
       this.editingProduct.recipe = null;
     }
 
-    const prodId = this.editingProduct.id || (this.editingProduct as any)._id;
-    this.uploading = true;
-    this.uploadProgressText = 'Saving product details...';
+    if (!this.editingProduct.name || !this.editingProduct.name.trim()) {
+      this.toastService.error('Product Name is required.');
+      return;
+    }
 
-    this.productService.updateProduct(prodId, this.editingProduct).subscribe({
-      next: (updatedProduct: Product) => {
-        this.updateProductInList(updatedProduct);
-        this.uploading = false;
-        this.uploadProgressText = '';
-        this.toastService.success('Product details saved successfully!');
-        this.closeEditModal();
-      },
-      error: (err) => {
-        this.uploading = false;
-        this.uploadProgressText = '';
-        const msg = err.error?.detail || err.message || 'Failed to save product details.';
-        this.toastService.error(msg);
-      }
-    });
+    if (this.isCreatingNew) {
+      this.uploading = true;
+      this.uploadProgressText = 'Creating product...';
+
+      this.productService.createProduct(this.editingProduct).subscribe({
+        next: (createdProduct: Product) => {
+          const prodId = createdProduct.id || (createdProduct as any)._id;
+
+          if (this.selectedFile) {
+            this.uploadProgressText = 'Uploading image to Cloudflare R2...';
+            this.productService.uploadProductImage(prodId, this.selectedFile).subscribe({
+              next: (finalProduct: Product) => {
+                this.products.unshift(finalProduct);
+                this.applyFilter();
+                this.uploading = false;
+                this.uploadProgressText = '';
+                this.toastService.success('New product & image created successfully!');
+                this.closeEditModal();
+              },
+              error: () => {
+                this.products.unshift(createdProduct);
+                this.applyFilter();
+                this.uploading = false;
+                this.uploadProgressText = '';
+                this.toastService.success('New product created successfully!');
+                this.closeEditModal();
+              }
+            });
+          } else {
+            this.products.unshift(createdProduct);
+            this.applyFilter();
+            this.uploading = false;
+            this.uploadProgressText = '';
+            this.toastService.success('New product created successfully!');
+            this.closeEditModal();
+          }
+        },
+        error: (err) => {
+          this.uploading = false;
+          this.uploadProgressText = '';
+          const msg = err.error?.detail || err.message || 'Failed to create product.';
+          this.toastService.error(msg);
+        }
+      });
+    } else {
+      const prodId = this.editingProduct.id || (this.editingProduct as any)._id;
+      this.uploading = true;
+      this.uploadProgressText = 'Saving product details...';
+
+      this.productService.updateProduct(prodId, this.editingProduct).subscribe({
+        next: (updatedProduct: Product) => {
+          this.updateProductInList(updatedProduct);
+          this.uploading = false;
+          this.uploadProgressText = '';
+          this.toastService.success('Product details saved successfully!');
+          this.closeEditModal();
+        },
+        error: (err) => {
+          this.uploading = false;
+          this.uploadProgressText = '';
+          const msg = err.error?.detail || err.message || 'Failed to save product details.';
+          this.toastService.error(msg);
+        }
+      });
+    }
   }
 
   private updateProductInList(updatedProduct: Product): void {
