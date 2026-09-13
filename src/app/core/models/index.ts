@@ -38,6 +38,7 @@ export interface Product {
   slug: string;
   subtitle?: string;
   categoryId: string;
+  categorySlug?: string;
   category?: Category;
   description: string;
   shortDescription: string;

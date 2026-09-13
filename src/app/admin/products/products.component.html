@@ -76,7 +76,7 @@
             <!-- SKU -->
             <td class="ap-sku">{{ p.sku || '—' }}</td>
             <!-- Category -->
-            <td class="ap-cat">{{ p.categoryId === 'cat-rasam' ? 'Rasam' : 'Kozhambu' }}</td>
+            <td class="ap-cat">{{ getCategoryName(p.categoryId) }}</td>
             <!-- Price -->
             <td class="ap-price">₹{{ p.price }}</td>
             <!-- Stock -->
@@ -124,7 +124,7 @@
             </div>
             <div>
               <div class="ap-name">{{ p.name }}</div>
-              <div class="ap-meta">{{ p.weight }}g • {{ p.categoryId === 'cat-rasam' ? 'Rasam' : 'Kozhambu' }}</div>
+              <div class="ap-meta">{{ p.weight }}g • {{ getCategoryName(p.categoryId) }}</div>
             </div>
           </div>
           <span class="adm-badge" [class]="getStatusClass(p.status)">{{ p.status | titlecase }}</span>
@@ -247,6 +247,7 @@
               <option value="cat-rasam">Rasam Powders</option>
               <option value="cat-sambar">Sambar Powders</option>
               <option value="cat-tiffin">Tiffin Mixes &amp; Podis</option>
+              <option value="cat-combos">Heritage Combos</option>
             </select>
           </div>
         </div>

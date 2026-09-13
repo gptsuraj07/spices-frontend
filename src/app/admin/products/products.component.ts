@@ -74,7 +74,8 @@ export class AdminProductsComponent implements OnInit {
       name: '',
       slug: '',
       subtitle: '',
-      categoryId: 'cat-rasam',
+      categoryId: 'cat-kozhambu',
+      categorySlug: 'kozhambu',
       description: '',
       shortDescription: '',
       price: 100,
@@ -248,6 +249,18 @@ export class AdminProductsComponent implements OnInit {
   onSave(): void {
     if (!this.editingProduct) return;
 
+    // Ensure categorySlug is synchronized with categoryId
+    const catSlugMap: Record<string, string> = {
+      'cat-kozhambu': 'kozhambu',
+      'cat-rasam': 'rasam',
+      'cat-sambar': 'sambar',
+      'cat-tiffin': 'tiffin-mixes',
+      'cat-combos': 'combos'
+    };
+    if (this.editingProduct.categoryId) {
+      this.editingProduct.categorySlug = catSlugMap[this.editingProduct.categoryId] || this.editingProduct.categoryId.replace('cat-', '');
+    }
+
     // Process recipe inputs (all fields optional)
     const ingredientsArray = this.recipeIngredientsText
       .split('\n')
@@ -401,6 +414,18 @@ export class AdminProductsComponent implements OnInit {
     if (stock === 0) return 'stock--empty';
     if (stock <= 5) return 'stock--low';
     return 'stock--ok';
+  }
+
+  getCategoryName(catId: string | undefined): string {
+    if (!catId) return 'General';
+    const map: Record<string, string> = {
+      'cat-kozhambu': 'Kuzhambu',
+      'cat-rasam': 'Rasam',
+      'cat-sambar': 'Sambar',
+      'cat-tiffin': 'Tiffin Mixes & Podis',
+      'cat-combos': 'Heritage Combos'
+    };
+    return map[catId] || catId;
   }
 }
 

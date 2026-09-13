@@ -247,19 +247,19 @@ export class ShopComponent implements OnInit {
   }
 
   get productsByKozhambu(): Product[] {
-    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-kozhambu');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-kozhambu' || p.categorySlug === 'kozhambu');
   }
 
   get productsByRasam(): Product[] {
-    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-rasam');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-rasam' || p.categorySlug === 'rasam');
   }
 
   get productsBySambar(): Product[] {
-    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-sambar');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-sambar' || p.categorySlug === 'sambar');
   }
 
   get productsByTiffin(): Product[] {
-    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-tiffin');
+    return this.currentProductCatalog.filter(p => p.categoryId === 'cat-tiffin' || p.categorySlug === 'tiffin-mixes' || p.categorySlug === 'tiffin');
   }
 
   getImageUrl(url: string | null | undefined): string | null {
