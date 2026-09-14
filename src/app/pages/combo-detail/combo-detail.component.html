@@ -38,25 +38,11 @@
         <h1 class="combo-detail__name">{{ combo.name }}</h1>
         <p class="combo-detail__tagline" *ngIf="combo.shortDescription">{{ combo.shortDescription }}</p>
 
-        <!-- Savings block -->
+        <!-- Price block -->
         <div class="combo-detail__savings-block">
-          <div class="combo-detail__price-row">
-            <div>
-              <p class="combo-detail__price-label">Individual Total</p>
-              <p class="combo-detail__individual-price">₹{{ combo.individualTotal }}</p>
-            </div>
-            <div class="combo-detail__savings-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <polyline points="20,6 9,17 4,12"/>
-              </svg>
-              Save ₹{{ combo.savings }}
-            </div>
-          </div>
-          <div class="combo-detail__combo-price-row">
-            <div>
-              <p class="combo-detail__price-label">Combo Price (All 7 Packs)</p>
-              <p class="combo-detail__combo-price">₹{{ combo.price }}</p>
-            </div>
+          <div>
+            <p class="combo-detail__price-label">Combo Price (All 7 Packs)</p>
+            <p class="combo-detail__combo-price">₹{{ combo.price }}</p>
           </div>
         </div>
 

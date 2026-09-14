@@ -22,7 +22,6 @@ import { ComboService } from '../../core/services/combo.service';
               <tr>
                 <th>Combo Name</th>
                 <th>Price</th>
-                <th>Savings</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -30,7 +29,6 @@ import { ComboService } from '../../core/services/combo.service';
               <tr *ngFor="let c of combos">
                 <td style="font-weight: 600; color: #2A160C;">{{ c.name }}</td>
                 <td style="font-weight: 700;">₹{{ c.price }}</td>
-                <td style="color: #315C2B; font-weight: 600;">Save ₹{{ c.savings }}</td>
                 <td><span class="adm-badge badge--green">Active</span></td>
               </tr>
             </tbody>
@@ -43,7 +41,6 @@ import { ComboService } from '../../core/services/combo.service';
             <div class="ap-mobile-card__header">
               <div>
                 <div class="ap-name">{{ c.name }}</div>
-                <div class="ap-meta" style="color: #315C2B; font-weight: 600;">Save ₹{{ c.savings }}</div>
               </div>
               <span class="adm-badge badge--green">Active</span>
             </div>

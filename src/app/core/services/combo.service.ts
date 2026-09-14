@@ -38,7 +38,7 @@ export class ComboService {
     return {
       ...combo,
       price: 350,
-      compareAtPrice: 700,
+      compareAtPrice: null,
       imageUrl: heroImage,
       gallery: [heroImage],
     };
@@ -105,8 +105,8 @@ export class ComboService {
           }
         }));
 
-        const individualTotal = 700;
-        const savings = individualTotal - 350;
+        const individualTotal = 350;
+        const savings = 0;
 
         const heroImage: string = isRasam
           ? '/assets/aridhu-rasam-hero.jpg'
@@ -115,7 +115,7 @@ export class ComboService {
         const comboWithProducts: ComboWithProducts = {
           ...combo,
           price: 350,
-          compareAtPrice: 700,
+          compareAtPrice: null,
           imageUrl: heroImage,
           gallery: [heroImage],
           resolvedProducts,

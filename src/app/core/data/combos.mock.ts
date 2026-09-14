@@ -14,7 +14,7 @@ export const COMBOS: Combo[] = [
     description: 'Seven unique Rasam blends, each crafted from a distinct traditional recipe, brought together in one thoughtfully curated collection (50g packet each). This is the complete Aridhu Rasam experience — from the bold warmth of Milagu to the rare character of Kandathippili, from the comfort of Kalyana to the brightness of Ginger Lemon.\n\nPerfect for the South Indian cooking enthusiast, as a gift for a food-loving family, or simply to bring the full spectrum of Rasam into your own kitchen.',
     shortDescription: 'The complete Aridhu Rasam experience — all 7 varieties (50g each) in one collection.',
     price: 350,
-    compareAtPrice: 700,
+    compareAtPrice: null,
     imageUrl: '/assets/aridhu-rasam-hero.jpg',
     gallery: ['/assets/aridhu-rasam-hero.jpg'],
     comboProducts: [
@@ -42,7 +42,7 @@ export const COMBOS: Combo[] = [
     description: 'Seven distinct Kozhambu blends exploring the rich landscape of South Indian gravy traditions (50g packet each). From Vatha Kuzhambu and Ennai Kathirikai to cooling Mor Kuzhambu, Talaga Kuzhambu, Vendaya Vendaikai, Kootu Kuzhambu, and unique Narthangai — this collection brings the full depth of Kozhambu cooking to your kitchen.',
     shortDescription: 'Seven traditional Kozhambu blends (50g each) — the complete South Indian gravy collection.',
     price: 350,
-    compareAtPrice: 700,
+    compareAtPrice: null,
     imageUrl: '/assets/aridhu-kuzhambu-hero.jpg',
     gallery: ['/assets/aridhu-kuzhambu-hero.jpg'],
     comboProducts: [
